@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top Goal - صندوق الكلمات التفاعلي والمتحدثون بالإنجليزية</title>
+  <title>لعبة قراءة الكلمات التفاعلية - أصوات عالمية وصور فائقة الوضوح</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Google Fonts: Cairo, Poppins, Fredoka -->
+  <!-- Google Fonts: Cairo, Fredoka, Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fredoka:wght@500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Tone.js for Sound Effects -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
@@ -19,10 +19,28 @@
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            quest: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background: radial-gradient(circle at top left, #f0fdf4 0%, #eff6ff 45%, #fefce8 100%);
+      background: radial-gradient(circle at 10% 20%, #eff6ff 0%, #f0fdf4 40%, #fefce8 100%);
       min-height: 100vh;
       color: #0f172a;
     }
@@ -35,85 +53,67 @@
       font-family: 'Fredoka', cursive, sans-serif;
     }
 
-    .ltr-content {
+    .ltr-box {
       direction: ltr;
       text-align: left;
     }
 
-    /* Word Card Hover & Animation */
-    .word-card {
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Interactive Card Zoom & Depth */
+    .crystal-card {
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .word-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
+    .crystal-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.15);
     }
 
-    /* Accent Selector Active Pill */
-    .accent-btn.active {
-      background: #0284c7;
+    /* Speaking Pulse Effect */
+    @keyframes pulse-speak {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.6); }
+      50% { box-shadow: 0 0 0 14px rgba(99, 102, 241, 0); }
+    }
+    .speaking-active {
+      animation: pulse-speak 1.2s infinite;
+      border-color: #6366f1 !important;
+    }
+
+    /* Audio wave animation */
+    .audio-bar {
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      background: #4f46e5;
+      margin: 0 1px;
+      border-radius: 2px;
+      animation: wave 0.8s ease-in-out infinite alternate;
+    }
+    .audio-bar:nth-child(2) { animation-delay: 0.15s; height: 18px; }
+    .audio-bar:nth-child(3) { animation-delay: 0.3s; height: 14px; }
+    .audio-bar:nth-child(4) { animation-delay: 0.45s; height: 20px; }
+    @keyframes wave {
+      0% { transform: scaleY(0.4); }
+      100% { transform: scaleY(1.3); }
+    }
+
+    /* Tab Switcher Styling */
+    .tab-btn.active {
+      background: #4f46e5;
       color: #ffffff;
-      border-color: #0284c7;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+      box-shadow: 0 8px 16px -4px rgba(79, 70, 229, 0.4);
     }
 
-    /* Missing Letter Slot */
-    .letter-slot {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 2rem;
-      height: 2.2rem;
-      border-bottom: 3px solid #0284c7;
-      margin: 0 0.15rem;
-      font-weight: 800;
-      color: #0369a1;
-      transition: all 0.2s;
+    /* Choice Button Pulse */
+    .choice-card {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .letter-slot.filled {
-      background: #e0f2fe;
-      border-radius: 6px;
-      border-bottom: 3px solid #0369a1;
+    .choice-card:hover {
+      transform: translateY(-3px);
+    }
+    .choice-card:active {
+      transform: scale(0.97);
     }
 
-    /* Pencil Hand-Drawn Circle */
-    .pencil-option {
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-    .pencil-option:hover {
-      transform: scale(1.08);
-    }
-    .pencil-option.selected .drawn-circle-svg {
-      display: block;
-    }
-    .drawn-circle-svg {
-      position: absolute;
-      inset: -6px;
-      width: calc(100% + 12px);
-      height: calc(100% + 12px);
-      pointer-events: none;
-      display: none;
-    }
-    .pencil-option.selected path {
-      stroke-dasharray: 220;
-      stroke-dashoffset: 220;
-      animation: drawInk 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-    }
-    @keyframes drawInk {
-      to { stroke-dashoffset: 0; }
-    }
-
-    /* Drag/Word Chip Animations */
-    .word-chip {
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .word-chip:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Print Styles */
+    /* Print Setup */
     @media print {
       body {
         background: #ffffff !important;
@@ -126,9 +126,7 @@
       .print-only {
         display: block !important;
       }
-      .print-card {
-        box-shadow: none !important;
-        border: 1px solid #cbd5e1 !important;
+      .print-break {
         break-inside: avoid;
       }
     }
@@ -137,714 +135,991 @@
     }
   </style>
 </head>
-<body class="p-3 sm:p-6 lg:p-8">
+<body class="p-3 sm:p-5 lg:p-7">
 
   <header class="max-w-6xl mx-auto mb-6 no-print">
-    <div class="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+    <div class="bg-white/95 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 space-y-4">
       
-      <div class="flex items-center gap-3.5">
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-emerald-200 text-3xl font-black">
-          📚
-        </div>
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full font-en">Vocabulary Bank</span>
-            <span class="text-xs font-bold text-sky-800 bg-sky-100/70 px-2.5 py-0.5 rounded-full">قاموس ناطق وتدريبات</span>
+      <!-- Top Bar: Logo, Title, Controls -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div class="flex items-center gap-3.5">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-100 text-3xl font-black">
+            🎮
           </div>
-          <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight mt-0.5">
-            صندوق الكلمات التفاعلي <span class="font-en text-emerald-600 font-bold text-lg">(Interactive Word Box)</span>
-          </h1>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full font-en">Crystal Voice Arcade</span>
+              <span class="text-xs font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">النسخة التفاعلية الفائقة</span>
+            </div>
+            <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight mt-0.5">
+              لعبة قراءة الكلمات المصورة <span class="font-en text-indigo-600 font-bold text-lg">(Ultra Word Quest)</span>
+            </h1>
+          </div>
+        </div>
+
+        <!-- Global Score and Streak -->
+        <div class="flex items-center gap-3">
+          <!-- Streak Indicator -->
+          <div class="bg-orange-50 border border-orange-200 px-3.5 py-2 rounded-2xl flex items-center gap-2 shadow-xs">
+            <span class="text-lg">🔥</span>
+            <div>
+              <div class="text-[10px] text-orange-700 font-bold leading-tight">سلسلة الإجابات</div>
+              <div class="font-en text-sm font-black text-orange-900 leading-tight" id="streakBadge">0 Streak</div>
+            </div>
+          </div>
+
+          <!-- Total Score -->
+          <div class="bg-indigo-50 border border-indigo-200 px-4 py-2 rounded-2xl flex items-center gap-2.5 shadow-xs">
+            <span class="text-xl">⭐</span>
+            <div>
+              <div class="text-[10px] text-indigo-700 font-bold leading-tight">نقاط اللاعب</div>
+              <div class="font-en text-base font-black text-indigo-950 leading-tight" id="gameScoreBadge">0 pts</div>
+            </div>
+          </div>
+
+          <!-- Print Button -->
+          <button onclick="window.print()" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs" title="طباعة الورقة A3 / A4">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+            <span class="hidden sm:inline">طباعة</span>
+          </button>
         </div>
       </div>
 
-      <!-- Accent Switcher Bar (US, UK, CA) -->
-      <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200">
-        <span class="text-xs font-bold text-slate-500 px-1 flex items-center gap-1">
-          <span>🎙️</span> المتحدث:
-        </span>
-        <button onclick="setAccent('en-US')" id="btn-accent-us" class="accent-btn active px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition shadow-sm">
-          <span>🇺🇸</span> American (US)
-        </button>
-        <button onclick="setAccent('en-GB')" id="btn-accent-uk" class="accent-btn px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition">
-          <span>🇬🇧</span> British (UK)
-        </button>
-        <button onclick="setAccent('en-CA')" id="btn-accent-ca" class="accent-btn px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition">
-          <span>🇨🇦</span> Canadian (CA)
-        </button>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl border border-slate-200">
         
-        <!-- Speech Speed Toggle -->
-        <button onclick="toggleSpeechSpeed()" id="btn-speed-toggle" class="px-2.5 py-1.5 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 rounded-xl text-xs font-bold font-en transition" title="سرعة النطق">
-          ⚡ <span id="speedLabel">1.0x</span>
+        <!-- Accents: US, UK, CA, AU -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+              <span>🌍</span> 1. لهجة المتحدثين (English Accents):
+            </span>
+            <span class="text-[11px] text-indigo-700 font-bold font-en" id="currentAccentDisplay">American (US)</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+            <button onclick="setAccent('en-US')" id="acc-us" class="acc-btn active px-2.5 py-2 rounded-xl text-xs font-bold font-en flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-sm transition">
+              <span>🇺🇸</span> أمريكي
+            </button>
+            <button onclick="setAccent('en-GB')" id="acc-uk" class="acc-btn px-2.5 py-2 rounded-xl text-xs font-bold font-en flex items-center justify-center gap-1.5 bg-white text-slate-700 border border-slate-200 shadow-xs hover:bg-slate-100 transition">
+              <span>🇬🇧</span> بريطاني
+            </button>
+            <button onclick="setAccent('en-CA')" id="acc-ca" class="acc-btn px-2.5 py-2 rounded-xl text-xs font-bold font-en flex items-center justify-center gap-1.5 bg-white text-slate-700 border border-slate-200 shadow-xs hover:bg-slate-100 transition">
+              <span>🇨🇦</span> كندي
+            </button>
+            <button onclick="setAccent('en-AU')" id="acc-au" class="acc-btn px-2.5 py-2 rounded-xl text-xs font-bold font-en flex items-center justify-center gap-1.5 bg-white text-slate-700 border border-slate-200 shadow-xs hover:bg-slate-100 transition">
+              <span>🇦🇺</span> أسترالي
+            </button>
+          </div>
+        </div>
+
+        <!-- Personas: Kid, Woman, Man -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-600 flex items-center gap-1.5">
+              <span>🎙️</span> 2. شخصية القارئ (Voice Persona):
+            </span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] text-purple-700 font-bold font-en" id="currentPersonaDisplay">🧒 Kid Voice (طفل)</span>
+              <!-- Speed Selector -->
+              <button onclick="cycleSpeechRate()" class="px-2 py-0.5 bg-white border border-slate-200 rounded-lg text-[10px] font-bold text-slate-700 hover:bg-slate-100" title="تغيير سرعة الصوت">
+                ⚡ <span id="rateLabel">1.0x</span>
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-1.5">
+            <button onclick="setPersona('kid')" id="per-kid" class="per-btn active px-2.5 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 bg-purple-600 text-white shadow-sm transition">
+              <span class="text-base">🧒</span> صوت طفل
+            </button>
+            <button onclick="setPersona('woman')" id="per-woman" class="per-btn px-2.5 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 bg-white text-slate-700 border border-slate-200 shadow-xs hover:bg-slate-100 transition">
+              <span class="text-base">👩</span> صوت امرأة
+            </button>
+            <button onclick="setPersona('man')" id="per-man" class="per-btn px-2.5 py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1 bg-white text-slate-700 border border-slate-200 shadow-xs hover:bg-slate-100 transition">
+              <span class="text-base">👨</span> صوت رجل
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 pt-1 border-t border-slate-100">
+        <button onclick="switchTab('studio')" id="tab-studio" class="tab-btn active px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-2 transition">
+          <span>📖</span> استوديو البطاقات والقراءة (18 كلمة)
+        </button>
+        <button onclick="switchTab('safari')" id="tab-safari" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 flex items-center gap-2 transition">
+          <span>🎮</span> لعبة صيد الكلمات والاستماع (Arcade Challenge)
+        </button>
+        <button onclick="switchTab('spelling')" id="tab-spelling" class="tab-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 flex items-center gap-2 transition">
+          <span>🧩</span> لعبة التهجئة والقراءة الحية (Spell & Pronounce)
         </button>
       </div>
 
-      <!-- General Utilities -->
-      <div class="flex items-center gap-2">
-        <button onclick="resetAllExercises()" class="px-3.5 py-2 text-xs sm:text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl transition flex items-center gap-1.5 border border-rose-200 shadow-sm">
-          <span>🔄</span> إعادة تعيين
-        </button>
-        <button onclick="window.print()" class="px-4 py-2 text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md transition flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          طباعة A3 / A4
-        </button>
-      </div>
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto space-y-8">
-
-    <!-- Printable Header for Worksheet Paper -->
-    <div class="print-only mb-6 border-b-2 border-slate-900 pb-4">
-      <div class="flex justify-between items-center text-sm font-bold">
-        <div>اسم الطالب / الطالبة: ....................................................</div>
-        <div>الصف (Class): .........................</div>
-        <div>التاريخ: .... / .... / 2026 م</div>
-        <div>الدرجة: ........ / 20</div>
-      </div>
-      <h2 class="text-center text-2xl font-black mt-3 font-en">Top Goal: Word Box & Vocabulary Exercises</h2>
+  <div class="print-only mb-6 border-b-2 border-slate-900 pb-4 max-w-6xl mx-auto">
+    <div class="flex justify-between items-center text-sm font-bold">
+      <div>اسم الطالب / الطالبة: ....................................................</div>
+      <div>الصف (Class): .........................</div>
+      <div>التاريخ: .... / .... / 2026 م</div>
+      <div>الدرجة: ........ / 20</div>
     </div>
+    <h2 class="text-center text-2xl font-black mt-3 font-en">Top Goal: 18 Vocabulary Flashcards & Multi-Voice Reading Game</h2>
+  </div>
 
-    <!-- Student Dashboard Banner -->
-    <div class="bg-gradient-to-r from-emerald-800 via-teal-700 to-sky-800 rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden no-print">
-      <div class="absolute -right-12 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
-      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-2 text-center md:text-right flex-1">
-          <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-            <span class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold text-white">
-              <span>🎧</span> استمع للمتحدثين الأمريكيين والبريطانيين والكنديين بضغطة زر واحدة
+  <main class="max-w-6xl mx-auto space-y-6">
+
+    <div id="view-studio" class="space-y-5">
+      
+      <!-- Studio Intro Banner -->
+      <div class="bg-gradient-to-r from-indigo-900 via-purple-900 to-sky-900 rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden no-print">
+        <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="space-y-2 text-center md:text-right">
+            <span class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white">
+              <span>🌟</span> بطاقات مصورة فائقة الوضوح مع قراءة تفاعلية
             </span>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+              استكشف واقرأ كلمات المنهج الـ 18
+            </h2>
+            <p class="text-xs sm:text-sm text-indigo-200 max-w-2xl">
+              انقر على أي بطاقة لسماع الكلمة بصوت الطفل أو المرأة أو الرجل باللهجات الأمريكية، البريطانية، الكندية والأسترالية، مع ميزة التقطيع الصوتي والتهجئة الفورية.
+            </p>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
-            قاموس الكلمات المصور والأنشطة الذكية
-          </h2>
-          <p class="text-xs sm:text-sm text-teal-100 max-w-2xl">
-            تعرف على الكلمات الـ 18 الواردة في المنهج (الحشرات، الديناصورات، الصفات والتعبيرات)، واستمع للنطق الصحيح بكل لهجة، ثم اختبر معلوماتك في تماريني "أوجد الحرف الناقص" و"رتّب الكلمات".
-          </p>
-        </div>
 
-        <!-- Live Score Counter -->
-        <div class="bg-white/15 backdrop-blur-md border border-white/25 rounded-2xl p-4 sm:p-5 flex items-center gap-4 flex-shrink-0 text-center sm:text-right shadow-lg">
-          <div class="w-14 h-14 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center text-3xl font-black shadow-md">
-            ⭐
-          </div>
-          <div>
-            <div class="text-xs font-bold text-teal-100">درجات التمارين التفاعلية</div>
-            <div class="text-2xl sm:text-3xl font-black font-en text-white" id="totalScoreBadge">0 / 15</div>
-            <div class="text-[11px] text-amber-300 font-bold" id="scoreFeedbackHint">ابدأ بحل التمارين بالأسفل!</div>
+          <!-- Auto Tour Button -->
+          <div class="flex flex-col sm:flex-row items-center gap-2.5 flex-shrink-0">
+            <button onclick="startAutoTour()" id="autoTourBtn" class="px-5 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 rounded-2xl text-xs sm:text-sm font-black shadow-lg shadow-amber-500/20 transition flex items-center gap-2">
+              <span>🎧</span> جولة قراءة الكلمات تلقائياً
+            </button>
+            <button onclick="stopSpeech()" class="px-3.5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-xs font-bold transition flex items-center gap-1">
+              <span>⏹️</span> إيقاف
+            </button>
           </div>
         </div>
+      </div>
+
+      <!-- Filter Categories -->
+      <div class="flex flex-wrap items-center justify-between gap-3 no-print">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">تصنيف الكلمات:</span>
+          <button onclick="filterCards('all')" class="card-flt active px-3 py-1 text-xs font-bold rounded-xl bg-indigo-600 text-white transition">الكل (18)</button>
+          <button onclick="filterCards('animals')" class="card-flt px-3 py-1 text-xs font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">حيوانات وكائنات</button>
+          <button onclick="filterCards('adjectives')" class="card-flt px-3 py-1 text-xs font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">صفات</button>
+          <button onclick="filterCards('extra')" class="card-flt px-3 py-1 text-xs font-bold rounded-xl bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition">كلمات إضافية</button>
+        </div>
+        <div class="relative">
+          <input type="text" id="searchInput" oninput="searchCards()" placeholder="ابحث عن كلمة..." class="px-3.5 py-1.5 text-xs font-bold rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48">
+          <span class="absolute left-2.5 top-2 text-xs text-slate-400">🔍</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-5" id="cardsContainer">
+        <!-- Rendered dynamically via JavaScript -->
       </div>
     </div>
 
-    <section class="space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center gap-2">
-          <span class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-black">📦</span>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-800">
-            صندوق الكلمات المصوّر <span class="font-en text-amber-600 text-lg">(Word Box - 18 Words)</span>
-          </h2>
-        </div>
-
-        <!-- Category Filter & Search -->
-        <div class="flex flex-wrap items-center gap-2 no-print">
-          <div class="relative">
-            <input type="text" id="wordSearchInput" oninput="filterWords()" placeholder="ابحث عن كلمة..." class="px-3.5 py-1.5 text-xs font-bold rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-44">
-            <span class="absolute left-2.5 top-2 text-xs text-slate-400">🔍</span>
+    <div id="view-safari" class="hidden space-y-6">
+      
+      <!-- Safari Game Arena Card -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+        
+        <!-- Game Header Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-2xl font-black shadow-md shadow-amber-200">
+              🎯
+            </div>
+            <div>
+              <h3 class="text-xl font-black text-slate-800">لعبة صيد الكلمات والاستماع السريع</h3>
+              <p class="text-xs text-slate-500">استمع لنطق المتحدث بالإنجليزية واختر البطاقة المصورة المطابقة بدقة!</p>
+            </div>
           </div>
-          <button onclick="filterCategory('all')" class="cat-pill active px-3 py-1.5 text-xs font-bold bg-emerald-600 text-white rounded-xl shadow-sm transition">الكل (18)</button>
-          <button onclick="filterCategory('animals')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">حيوانات ومخلوقات</button>
-          <button onclick="filterCategory('adjectives')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">صفات</button>
-          <button onclick="filterCategory('extra')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">كلمات إضافية</button>
+
+          <!-- Game Stats (Timer & Round) -->
+          <div class="flex items-center gap-3">
+            <div class="bg-slate-100 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <span>جولة:</span>
+              <span class="font-en text-indigo-700 font-black text-sm" id="roundDisplay">1 / 10</span>
+            </div>
+            <div class="bg-rose-50 border border-rose-200 px-3.5 py-1.5 rounded-xl text-xs font-bold text-rose-700 flex items-center gap-1.5">
+              <span>⏳</span>
+              <span class="font-en font-black text-sm" id="gameTimerDisplay">15s</span>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <!-- WORD CARDS GRID (18 WORDS) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="wordsContainer">
-        <!-- Word cards will be rendered dynamically from the dataset below -->
-      </div>
-    </section>
+        <!-- Speaker Prompt Arena -->
+        <div class="bg-gradient-to-br from-indigo-50 via-sky-50 to-purple-50 rounded-3xl p-6 sm:p-8 border border-indigo-100 text-center space-y-4">
+          <div class="inline-flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full shadow-xs border border-indigo-100 text-xs font-bold text-indigo-800">
+            <span id="speakerAvatar">🧒</span>
+            <span id="speakerInfoText">صوت طفل أمريكي يتحدث الآن...</span>
+            <div class="flex items-center gap-0.5 ml-1" id="audioWaves">
+              <span class="audio-bar"></span>
+              <span class="audio-bar"></span>
+              <span class="audio-bar"></span>
+              <span class="audio-bar"></span>
+            </div>
+          </div>
 
-    <section class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 space-y-6 print-card" id="missing-letters-section">
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-3">
-          <span class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center text-2xl font-black">🔤</span>
+          <div class="space-y-2">
+            <div class="text-slate-500 text-xs font-bold">انقر للاستماع مجدداً إذا احتجت:</div>
+            <button onclick="playSafariPromptSound()" class="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white rounded-2xl text-sm font-black shadow-lg shadow-indigo-200 transition inline-flex items-center gap-2">
+              <span class="text-xl">🔊</span>
+              <span>استمع للكلمة المطلوبة</span>
+            </button>
+          </div>
+
+          <!-- Hint toggle -->
           <div>
-            <span class="px-2.5 py-0.5 bg-sky-100 text-sky-800 rounded-full font-en text-[11px] font-black uppercase">Exercise 1</span>
-            <h3 class="text-lg sm:text-xl font-black text-slate-800 mt-0.5">
-              أوجد الحرف الناقص <span class="font-en text-sky-600 text-sm">(Find the Missing Letter)</span>
-            </h3>
+            <button onclick="toggleSafariHint()" class="text-xs font-bold text-slate-400 hover:text-indigo-600 transition flex items-center gap-1 mx-auto">
+              <span>💡</span> عرض تلميح المعنى العربي
+            </button>
+            <div id="safariHintText" class="hidden text-xs font-bold text-amber-700 mt-1 bg-amber-50 py-1 px-3 rounded-lg inline-block border border-amber-200">
+              المعنى: حيوان...
+            </div>
           </div>
         </div>
-        <div class="text-xs font-bold text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
-          انقر على الحرف الصحيح لإكمال الكلمة ورسم الدائرة حوله ✏️
-        </div>
-      </div>
 
-      <!-- Missing Letter Questions Grid (10 Questions) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4" id="missingLetterQuizContainer">
-        <!-- Injected dynamically via JS -->
-      </div>
-    </section>
-
-    <section class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 space-y-6 print-card" id="reorder-words-section">
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
-        <div class="flex items-center gap-3">
-          <span class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-black">🧩</span>
-          <div>
-            <span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full font-en text-[11px] font-black uppercase">Exercise 2</span>
-            <h3 class="text-lg sm:text-xl font-black text-slate-800 mt-0.5">
-              رتب الكلمات بشكل جميل من اليسار إلى اليمين <span class="font-en text-amber-600 text-sm">(Reorder the Words - LTR)</span>
-            </h3>
+        <!-- 4 Image Choices Grid -->
+        <div class="space-y-3">
+          <div class="text-xs font-bold text-slate-500">اختر البطاقة المصورة الصحيحة للكلمة:</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="safariChoicesContainer">
+            <!-- 4 choices injected dynamically -->
           </div>
         </div>
-        <div class="text-xs font-bold text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 flex items-center gap-1.5">
-          <span>👈</span> الترتيب الإنجليزي الصحيح يبدأ من اليسار إلى اليمين
-        </div>
-      </div>
 
-      <!-- Sentence Builder Items (5 Sentences) -->
-      <div class="space-y-5" id="sentenceBuilderContainer">
-        <!-- Injected dynamically via JS -->
-      </div>
-    </section>
-
-    <section class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg space-y-4 no-print">
-      <div class="flex items-center gap-3 pb-2 border-b border-white/10">
-        <span class="text-2xl">💡</span>
-        <h3 class="text-lg sm:text-xl font-black">دليل الفروق بين اللهجات الإنجليزية الثلاث (US, UK, CA)</h3>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
-          <div class="flex items-center gap-2 text-amber-300 font-bold text-sm">
-            <span>🇺🇸</span> الإنجليزية الأمريكية (American)
+        <!-- Game Control / Next Round Bar -->
+        <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+          <div id="safariFeedback" class="text-xs font-bold text-slate-600">
+            جاهز لبدء الجولة...
           </div>
-          <p class="text-slate-300 leading-relaxed">
-            تتميز بنطق حرف <strong>R</strong> بوضوح شديد (Rhoticity)، ونطق حرف <strong>T</strong> بين حرفين متحركين مخففاً مثل d (Flap T كما في <em>butterfly</em> و <em>little</em>).
-          </p>
+          <button onclick="startNewSafariGame()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1">
+            <span>🔄</span> لعبة جديدة
+          </button>
         </div>
 
-        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
-          <div class="flex items-center gap-2 text-sky-300 font-bold text-sm">
-            <span>🇬🇧</span> الإنجليزية البريطانية (British)
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            يُنطق حرف <strong>T</strong> صريحاً وحاداً (Crisp T)، بينما لا يُنطق حرف <strong>R</strong> إذا جاء في نهاية الكلمة أو قبل حرف ساكن إلا إذا تبعه حرف علة (Non-rhotic).
-          </p>
-        </div>
-
-        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
-          <div class="flex items-center gap-2 text-rose-300 font-bold text-sm">
-            <span>🇨🇦</span> الإنجليزية الكندية (Canadian)
-          </div>
-          <p class="text-slate-300 leading-relaxed">
-            مزيج فريد بين الأمريكية والبريطانية؛ تتبع النطق الأمريكي في حرف الـ R، لكنها تحتفظ بنغمات كندية خاصة (Canadian Raising) في حروف العلة، مع تهجئة بريطانية لبعض الكلمات.
-          </p>
-        </div>
       </div>
-    </section>
+
+    </div>
+
+    <div id="view-spelling" class="hidden space-y-6">
+      
+      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-teal-500 text-white flex items-center justify-center text-2xl font-black shadow-md shadow-teal-200">
+              🔤
+            </div>
+            <div>
+              <h3 class="text-xl font-black text-slate-800">لعبة تهجئة وقراءة الكلمات الحية</h3>
+              <p class="text-xs text-slate-500">رتّب حروف الكلمة المصورة ثم استمع للتهجئة والقراءة بجميع الأصوات العالمية</p>
+            </div>
+          </div>
+
+          <!-- Word Picker Dropdown -->
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-slate-600">اختر الكلمة:</span>
+            <select id="spellWordSelect" onchange="loadSpellChallenge(this.value)" class="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold font-en text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-500">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Active Word Display Box -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center bg-slate-50/80 p-6 rounded-3xl border border-slate-200">
+          
+          <!-- Crystal Clear Image -->
+          <div class="flex flex-col items-center justify-center p-4 bg-white rounded-2xl border border-slate-200 shadow-sm text-center">
+            <div id="spellCardImage" class="w-32 h-32 flex items-center justify-center">
+              <!-- SVG inserted -->
+            </div>
+            <div class="text-sm font-bold text-slate-800 mt-2" id="spellCardArabic">فراشة</div>
+            <div class="text-xs font-mono text-indigo-600 font-en mt-0.5" id="spellCardPhonetic">/ˈbʌt.ə.flaɪ/</div>
+          </div>
+
+          <!-- Letters Builder Arena -->
+          <div class="md:col-span-2 space-y-4">
+            
+            <!-- Target Letter Dropzone (LTR) -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-500 ltr-box">
+                <span class="text-sky-700">1️⃣ Start (Left) ➔</span>
+                <span class="text-emerald-700">Finish (Right) 🏁</span>
+              </div>
+              <div id="spellDropzone" class="min-h-[64px] p-3 bg-white rounded-2xl border-2 border-dashed border-teal-300 flex flex-wrap items-center gap-2 ltr-box shadow-inner">
+                <!-- Placed letter chips -->
+              </div>
+            </div>
+
+            <!-- Letter Pool -->
+            <div class="space-y-1.5">
+              <div class="text-xs font-bold text-slate-600">انقر على الحروف بالترتيب الصحيح:</div>
+              <div id="spellLetterPool" class="flex flex-wrap items-center gap-2 ltr-box p-3 bg-white rounded-2xl border border-slate-200">
+                <!-- Shuffled letter buttons -->
+              </div>
+            </div>
+
+            <!-- Controls: Check, Read, Reset -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div class="flex items-center gap-2">
+                <button onclick="checkSpelledWord()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 active:scale-95 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                  <span>✔</span> تحقق من الكلمة
+                </button>
+                <button onclick="resetSpellingActive()" class="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                  <span>🔄</span> مسح
+                </button>
+              </div>
+
+              <!-- Pronounce Buttons -->
+              <div class="flex items-center gap-1.5">
+                <button onclick="readSpelledWord()" class="px-3.5 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                  <span>🔊</span> قراءة الكلمة
+                </button>
+                <button onclick="spellOutSpelledWord()" class="px-3.5 py-2 bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 rounded-xl text-xs font-bold transition flex items-center gap-1">
+                  <span>🔤</span> تهجئة حرفاً بحرف
+                </button>
+              </div>
+            </div>
+
+            <!-- Feedback Alert -->
+            <div id="spellFeedbackAlert" class="hidden"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
 
   </main>
 
-  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 pointer-events-none">
+  <div id="gameToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 pointer-events-none">
     <span id="toastIcon" class="text-xl">🌟</span>
     <span id="toastMessage" class="text-sm font-bold">إشعار</span>
   </div>
 
   <script>
-    // Full vocabulary dataset extracted from the user's worksheet
-    const vocabularyList = [
+    // 18 Words complete dataset from Top Goal sheet with crisp vector illustrations
+    const wordInventory = [
       {
         id: "insects",
         en: "insects",
+        syllables: "in • sects",
         ar: "حشرات",
         category: "animals",
-        example: "Bees, ants, and butterflies are insects.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Bee -->
-          <ellipse cx="50" cy="50" rx="20" ry="14" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
-          <path d="M42 37 L42 63 M50 36 L50 64 M58 37 L58 63" stroke="#1e293b" stroke-width="3"/>
-          <circle cx="32" cy="50" r="10" fill="#1e293b"/>
-          <circle cx="30" cy="48" r="2" fill="#ffffff"/>
+        phonetic: "/ˈɪn.sekts/",
+        example: "Bees and ants are helpful insects.",
+        badgeColor: "bg-amber-100 text-amber-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Dragonfly -->
+          <ellipse cx="60" cy="62" rx="6" ry="24" fill="#0284c7" />
+          <circle cx="60" cy="38" r="9" fill="#0369a1" />
+          <circle cx="56" cy="36" r="3" fill="#ffffff" />
+          <circle cx="64" cy="36" r="3" fill="#ffffff" />
           <!-- Wings -->
-          <ellipse cx="48" cy="30" rx="9" ry="14" fill="#bae6fd" opacity="0.8" transform="rotate(-20 48 30)"/>
-          <ellipse cx="58" cy="30" rx="9" ry="14" fill="#bae6fd" opacity="0.8" transform="rotate(20 58 30)"/>
-          <path d="M28 42 Q22 34 24 30" stroke="#1e293b" stroke-width="2" fill="none"/>
-        </svg>`,
-        badgeColor: "bg-amber-100 text-amber-800"
+          <ellipse cx="40" cy="52" rx="22" ry="7" fill="#38bdf8" opacity="0.8" transform="rotate(-15 40 52)" />
+          <ellipse cx="80" cy="52" rx="22" ry="7" fill="#38bdf8" opacity="0.8" transform="rotate(15 80 52)" />
+          <ellipse cx="42" cy="66" rx="18" ry="6" fill="#7dd3fc" opacity="0.7" transform="rotate(10 42 66)" />
+          <ellipse cx="78" cy="66" rx="18" ry="6" fill="#7dd3fc" opacity="0.7" transform="rotate(-10 78 66)" />
+          <!-- Little Bee -->
+          <ellipse cx="94" cy="85" rx="12" ry="9" fill="#fbbf24" stroke="#d97706" stroke-width="1.5" />
+          <path d="M90 77 L90 93 M95 76 L95 94" stroke="#1e293b" stroke-width="2" />
+          <circle cx="102" cy="85" r="4" fill="#1e293b" />
+          <ellipse cx="92" cy="74" rx="4" ry="7" fill="#bae6fd" opacity="0.8" />
+          <!-- Little Ant -->
+          <circle cx="24" cy="88" r="5" fill="#1e293b" />
+          <circle cx="31" cy="91" r="4" fill="#334155" />
+          <ellipse cx="38" cy="88" rx="6" ry="5" fill="#1e293b" />
+          <path d="M22 84 Q18 78 14 80" stroke="#1e293b" stroke-width="1.5" fill="none" />
+        </svg>`
       },
       {
         id: "butterfly",
         en: "butterfly",
+        syllables: "but • ter • fly",
         ar: "فراشة",
         category: "animals",
-        example: "The butterfly has beautiful colorful wings.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Wings Left -->
-          <path d="M46 50 C25 20 10 35 22 60 C12 75 25 88 46 62 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/>
-          <circle cx="28" cy="45" r="5" fill="#fbcfe8"/>
-          <!-- Wings Right -->
-          <path d="M54 50 C75 20 90 35 78 60 C88 75 75 88 54 62 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/>
-          <circle cx="72" cy="45" r="5" fill="#fbcfe8"/>
+        phonetic: "/ˈbʌt.ə.flaɪ/",
+        example: "The butterfly has gentle pink wings.",
+        badgeColor: "bg-pink-100 text-pink-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Wings Top Left -->
+          <path d="M58 58 C35 20 8 36 22 68 C10 86 28 102 58 72 Z" fill="#f472b6" stroke="#db2777" stroke-width="2" />
+          <path d="M54 56 C38 28 18 42 28 66" fill="#fbcfe8" />
+          <!-- Wings Top Right -->
+          <path d="M62 58 C85 20 112 36 98 68 C110 86 92 102 62 72 Z" fill="#f472b6" stroke="#db2777" stroke-width="2" />
+          <path d="M66 56 C82 28 102 42 92 66" fill="#fbcfe8" />
           <!-- Body -->
-          <rect x="47" y="38" width="6" height="30" rx="3" fill="#475569"/>
-          <circle cx="50" cy="35" r="4.5" fill="#475569"/>
-          <!-- Antennae -->
-          <path d="M48 32 Q42 22 38 24" stroke="#475569" stroke-width="1.8" fill="none"/>
-          <path d="M52 32 Q58 22 62 24" stroke="#475569" stroke-width="1.8" fill="none"/>
-        </svg>`,
-        badgeColor: "bg-pink-100 text-pink-800"
+          <rect x="57" y="44" width="6" height="34" rx="3" fill="#334155" />
+          <circle cx="60" cy="40" r="5.5" fill="#334155" />
+          <!-- Antennas -->
+          <path d="M58 36 Q48 24 44 26" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" />
+          <path d="M62 36 Q72 24 76 26" stroke="#334155" stroke-width="2" fill="none" stroke-linecap="round" />
+        </svg>`
       },
       {
         id: "beetle",
-        en: "beetle",
+        en: "Beetle",
+        syllables: "bee • tle",
         ar: "خنفساء",
         category: "animals",
-        example: "The black beetle is crawling on the ground.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+        phonetic: "/ˈbiː.təl/",
+        example: "The black beetle crawls on tree bark.",
+        badgeColor: "bg-slate-100 text-slate-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
           <!-- Legs -->
-          <path d="M30 40 L18 35 M30 52 L15 52 M30 65 L18 70" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M70 40 L82 35 M70 52 L85 52 M70 65 L82 70" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- Shell Body -->
-          <ellipse cx="50" cy="55" rx="22" ry="26" fill="#1e293b"/>
-          <line x1="50" y1="35" x2="50" y2="81" stroke="#475569" stroke-width="2"/>
-          <!-- Head -->
-          <ellipse cx="50" cy="32" rx="14" ry="10" fill="#0f172a"/>
-          <!-- Antennae -->
-          <path d="M45 25 Q40 16 34 18" stroke="#0f172a" stroke-width="2" fill="none"/>
-          <path d="M55 25 Q60 16 66 18" stroke="#0f172a" stroke-width="2" fill="none"/>
-        </svg>`,
-        badgeColor: "bg-slate-100 text-slate-800"
+          <path d="M35 48 L18 42 M35 62 L15 62 M35 78 L20 86" stroke="#334155" stroke-width="3" stroke-linecap="round" />
+          <path d="M85 48 L102 42 M85 62 L105 62 M85 78 L100 86" stroke="#334155" stroke-width="3" stroke-linecap="round" />
+          <!-- Body Shell -->
+          <ellipse cx="60" cy="68" rx="26" ry="32" fill="#1e293b" />
+          <line x1="60" y1="44" x2="60" y2="100" stroke="#475569" stroke-width="2.5" />
+          <!-- Metallic Glow -->
+          <ellipse cx="50" cy="62" rx="6" ry="16" fill="#38bdf8" opacity="0.3" transform="rotate(-15 50 62)" />
+          <!-- Head & Horn -->
+          <ellipse cx="60" cy="40" rx="16" ry="12" fill="#0f172a" />
+          <path d="M60 32 L60 18 Q54 14 50 16" stroke="#0f172a" stroke-width="3" fill="none" stroke-linecap="round" />
+          <circle cx="53" cy="38" r="2.5" fill="#f8fafc" />
+          <circle cx="67" cy="38" r="2.5" fill="#f8fafc" />
+        </svg>`
       },
       {
         id: "wing",
         en: "wing",
+        syllables: "wing",
         ar: "جناح",
         category: "animals",
-        example: "The bird injured its left wing.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <path d="M25 75 C20 40 45 25 85 20 C75 45 65 65 35 80 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/>
-          <path d="M40 38 Q65 38 75 28" stroke="#93c5fd" stroke-width="2" fill="none"/>
-          <path d="M35 52 Q60 52 70 42" stroke="#93c5fd" stroke-width="2" fill="none"/>
-          <path d="M30 65 Q50 65 60 56" stroke="#93c5fd" stroke-width="2" fill="none"/>
-        </svg>`,
-        badgeColor: "bg-blue-100 text-blue-800"
+        phonetic: "/wɪŋ/",
+        example: "The blue bird flapped its strong wing.",
+        badgeColor: "bg-blue-100 text-blue-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Feathered Gradient Wing -->
+          <path d="M28 88 C20 48 52 24 102 18 C90 48 76 72 40 94 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2.5" />
+          <path d="M42 42 Q72 42 88 28" stroke="#93c5fd" stroke-width="2.5" fill="none" />
+          <path d="M38 58 Q66 58 78 46" stroke="#93c5fd" stroke-width="2.5" fill="none" />
+          <path d="M34 74 Q56 74 68 62" stroke="#93c5fd" stroke-width="2.5" fill="none" />
+          <!-- Sparkles -->
+          <circle cx="85" cy="40" r="3" fill="#ffffff" />
+          <circle cx="60" cy="65" r="2.5" fill="#ffffff" />
+        </svg>`
       },
       {
         id: "extinct",
         en: "extinct",
+        syllables: "ex • tinct",
         ar: "منقرض",
         category: "animals",
-        example: "Dinosaurs are extinct animals that lived long ago.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Pterodactyl flying dinosaur -->
-          <path d="M50 48 L20 30 L38 58 L50 52 L62 58 L80 30 Z" fill="#ea580c" stroke="#c2410c" stroke-width="2"/>
-          <polygon points="50,32 54,48 46,48" fill="#ea580c"/>
-          <circle cx="50" cy="30" r="5" fill="#ea580c"/>
-          <polygon points="50,26 65,22 53,30" fill="#ea580c"/>
-          <!-- Hourglass cross representing extinction -->
-          <circle cx="76" cy="74" r="14" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
-          <text x="76" y="80" font-size="16" font-weight="900" fill="#dc2626" text-anchor="middle">✕</text>
-        </svg>`,
-        badgeColor: "bg-red-100 text-red-800"
+        phonetic: "/ɪkˈstɪŋkt/",
+        example: "Pterosaurs are extinct flying reptiles.",
+        badgeColor: "bg-red-100 text-red-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Pterodactyl Silhouette Flying -->
+          <path d="M60 56 L24 38 L44 68 L60 62 L76 68 L96 38 Z" fill="#ea580c" stroke="#c2410c" stroke-width="2" />
+          <path d="M60 38 L68 46 L60 56 L52 46 Z" fill="#c2410c" />
+          <circle cx="60" cy="38" r="5" fill="#ea580c" />
+          <!-- Extinct Stamp -->
+          <circle cx="88" cy="88" r="18" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5" />
+          <text x="88" y="94" font-size="18" font-weight="900" fill="#dc2626" text-anchor="middle" font-family="Fredoka">✕</text>
+        </svg>`
       },
       {
         id: "dinosaur",
         en: "dinosaur",
+        syllables: "di • no • saur",
         ar: "ديناصور",
         category: "animals",
+        phonetic: "/ˈdaɪ.nə.sɔːr/",
         example: "The T-Rex is a famous giant dinosaur.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- T-Rex Silhouette/Cartoon -->
-          <path d="M30 75 Q40 85 50 78 Q60 65 65 52 Q75 50 82 42 Q82 32 72 32 L62 32 L58 40 Q50 42 45 48 Q35 52 25 70 Z" fill="#16a34a" stroke="#15803d" stroke-width="2"/>
-          <ellipse cx="75" cy="36" rx="2" ry="3" fill="#ffffff"/>
-          <path d="M40 78 L42 88 M52 75 L56 88" stroke="#15803d" stroke-width="4" stroke-linecap="round"/>
-          <path d="M58 54 L65 58" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
-        </svg>`,
-        badgeColor: "bg-emerald-100 text-emerald-800"
+        badgeColor: "bg-emerald-100 text-emerald-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Friendly T-Rex -->
+          <path d="M34 88 Q48 98 62 90 Q72 75 78 60 Q90 56 100 48 Q98 34 85 34 L74 34 L68 44 Q58 48 50 56 Q38 62 26 82 Z" fill="#22c55e" stroke="#15803d" stroke-width="2.5" />
+          <!-- Belly -->
+          <path d="M48 76 Q60 84 66 70" stroke="#86efac" stroke-width="4" fill="none" />
+          <!-- Eye & Teeth -->
+          <circle cx="90" cy="40" r="3" fill="#ffffff" />
+          <circle cx="91" cy="40" r="1.5" fill="#0f172a" />
+          <path d="M84 46 L88 44 L92 46 L96 44" stroke="#ffffff" stroke-width="1.8" fill="none" />
+          <!-- Legs -->
+          <path d="M46 90 L48 104 M62 88 L66 104" stroke="#15803d" stroke-width="4.5" stroke-linecap="round" />
+        </svg>`
       },
       {
         id: "tortoise",
         en: "tortoise",
+        syllables: "tor • toise",
         ar: "سلحفاة برية",
         category: "animals",
-        example: "The tortoise moves very slowly on land.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Legs -->
-          <ellipse cx="34" cy="68" rx="6" ry="8" fill="#a16207"/>
-          <ellipse cx="66" cy="68" rx="6" ry="8" fill="#a16207"/>
-          <!-- Shell -->
-          <path d="M25 65 Q50 30 75 65 Z" fill="#ca8a04" stroke="#854d0e" stroke-width="2.5"/>
-          <path d="M38 52 L50 42 L62 52 L50 62 Z" stroke="#854d0e" stroke-width="2" fill="#eab308"/>
+        phonetic: "/ˈtɔː.təs/",
+        example: "The tortoise walks slowly on land.",
+        badgeColor: "bg-amber-100 text-amber-900",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Big Dome Shell -->
+          <path d="M30 78 C30 38 90 38 90 78 Z" fill="#ca8a04" stroke="#854d0e" stroke-width="3" />
+          <!-- Shell Pattern -->
+          <polygon points="60,46 48,58 54,72 66,72 72,58" fill="#eab308" stroke="#854d0e" stroke-width="2" />
           <!-- Head -->
-          <ellipse cx="82" cy="60" rx="9" ry="7" fill="#a16207"/>
-          <circle cx="85" cy="58" r="1.5" fill="#000000"/>
-        </svg>`,
-        badgeColor: "bg-amber-100 text-amber-900"
+          <ellipse cx="98" cy="72" rx="12" ry="9" fill="#a16207" />
+          <circle cx="102" cy="70" r="2" fill="#000000" />
+          <!-- Legs -->
+          <rect x="36" y="78" width="10" height="14" rx="4" fill="#a16207" />
+          <rect x="74" y="78" width="10" height="14" rx="4" fill="#a16207" />
+        </svg>`
       },
       {
         id: "creature",
         en: "creature",
+        syllables: "crea • ture",
         ar: "مخلوق",
         category: "animals",
-        example: "Whales are amazing sea creatures.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Dolphin/Whale Sea Creature -->
-          <path d="M20 55 C35 30 70 35 85 45 C75 55 65 65 45 65 C30 65 20 58 15 62 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
-          <polygon points="85,45 92,38 90,52" fill="#0284c7"/>
-          <polygon points="50,38 56,28 60,38" fill="#0284c7"/>
-          <circle cx="28" cy="50" r="2" fill="#ffffff"/>
-          <!-- Water splashes -->
-          <circle cx="48" cy="22" r="2" fill="#38bdf8"/>
-          <circle cx="56" cy="18" r="2.5" fill="#38bdf8"/>
-        </svg>`,
-        badgeColor: "bg-cyan-100 text-cyan-800"
+        phonetic: "/ˈkriː.tʃər/",
+        example: "Dolphins and whales are sea creatures.",
+        badgeColor: "bg-cyan-100 text-cyan-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Friendly Sea Creature / Dolphin -->
+          <path d="M22 66 C40 34 82 40 102 52 C90 64 78 76 54 76 C36 76 24 68 18 72 Z" fill="#06b6d4" stroke="#0891b2" stroke-width="2.5" />
+          <!-- Tail Fin -->
+          <polygon points="102,52 112,42 108,62" fill="#06b6d4" />
+          <!-- Eye & Smile -->
+          <circle cx="34" cy="58" r="3" fill="#ffffff" />
+          <circle cx="34" cy="58" r="1.5" fill="#0f172a" />
+          <path d="M30 64 Q36 68 40 64" stroke="#0e7490" stroke-width="2" fill="none" />
+          <!-- Little fish friend -->
+          <ellipse cx="80" cy="85" rx="8" ry="5" fill="#f59e0b" />
+          <polygon points="88,85 94,80 94,90" fill="#f59e0b" />
+        </svg>`
       },
       {
         id: "heavy",
         en: "heavy",
+        syllables: "heav • y",
         ar: "ثقيل",
         category: "adjectives",
-        example: "This big rock is very heavy to lift.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Big boulder rock with weight lines -->
-          <circle cx="50" cy="45" r="24" fill="#64748b" stroke="#334155" stroke-width="2.5"/>
-          <text x="50" y="52" font-size="14" font-weight="900" fill="#f8fafc" text-anchor="middle" font-family="Fredoka">50kg</text>
-          <!-- Downward force arrows -->
-          <path d="M50 72 L50 86 M45 80 L50 86 L55 80" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>`,
-        badgeColor: "bg-slate-200 text-slate-800"
+        phonetic: "/ˈhev.i/",
+        example: "He carries a heavy giant rock.",
+        badgeColor: "bg-slate-200 text-slate-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Heavy Weight / Boulder -->
+          <circle cx="60" cy="50" r="28" fill="#64748b" stroke="#334155" stroke-width="3" />
+          <text x="60" y="58" font-size="16" font-weight="900" fill="#f8fafc" text-anchor="middle" font-family="Fredoka">100kg</text>
+          <!-- Sweating Character Below -->
+          <circle cx="60" cy="88" r="12" fill="#fed7aa" />
+          <!-- Sweat Drop -->
+          <path d="M42 82 Q44 76 46 82" stroke="#38bdf8" stroke-width="3" fill="#38bdf8" />
+          <path d="M54 94 Q60 90 66 94" stroke="#7c2d12" stroke-width="2" fill="none" />
+        </svg>`
       },
       {
         id: "quiet",
         en: "quiet",
+        syllables: "qui • et",
         ar: "هادئ",
         category: "adjectives",
-        example: "Please be quiet in the school library.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Shushing Emoji -->
-          <circle cx="50" cy="50" r="26" fill="#facc15" stroke="#eab308" stroke-width="2"/>
-          <ellipse cx="40" cy="42" rx="3" ry="4" fill="#451a03"/>
-          <ellipse cx="60" cy="42" rx="3" ry="4" fill="#451a03"/>
-          <!-- Finger on mouth -->
-          <rect x="47" y="48" width="8" height="22" rx="4" fill="#fdba74" stroke="#ea580c" stroke-width="1.5"/>
-        </svg>`,
-        badgeColor: "bg-yellow-100 text-yellow-800"
+        phonetic: "/ˈkwaɪ.ət/",
+        example: "Keep quiet and listen to teacher.",
+        badgeColor: "bg-yellow-100 text-yellow-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Emoji Face -->
+          <circle cx="60" cy="60" r="32" fill="#facc15" stroke="#eab308" stroke-width="2.5" />
+          <!-- Eyes Looking Up -->
+          <circle cx="48" cy="50" r="4" fill="#451a03" />
+          <circle cx="72" cy="50" r="4" fill="#451a03" />
+          <!-- Finger on Lips (Shhh!) -->
+          <rect x="56" y="58" width="8" height="26" rx="4" fill="#fdba74" stroke="#ea580c" stroke-width="2" />
+        </svg>`
       },
       {
         id: "furry",
         en: "furry",
+        syllables: "fur • ry",
         ar: "ذو فرو",
         category: "adjectives",
-        example: "My little rabbit is warm and furry.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Cute fluffy creature face -->
-          <circle cx="50" cy="52" r="24" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
-          <!-- Fluffy ears -->
-          <polygon points="32,36 38,18 46,32" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-          <polygon points="68,36 62,18 54,32" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-          <circle cx="42" cy="48" r="3" fill="#1e293b"/>
-          <circle cx="58" cy="48" r="3" fill="#1e293b"/>
-          <polygon points="50,56 46,52 54,52" fill="#f43f5e"/>
-          <!-- Whiskers -->
-          <line x1="30" y1="55" x2="20" y2="53" stroke="#64748b" stroke-width="2"/>
-          <line x1="70" y1="55" x2="80" y2="53" stroke="#64748b" stroke-width="2"/>
-        </svg>`,
-        badgeColor: "bg-indigo-100 text-indigo-800"
+        phonetic: "/ˈfɜː.ri/",
+        example: "The Arctic cat is soft and furry.",
+        badgeColor: "bg-indigo-100 text-indigo-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Fluffy Fox / Cat Face -->
+          <circle cx="60" cy="64" r="28" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="2" />
+          <!-- Fluffy Ears -->
+          <polygon points="38,44 46,24 56,42" fill="#c7d2fe" stroke="#a5b4fc" stroke-width="2" />
+          <polygon points="82,44 74,24 64,42" fill="#c7d2fe" stroke="#a5b4fc" stroke-width="2" />
+          <!-- Cute Eyes & Nose -->
+          <ellipse cx="50" cy="60" rx="3" ry="4" fill="#1e1b4b" />
+          <ellipse cx="70" cy="60" rx="3" ry="4" fill="#1e1b4b" />
+          <polygon points="60,68 57,65 63,65" fill="#f43f5e" />
+          <path d="M54 72 Q60 76 66 72" stroke="#4338ca" stroke-width="1.8" fill="none" />
+        </svg>`
       },
       {
         id: "look-like",
         en: "look like",
+        syllables: "look • like",
         ar: "يبدو مثل",
         category: "extra",
-        example: "These two baby dinos look like twins.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Twin dinos looking at each other -->
-          <circle cx="35" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
-          <circle cx="32" cy="48" r="2.5" fill="#0f172a"/>
-          <circle cx="65" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
-          <circle cx="68" cy="48" r="2.5" fill="#0f172a"/>
-          <!-- Equal sign between them -->
-          <line x1="46" y1="47" x2="54" y2="47" stroke="#e11d48" stroke-width="3"/>
-          <line x1="46" y1="53" x2="54" y2="53" stroke="#e11d48" stroke-width="3"/>
-        </svg>`,
-        badgeColor: "bg-sky-100 text-sky-800"
+        phonetic: "/lʊk laɪk/",
+        example: "The baby looks like his twin brother.",
+        badgeColor: "bg-sky-100 text-sky-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Twin Characters Matching -->
+          <circle cx="42" cy="60" r="18" fill="#38bdf8" stroke="#0284c7" stroke-width="2.5" />
+          <circle cx="78" cy="60" r="18" fill="#38bdf8" stroke="#0284c7" stroke-width="2.5" />
+          <!-- Eyes -->
+          <circle cx="38" cy="56" r="2.5" fill="#0c4a6e" />
+          <circle cx="46" cy="56" r="2.5" fill="#0c4a6e" />
+          <circle cx="74" cy="56" r="2.5" fill="#0c4a6e" />
+          <circle cx="82" cy="56" r="2.5" fill="#0c4a6e" />
+          <!-- Equal Connector -->
+          <line x1="56" y1="56" x2="64" y2="56" stroke="#e11d48" stroke-width="3.5" stroke-linecap="round" />
+          <line x1="56" y1="64" x2="64" y2="64" stroke="#e11d48" stroke-width="3.5" stroke-linecap="round" />
+        </svg>`
       },
       {
         id: "fur",
         en: "fur",
+        syllables: "fur",
         ar: "فرو",
         category: "adjectives",
-        example: "Polar bears have thick fur to keep them warm.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Fur coat / texture patch -->
-          <rect x="22" y="24" width="56" height="52" rx="12" fill="#d97706" stroke="#b45309" stroke-width="2"/>
-          <path d="M30 40 Q38 32 46 40 Q54 32 62 40" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
-          <path d="M35 55 Q43 47 51 55 Q59 47 67 55" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
-          <path d="M30 70 Q38 62 46 70 Q54 62 62 70" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
-        </svg>`,
-        badgeColor: "bg-amber-100 text-amber-800"
+        phonetic: "/fɜːr/",
+        example: "Bears grow thick fur for winter.",
+        badgeColor: "bg-amber-100 text-amber-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Soft Fur Texture Swatch -->
+          <rect x="25" y="30" width="70" height="60" rx="16" fill="#d97706" stroke="#b45309" stroke-width="3" />
+          <!-- Fur strands wavy -->
+          <path d="M35 48 Q45 40 55 48 Q65 40 75 48 Q85 40 95 48" stroke="#fef3c7" stroke-width="3" fill="none" stroke-linecap="round" />
+          <path d="M30 65 Q40 57 50 65 Q60 57 70 65 Q80 57 90 65" stroke="#fef3c7" stroke-width="3" fill="none" stroke-linecap="round" />
+          <path d="M38 80 Q48 72 58 80 Q68 72 78 80" stroke="#fef3c7" stroke-width="3" fill="none" stroke-linecap="round" />
+        </svg>`
       },
       {
         id: "dont-touch",
         en: "don't touch",
+        syllables: "don't • touch",
         ar: "لا تلمس",
         category: "extra",
-        example: "Don't touch that broken glass!",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Red Prohibition Sign with Hand -->
-          <circle cx="50" cy="50" r="28" fill="#ffffff" stroke="#ef4444" stroke-width="5"/>
-          <!-- Hand inside -->
-          <rect x="42" y="42" width="16" height="20" rx="3" fill="#cbd5e1"/>
-          <!-- Red diagonal slash -->
-          <line x1="30" y1="30" x2="70" y2="70" stroke="#ef4444" stroke-width="5"/>
-        </svg>`,
-        badgeColor: "bg-rose-100 text-rose-800"
+        phonetic: "/doʊnt tʌtʃ/",
+        example: "Don't touch that hot pan!",
+        badgeColor: "bg-rose-100 text-rose-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Warning Prohibition Circle -->
+          <circle cx="60" cy="60" r="34" fill="#ffffff" stroke="#ef4444" stroke-width="6" />
+          <!-- Palm of Hand -->
+          <rect x="52" y="52" width="16" height="24" rx="4" fill="#fed7aa" />
+          <rect x="46" y="56" width="6" height="14" rx="2" fill="#fed7aa" />
+          <!-- Diagonal Red Slash -->
+          <line x1="36" y1="36" x2="84" y2="84" stroke="#ef4444" stroke-width="6" stroke-linecap="round" />
+        </svg>`
       },
       {
         id: "tiny",
         en: "Tiny",
-        ar: "صغير / صغيرة",
+        syllables: "ti • ny",
+        ar: "صغيره",
         category: "extra",
-        example: "The ant carries a tiny piece of bread.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Pinching Fingers holding tiny berry -->
-          <path d="M25 60 Q45 50 50 42" stroke="#fdba74" stroke-width="8" stroke-linecap="round" fill="none"/>
-          <path d="M30 35 Q45 42 50 42" stroke="#fdba74" stroke-width="8" stroke-linecap="round" fill="none"/>
-          <!-- Tiny red berry -->
-          <circle cx="58" cy="42" r="5" fill="#ef4444"/>
-          <circle cx="57" cy="40" r="1.5" fill="#ffffff"/>
-        </svg>`,
-        badgeColor: "bg-red-50 text-red-700"
+        phonetic: "/ˈtaɪ.ni/",
+        example: "The ant carries a tiny seed.",
+        badgeColor: "bg-red-50 text-red-700",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Hand fingers holding tiny red strawberry -->
+          <path d="M32 78 Q56 66 62 54" stroke="#fdba74" stroke-width="10" stroke-linecap="round" fill="none" />
+          <path d="M72 40 Q66 48 64 56" stroke="#fed7aa" stroke-width="8" stroke-linecap="round" fill="none" />
+          <!-- Tiny berry with sparkle -->
+          <circle cx="70" cy="54" r="6" fill="#ef4444" />
+          <path d="M68 49 L72 49 L70 47 Z" fill="#16a34a" />
+          <circle cx="72" cy="52" r="1.5" fill="#ffffff" />
+        </svg>`
       },
       {
         id: "bones",
         en: "bones",
+        syllables: "bones",
         ar: "عظام",
         category: "extra",
-        example: "Archaeologists found fossil dinosaur bones.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Dog bone -->
-          <path d="M32 40 C28 40 24 35 24 45 C24 55 28 50 32 50 L68 50 C72 50 76 55 76 45 C76 35 72 40 68 40 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
-          <circle cx="28" cy="40" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
-          <circle cx="28" cy="52" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
-          <circle cx="72" cy="40" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
-          <circle cx="72" cy="52" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
-        </svg>`,
-        badgeColor: "bg-slate-100 text-slate-700"
+        phonetic: "/boʊnz/",
+        example: "Archaeologists found ancient dinosaur bones.",
+        badgeColor: "bg-slate-100 text-slate-700",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Fossil Dinosaur Bone -->
+          <path d="M38 52 C32 52 28 46 28 58 C28 70 32 64 38 64 L82 64 C88 64 92 70 92 58 C92 46 88 52 82 52 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="3" />
+          <circle cx="34" cy="52" r="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" />
+          <circle cx="34" cy="64" r="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" />
+          <circle cx="86" cy="52" r="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" />
+          <circle cx="86" cy="64" r="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="2.5" />
+        </svg>`
       },
       {
         id: "live",
         en: "Live",
+        syllables: "live",
         ar: "يعيش",
         category: "extra",
-        example: "Tigers live in the green jungle.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- House and heart representing living -->
-          <polygon points="50,22 22,44 78,44" fill="#0284c7"/>
-          <rect x="30" y="44" width="40" height="34" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
-          <!-- Heart in center -->
-          <path d="M50 56 C46 50 40 52 40 57 C40 63 50 69 50 69 C50 69 60 63 60 57 C60 52 54 50 50 56 Z" fill="#ef4444"/>
-        </svg>`,
-        badgeColor: "bg-emerald-100 text-emerald-800"
+        phonetic: "/lɪv/",
+        example: "Wild tigers live in deep jungles.",
+        badgeColor: "bg-emerald-100 text-emerald-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Cozy Natural Habitat with House / Tree -->
+          <polygon points="60,26 26,52 94,52" fill="#0284c7" />
+          <rect x="36" y="52" width="48" height="42" rx="4" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5" />
+          <!-- Heart of Life -->
+          <path d="M60 66 C56 60 48 62 50 70 C52 76 60 82 60 82 C60 82 68 76 70 70 C72 62 64 60 60 66 Z" fill="#ef4444" />
+        </svg>`
       },
       {
         id: "wild-animals",
         en: "Wild animals",
+        syllables: "wild • an • i • mals",
         ar: "حيوانات برية",
         category: "extra",
-        example: "Lions and elephants are wild animals.",
-        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
-          <!-- Lion face / Safari theme -->
-          <circle cx="50" cy="50" r="26" fill="#f59e0b"/>
-          <!-- Mane spikes -->
-          <path d="M50 16 L54 26 M74 26 L66 32 M84 50 L74 50 M74 74 L66 66 M50 84 L50 74 M26 74 L34 66 M16 50 L26 50 M26 26 L34 32" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="42" cy="46" r="3" fill="#1e293b"/>
-          <circle cx="58" cy="46" r="3" fill="#1e293b"/>
-          <polygon points="50,54 46,50 54,50" fill="#78350f"/>
-        </svg>`,
-        badgeColor: "bg-orange-100 text-orange-800"
+        phonetic: "/waɪld ˈæn.ɪ.məlz/",
+        example: "Lions, giraffes and zebras are wild animals.",
+        badgeColor: "bg-orange-100 text-orange-800",
+        svg: `<svg viewBox="0 0 120 120" class="w-20 h-20 filter drop-shadow-sm">
+          <!-- Safari Lion & Giraffe Heads -->
+          <circle cx="60" cy="62" r="28" fill="#f59e0b" stroke="#d97706" stroke-width="2.5" />
+          <!-- Mane -->
+          <circle cx="60" cy="62" r="34" stroke="#b45309" stroke-width="4" stroke-dasharray="8 6" fill="none" />
+          <!-- Face -->
+          <circle cx="50" cy="58" r="3.5" fill="#1e293b" />
+          <circle cx="70" cy="58" r="3.5" fill="#1e293b" />
+          <polygon points="60,68 55,63 65,63" fill="#78350f" />
+        </svg>`
       }
     ];
 
-    // Missing Letter Questions (10 items)
-    const missingLetterQuestions = [
-      { id: 1, fullWord: "insects", display: "i n s _ c t s", missingLetter: "e", options: ["a", "e", "o"], meaning: "حشرات" },
-      { id: 2, fullWord: "butterfly", display: "b u t t _ r f l y", missingLetter: "e", options: ["e", "a", "i"], meaning: "فراشة" },
-      { id: 3, fullWord: "dinosaur", display: "d i n _ s a u r", missingLetter: "o", options: ["a", "u", "o"], meaning: "ديناصور" },
-      { id: 4, fullWord: "extinct", display: "e x t _ n c t", missingLetter: "i", options: ["e", "i", "u"], meaning: "منقرض" },
-      { id: 5, fullWord: "tortoise", display: "t _ r t o i s e", missingLetter: "o", options: ["o", "a", "u"], meaning: "سلحفاة برية" },
-      { id: 6, fullWord: "creature", display: "c r e a t _ r e", missingLetter: "u", options: ["e", "o", "u"], meaning: "مخلوق" },
-      { id: 7, fullWord: "beetle", display: "b e _ t l e", missingLetter: "e", options: ["a", "e", "i"], meaning: "خنفساء" },
-      { id: 8, fullWord: "heavy", display: "h e _ v y", missingLetter: "a", options: ["a", "e", "o"], meaning: "ثقيل" },
-      { id: 9, fullWord: "quiet", display: "q u _ e t", missingLetter: "i", options: ["e", "i", "a"], meaning: "هادئ" },
-      { id: 10, fullWord: "bones", display: "b _ n e s", missingLetter: "o", options: ["u", "a", "o"], meaning: "عظام" }
-    ];
+    let currentAccent = 'en-US'; // 'en-US', 'en-GB', 'en-CA', 'en-AU'
+    let currentPersona = 'kid';  // 'kid', 'woman', 'man'
+    let currentRate = 1.0;
+    let globalScore = 0;
+    let streakCount = 0;
+    let autoTourIndex = 0;
+    let autoTourActive = false;
+    let toneSynth = null;
 
-    // Sentence Reordering Questions (LTR - 5 items)
-    const sentenceReorderData = [
-      {
-        id: 1,
-        arabic: "الديناصورات هي مخلوقات منقرضة.",
-        correctOrder: ["Dinosaurs", "are", "extinct", "creatures."],
-        shuffled: ["extinct", "Dinosaurs", "creatures.", "are"]
+    // Safari Game Variables
+    let safariCurrentWord = null;
+    let safariRound = 1;
+    const safariTotalRounds = 10;
+    let safariTimerInterval = null;
+    let safariTimeLeft = 15;
+
+    // Spelling Game Variables
+    let currentSpellTarget = null;
+    let currentSpellPlaced = [];
+    let currentSpellPool = [];
+
+    // Persona Configurations
+    const personas = {
+      kid: {
+        name: "صوت طفل (Kid)",
+        icon: "🧒",
+        pitch: 1.52,
+        rateScale: 0.95
       },
-      {
-        id: 2,
-        arabic: "الفراشة تملك أجنحة ملونة.",
-        correctOrder: ["The", "butterfly", "has", "colorful", "wings."],
-        shuffled: ["colorful", "butterfly", "wings.", "The", "has"]
+      woman: {
+        name: "صوت امرأة (Woman)",
+        icon: "👩",
+        pitch: 1.15,
+        rateScale: 1.0
       },
-      {
-        id: 3,
-        arabic: "السلاحف البرية حيوانات هادئة جداً.",
-        correctOrder: ["Tortoises", "are", "very", "quiet", "animals."],
-        shuffled: ["quiet", "Tortoises", "animals.", "are", "very"]
-      },
-      {
-        id: 4,
-        arabic: "لا تلمس الحيوانات البرية.",
-        correctOrder: ["Don't", "touch", "the", "wild", "animals."],
-        shuffled: ["wild", "touch", "animals.", "Don't", "the"]
-      },
-      {
-        id: 5,
-        arabic: "النمل حشرات صغيرة تعيش هنا.",
-        correctOrder: ["Ants", "are", "tiny", "insects.", "they", "live", "here."],
-        shuffled: ["insects.", "Ants", "live", "are", "tiny", "here.", "they"]
+      man: {
+        name: "صوت رجل (Man)",
+        icon: "👨",
+        pitch: 0.78,
+        rateScale: 0.94
       }
-    ];
+    };
 
-    // App State
-    let currentAccent = 'en-US'; // 'en-US', 'en-GB', 'en-CA'
-    let speechRate = 1.0;
-    let missingQuizAnswers = {};
-    let sentenceStates = {};
-    let appSynth = null;
-
-    function initSynth() {
-      if (!appSynth && window.Tone) {
+    function initAudio() {
+      if (!toneSynth && window.Tone) {
         try {
-          appSynth = new Tone.PolySynth(Tone.Synth).toDestination();
-          appSynth.volume.value = -6;
+          toneSynth = new Tone.PolySynth(Tone.Synth).toDestination();
+          toneSynth.volume.value = -6;
         } catch (e) {}
+      }
+      if (Tone && Tone.context && Tone.context.state !== 'running') {
+        Tone.start();
       }
     }
 
-    function playTone(type) {
-      initSynth();
-      if (Tone.context && Tone.context.state !== 'running') {
-        Tone.start();
-      }
+    function playToneSound(type) {
+      initAudio();
+      if (!toneSynth) return;
       try {
-        const now = Tone.now();
+        const t = Tone.now();
         if (type === 'correct') {
-          appSynth.triggerAttackRelease("C5", "8n", now);
-          appSynth.triggerAttackRelease("E5", "8n", now + 0.08);
-          appSynth.triggerAttackRelease("G5", "8n", now + 0.16);
+          toneSynth.triggerAttackRelease("C5", "16n", t);
+          toneSynth.triggerAttackRelease("E5", "16n", t + 0.08);
+          toneSynth.triggerAttackRelease("G5", "16n", t + 0.16);
+          toneSynth.triggerAttackRelease("C6", "8n", t + 0.24);
         } else if (type === 'wrong') {
-          appSynth.triggerAttackRelease("Eb4", "8n", now);
-          appSynth.triggerAttackRelease("B3", "6n", now + 0.12);
+          toneSynth.triggerAttackRelease("Eb4", "16n", t);
+          toneSynth.triggerAttackRelease("B3", "8n", t + 0.12);
         } else if (type === 'click') {
-          appSynth.triggerAttackRelease("A5", "16n", now);
+          toneSynth.triggerAttackRelease("A5", "32n", t);
         } else if (type === 'celebrate') {
-          appSynth.triggerAttackRelease("G4", "8n", now);
-          appSynth.triggerAttackRelease("C5", "8n", now + 0.1);
-          appSynth.triggerAttackRelease("E5", "8n", now + 0.2);
-          appSynth.triggerAttackRelease("G5", "8n", now + 0.3);
-          appSynth.triggerAttackRelease("C6", "4n", now + 0.4);
+          toneSynth.triggerAttackRelease("C5", "8n", t);
+          toneSynth.triggerAttackRelease("G5", "8n", t + 0.12);
+          toneSynth.triggerAttackRelease("C6", "4n", t + 0.24);
         }
       } catch (e) {}
     }
 
-    function setAccent(langCode) {
-      currentAccent = langCode;
-      document.querySelectorAll('.accent-btn').forEach(b => b.classList.remove('active'));
-      if (langCode === 'en-US') document.getElementById('btn-accent-us').classList.add('active');
-      if (langCode === 'en-GB') document.getElementById('btn-accent-uk').classList.add('active');
-      if (langCode === 'en-CA') document.getElementById('btn-accent-ca').classList.add('active');
-
-      const names = { 'en-US': 'الأمريكية 🇺🇸', 'en-GB': 'البريطانية 🇬🇧', 'en-CA': 'الكندية 🇨🇦' };
-      showToast(`تم اختيار اللهجة ${names[langCode]}`, "🎙️");
-    }
-
-    function toggleSpeechSpeed() {
-      if (speechRate === 1.0) speechRate = 0.75;
-      else if (speechRate === 0.75) speechRate = 1.2;
-      else speechRate = 1.0;
-
-      document.getElementById('speedLabel').textContent = `${speechRate}x`;
-      showToast(`تم تغيير سرعة النطق إلى ${speechRate}x`, "⚡");
-    }
-
-    function speakWord(text, forcedAccent = null) {
+    function speakText(text, forcedPersona = null, forcedAccent = null, onFinishCallback = null) {
       if (!('speechSynthesis' in window)) {
-        showToast("المتصفح لا يدعم نطق الصوت", "⚠️");
+        showToast("المتصفح الحالي لا يدعم نطق الصوت", "⚠️");
         return;
       }
 
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      const targetLang = forcedAccent || currentAccent;
-      utterance.lang = targetLang;
-      utterance.rate = speechRate;
+      const acc = forcedAccent || currentAccent;
+      const per = forcedPersona || currentPersona;
+      const cfg = personas[per];
 
-      // Try finding the specific regional voice
+      utterance.lang = acc;
+      utterance.pitch = cfg.pitch;
+      utterance.rate = currentRate * cfg.rateScale;
+
+      // Select system matching voices if available
       const voices = window.speechSynthesis.getVoices();
-      const matchVoice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang));
-      if (matchVoice) {
-        utterance.voice = matchVoice;
+      const matching = voices.filter(v => v.lang === acc || v.lang.startsWith(acc));
+
+      if (matching.length > 0) {
+        if (per === 'woman') {
+          const fem = matching.find(v => 
+            v.name.toLowerCase().includes('female') || 
+            v.name.toLowerCase().includes('zira') || 
+            v.name.toLowerCase().includes('samantha') || 
+            v.name.toLowerCase().includes('karen')
+          );
+          utterance.voice = fem || matching[0];
+        } else if (per === 'man') {
+          const male = matching.find(v => 
+            v.name.toLowerCase().includes('male') || 
+            v.name.toLowerCase().includes('david') || 
+            v.name.toLowerCase().includes('daniel') || 
+            v.name.toLowerCase().includes('george')
+          );
+          utterance.voice = male || matching[matching.length - 1];
+        } else {
+          utterance.voice = matching[0];
+        }
       }
 
-      window.speechSynthesis.speak(utterance);
-      const flags = { 'en-US': '🇺🇸', 'en-GB': '🇬🇧', 'en-CA': '🇨🇦' };
-      showToast(`نطق: "${text}" (${flags[targetLang] || '🗣️'})`, "🔊");
-    }
-
-    // Ensure voices are loaded
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.onvoiceschanged = () => {
-        window.speechSynthesis.getVoices();
+      utterance.onend = () => {
+        if (onFinishCallback) onFinishCallback();
       };
+
+      window.speechSynthesis.speak(utterance);
     }
 
-    function renderWordCards(items = vocabularyList) {
-      const container = document.getElementById('wordsContainer');
-      container.innerHTML = items.map(word => `
-        <div class="word-card bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-3 relative group">
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      autoTourActive = false;
+      const btn = document.getElementById('autoTourBtn');
+      if (btn) btn.innerHTML = `<span>🎧</span> جولة قراءة الكلمات تلقائياً`;
+    }
+
+    function setAccent(code) {
+      currentAccent = code;
+      document.querySelectorAll('.acc-btn').forEach(b => {
+        b.classList.remove('active', 'bg-indigo-600', 'text-white');
+        b.classList.add('bg-white', 'text-slate-700');
+      });
+      const activeBtn = document.getElementById(
+        code === 'en-US' ? 'acc-us' : 
+        code === 'en-GB' ? 'acc-uk' : 
+        code === 'en-CA' ? 'acc-ca' : 'acc-au'
+      );
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-indigo-600', 'text-white');
+        activeBtn.classList.remove('bg-white', 'text-slate-700');
+      }
+
+      const names = {
+        'en-US': 'American (US)',
+        'en-GB': 'British (UK)',
+        'en-CA': 'Canadian (CA)',
+        'en-AU': 'Australian (AU)'
+      };
+      document.getElementById('currentAccentDisplay').textContent = names[code] || code;
+      showToast(`تم تفعيل اللهجة: ${names[code]} 🌍`, "🎙️");
+    }
+
+    function setPersona(pKey) {
+      currentPersona = pKey;
+      document.querySelectorAll('.per-btn').forEach(b => {
+        b.classList.remove('active', 'bg-purple-600', 'text-white');
+        b.classList.add('bg-white', 'text-slate-700');
+      });
+      const activeBtn = document.getElementById(`per-${pKey}`);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'bg-purple-600', 'text-white');
+        activeBtn.classList.remove('bg-white', 'text-slate-700');
+      }
+      const p = personas[pKey];
+      document.getElementById('currentPersonaDisplay').textContent = `${p.icon} ${p.name}`;
+      showToast(`قارئ الصوت: ${p.name}`, p.icon);
+    }
+
+    function cycleSpeechRate() {
+      if (currentRate === 1.0) currentRate = 0.75;
+      else if (currentRate === 0.75) currentRate = 1.25;
+      else currentRate = 1.0;
+
+      document.getElementById('rateLabel').textContent = `${currentRate}x`;
+      showToast(`سرعة القراءة: ${currentRate}x`, "⚡");
+    }
+
+    function renderWordCards(list = wordInventory) {
+      const container = document.getElementById('cardsContainer');
+      container.innerHTML = list.map(item => `
+        <div class="crystal-card bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm flex flex-col justify-between space-y-4 relative group" id="card-${item.id}">
           
+          <!-- Top Card Meta -->
           <div class="flex items-start justify-between">
-            <span class="px-2.5 py-1 rounded-xl text-xs font-bold ${word.badgeColor}">
-              ${word.ar}
+            <span class="px-2.5 py-1 rounded-xl text-xs font-bold ${item.badgeColor}">
+              ${item.ar}
             </span>
-            <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-1.5 shadow-inner">
-              ${word.iconSvg}
+            <div class="text-[11px] font-mono text-slate-400 font-en">
+              ${item.syllables}
             </div>
           </div>
 
-          <div>
-            <div class="font-en text-xl font-black text-slate-800 tracking-tight flex items-center justify-between">
-              <span>${word.en}</span>
-              <button onclick="speakWord('${word.en}')" class="p-2 rounded-xl bg-sky-50 text-sky-700 hover:bg-sky-500 hover:text-white transition shadow-sm" title="استمع باللهجة المختارة">
+          <!-- Crystal Clear Center Image -->
+          <div class="flex items-center justify-center p-3 bg-slate-50/70 rounded-2xl border border-slate-100 group-hover:bg-indigo-50/40 transition">
+            ${item.svg}
+          </div>
+
+          <!-- Word & Phonetic -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between font-en">
+              <span class="text-2xl font-black text-slate-800 tracking-tight">${item.en}</span>
+              <button onclick="triggerCardSpeech('${item.id}', '${item.en}')" class="p-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 transition shadow-xs" title="استمع بالصوت المحدد">
                 🔊
               </button>
             </div>
-            <p class="text-[11px] text-slate-500 font-en italic mt-1 line-clamp-2">
-              "${word.example}"
-            </p>
+            <div class="text-xs text-indigo-500 font-mono font-en">${item.phonetic}</div>
+            <p class="text-[11px] text-slate-500 italic font-en line-clamp-1">"${item.example}"</p>
           </div>
 
-          <!-- Triple Accent Quick Pronounce Bar -->
-          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-600">
-            <span class="text-[10px] text-slate-400">اللهجات:</span>
-            <div class="flex items-center gap-1.5">
-              <button onclick="speakWord('${word.en}', 'en-US')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 transition font-en text-[10px]" title="نطق أمريكي">
-                🇺🇸 US
+          <!-- 3-Persona Audition Bar (Kid, Woman, Man) -->
+          <div class="pt-2 border-t border-slate-100 space-y-1.5">
+            <div class="flex items-center justify-between text-[10px] font-bold text-slate-400">
+              <span>الأصوات الثلاثة:</span>
+              <span class="font-en text-indigo-600">${currentAccent.replace('en-', '')}</span>
+            </div>
+            <div class="grid grid-cols-3 gap-1">
+              <button onclick="speakText('${item.en}', 'kid')" class="px-1.5 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-900 transition font-bold text-[10px] flex items-center justify-center gap-1 shadow-xs" title="استمع بصوت طفل">
+                <span>🧒</span> طفل
               </button>
-              <button onclick="speakWord('${word.en}', 'en-GB')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-indigo-100 hover:text-indigo-800 transition font-en text-[10px]" title="نطق بريطاني">
-                🇬🇧 UK
+              <button onclick="speakText('${item.en}', 'woman')" class="px-1.5 py-1.5 rounded-xl bg-pink-50 hover:bg-pink-100 text-pink-900 transition font-bold text-[10px] flex items-center justify-center gap-1 shadow-xs" title="استمع بصوت امرأة">
+                <span>👩</span> امرأة
               </button>
-              <button onclick="speakWord('${word.en}', 'en-CA')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-800 transition font-en text-[10px]" title="نطق كندي">
-                🇨🇦 CA
+              <button onclick="speakText('${item.en}', 'man')" class="px-1.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-900 transition font-bold text-[10px] flex items-center justify-center gap-1 shadow-xs" title="استمع بصوت رجل">
+                <span>👨</span> رجل
               </button>
             </div>
           </div>
@@ -853,301 +1128,385 @@
       `).join('');
     }
 
-    // Filter words by Category & Search
-    function filterCategory(cat) {
-      document.querySelectorAll('.cat-pill').forEach(btn => {
-        btn.classList.remove('active', 'bg-emerald-600', 'text-white');
-        btn.classList.add('bg-white', 'text-slate-700');
+    function triggerCardSpeech(cardId, text) {
+      const card = document.getElementById(`card-${cardId}`);
+      if (card) {
+        card.classList.add('speaking-active');
+        setTimeout(() => card.classList.remove('speaking-active'), 1200);
+      }
+      speakText(text);
+      playToneSound('click');
+    }
+
+    // Auto Tour Through all 18 words
+    function startAutoTour() {
+      if (autoTourActive) {
+        stopSpeech();
+        return;
+      }
+      autoTourActive = true;
+      autoTourIndex = 0;
+      const btn = document.getElementById('autoTourBtn');
+      btn.innerHTML = `<span>⏸️</span> إيقاف الجولة`;
+      tourStep();
+    }
+
+    function tourStep() {
+      if (!autoTourActive || autoTourIndex >= wordInventory.length) {
+        stopSpeech();
+        showToast("اكتملت جولة القراءة بنجاح! أحسنت ⭐", "🎉");
+        return;
+      }
+
+      const item = wordInventory[autoTourIndex];
+      triggerCardSpeech(item.id, item.en);
+      autoTourIndex++;
+      setTimeout(() => {
+        if (autoTourActive) tourStep();
+      }, 2200);
+    }
+
+    function filterCards(category) {
+      document.querySelectorAll('.card-flt').forEach(b => {
+        b.classList.remove('active', 'bg-indigo-600', 'text-white');
+        b.classList.add('bg-white', 'text-slate-700');
       });
-      event.target.classList.add('active', 'bg-emerald-600', 'text-white');
+      event.target.classList.add('active', 'bg-indigo-600', 'text-white');
       event.target.classList.remove('bg-white', 'text-slate-700');
 
-      if (cat === 'all') {
-        renderWordCards(vocabularyList);
+      if (category === 'all') {
+        renderWordCards(wordInventory);
       } else {
-        const filtered = vocabularyList.filter(w => w.category === cat);
+        const filtered = wordInventory.filter(w => w.category === category);
         renderWordCards(filtered);
       }
     }
 
-    function filterWords() {
-      const q = document.getElementById('wordSearchInput').value.trim().toLowerCase();
-      const filtered = vocabularyList.filter(w => 
+    function searchCards() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filtered = wordInventory.filter(w => 
         w.en.toLowerCase().includes(q) || w.ar.includes(q)
       );
       renderWordCards(filtered);
     }
 
-    function renderMissingLetterQuiz() {
-      const container = document.getElementById('missingLetterQuizContainer');
-      container.innerHTML = missingLetterQuestions.map(q => `
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3" id="missing-card-${q.id}">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500 font-en">Question ${q.id}</span>
-            <span class="text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded-lg">${q.meaning}</span>
-          </div>
+    function switchTab(tabId) {
+      playToneSound('click');
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active', 'bg-indigo-600', 'text-white');
+        b.classList.add('bg-white', 'text-slate-700');
+      });
+      const targetBtn = document.getElementById(`tab-${tabId}`);
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+        targetBtn.classList.remove('bg-white', 'text-slate-700');
+      }
 
-          <div class="text-center py-2">
-            <div class="font-en text-2xl font-black text-slate-800 tracking-wider flex items-center justify-center" id="display-word-${q.id}">
-              ${q.display.split(' ').map(char => {
-                if (char === '_') {
-                  return `<span class="letter-slot" id="slot-${q.id}">_</span>`;
-                }
-                return `<span>${char}</span>`;
-              }).join(' ')}
-            </div>
-          </div>
+      document.getElementById('view-studio').classList.add('hidden');
+      document.getElementById('view-safari').classList.add('hidden');
+      document.getElementById('view-spelling').classList.add('hidden');
 
-          <!-- Letter Choice Bubbles -->
-          <div class="flex items-center justify-center gap-4 pt-1">
-            ${q.options.map(letter => `
-              <div class="pencil-option flex flex-col items-center" id="opt-${q.id}-${letter}" onclick="chooseMissingLetter(${q.id}, '${letter}')">
-                <div class="w-11 h-11 rounded-xl bg-white border-2 border-slate-300 hover:border-sky-500 flex items-center justify-center font-en text-lg font-black text-slate-800 shadow-sm relative">
-                  ${letter}
-                  <svg class="drawn-circle-svg" viewBox="0 0 100 100">
-                    <path d="M 50,12 A 38,36 0 1,1 18,65 A 38,36 0 0,1 50,12 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
-                  </svg>
-                </div>
-              </div>
-            `).join('')}
-          </div>
+      document.getElementById(`view-${tabId}`).classList.remove('hidden');
 
-          <div class="text-[11px] font-bold text-center hidden" id="missing-feedback-${q.id}"></div>
+      if (tabId === 'safari' && !safariCurrentWord) {
+        startNewSafariGame();
+      } else if (tabId === 'spelling' && !currentSpellTarget) {
+        initSpellingSelect();
+      }
+    }
+
+    function startNewSafariGame() {
+      safariRound = 1;
+      updateSafariScoreboard();
+      loadSafariRound();
+    }
+
+    function loadSafariRound() {
+      clearInterval(safariTimerInterval);
+      document.getElementById('safariHintText').classList.add('hidden');
+      document.getElementById('roundDisplay').textContent = `${safariRound} / ${safariTotalRounds}`;
+
+      // Pick a random word from the 18 items
+      const randomIndex = Math.floor(Math.random() * wordInventory.length);
+      safariCurrentWord = wordInventory[randomIndex];
+
+      // Pick a random persona & accent for maximum immersion!
+      const randPersonas = ['kid', 'woman', 'man'];
+      const randAccents = ['en-US', 'en-GB', 'en-CA', 'en-AU'];
+      const chosenPersona = randPersonas[Math.floor(Math.random() * randPersonas.length)];
+      const chosenAccent = randAccents[Math.floor(Math.random() * randAccents.length)];
+
+      const flags = { 'en-US': '🇺🇸 أمريكي', 'en-GB': '🇬🇧 بريطاني', 'en-CA': '🇨🇦 كندي', 'en-AU': '🇦🇺 أسترالي' };
+      document.getElementById('speakerAvatar').textContent = personas[chosenPersona].icon;
+      document.getElementById('speakerInfoText').textContent = `${personas[chosenPersona].name} (${flags[chosenAccent]}) يتحدث الآن...`;
+
+      // Build 4 choices (1 correct, 3 distractors)
+      const distractors = wordInventory.filter(w => w.id !== safariCurrentWord.id);
+      distractors.sort(() => 0.5 - Math.random());
+      const choices = [safariCurrentWord, distractors[0], distractors[1], distractors[2]];
+      choices.sort(() => 0.5 - Math.random());
+
+      // Render choice cards
+      const container = document.getElementById('safariChoicesContainer');
+      container.innerHTML = choices.map(ch => `
+        <button onclick="handleSafariAnswer('${ch.id}')" class="choice-card p-4 rounded-3xl bg-white border-2 border-slate-200 hover:border-indigo-500 shadow-sm flex flex-col items-center justify-between text-center space-y-3" id="safari-choice-${ch.id}">
+          <div class="w-24 h-24 flex items-center justify-center p-2 bg-slate-50 rounded-2xl">
+            ${ch.svg}
+          </div>
+          <div>
+            <div class="font-en text-lg font-black text-slate-800">${ch.en}</div>
+            <div class="text-xs font-bold text-slate-400 mt-0.5">${ch.ar}</div>
+          </div>
+        </button>
+      `).join('');
+
+      // Play the audio
+      speakText(safariCurrentWord.en, chosenPersona, chosenAccent);
+
+      // Start timer
+      safariTimeLeft = 15;
+      document.getElementById('gameTimerDisplay').textContent = `${safariTimeLeft}s`;
+      safariTimerInterval = setInterval(() => {
+        safariTimeLeft--;
+        document.getElementById('gameTimerDisplay').textContent = `${safariTimeLeft}s`;
+        if (safariTimeLeft <= 0) {
+          clearInterval(safariTimerInterval);
+          handleSafariTimeout();
+        }
+      }, 1000);
+
+      document.getElementById('safariFeedback').innerHTML = `
+        <span class="text-indigo-600 font-bold">استمع جيداً للكلمة وانقر على البطاقة المطابقة!</span>
+      `;
+    }
+
+    function playSafariPromptSound() {
+      if (safariCurrentWord) {
+        speakText(safariCurrentWord.en);
+        playToneSound('click');
+      }
+    }
+
+    function toggleSafariHint() {
+      const hint = document.getElementById('safariHintText');
+      if (safariCurrentWord) {
+        hint.textContent = `المعنى بالعربية: ${safariCurrentWord.ar} (${safariCurrentWord.syllables})`;
+        hint.classList.toggle('hidden');
+      }
+    }
+
+    function handleSafariAnswer(chosenId) {
+      clearInterval(safariTimerInterval);
+      const isCorrect = (chosenId === safariCurrentWord.id);
+      const choiceBtn = document.getElementById(`safari-choice-${chosenId}`);
+
+      if (isCorrect) {
+        playToneSound('correct');
+        globalScore += 10;
+        streakCount++;
+        if (choiceBtn) {
+          choiceBtn.classList.remove('border-slate-200');
+          choiceBtn.classList.add('border-emerald-500', 'bg-emerald-50');
+        }
+        document.getElementById('safariFeedback').innerHTML = `
+          <span class="text-emerald-700 font-black">✅ إجابة صحيحة ورائعة! الكلمة هي: "${safariCurrentWord.en}"</span>
+        `;
+        showToast("إجابة صحيحة! +10 نقاط ⭐", "🎉");
+      } else {
+        playToneSound('wrong');
+        streakCount = 0;
+        if (choiceBtn) {
+          choiceBtn.classList.remove('border-slate-200');
+          choiceBtn.classList.add('border-rose-500', 'bg-rose-50');
+        }
+        const correctBtn = document.getElementById(`safari-choice-${safariCurrentWord.id}`);
+        if (correctBtn) {
+          correctBtn.classList.add('border-emerald-500', 'bg-emerald-50');
+        }
+        document.getElementById('safariFeedback').innerHTML = `
+          <span class="text-rose-700 font-bold">❌ خطأ! الكلمة الصحيحة هي: <strong>${safariCurrentWord.en}</strong> (${safariCurrentWord.ar})</span>
+        `;
+      }
+
+      updateSafariScoreboard();
+
+      setTimeout(() => {
+        safariRound++;
+        if (safariRound <= safariTotalRounds) {
+          loadSafariRound();
+        } else {
+          finishSafariGame();
+        }
+      }, 1800);
+    }
+
+    function handleSafariTimeout() {
+      playToneSound('wrong');
+      streakCount = 0;
+      updateSafariScoreboard();
+      document.getElementById('safariFeedback').innerHTML = `
+        <span class="text-rose-600 font-bold">⏰ انتهى الوقت! الكلمة كانت: "${safariCurrentWord.en}"</span>
+      `;
+      setTimeout(() => {
+        safariRound++;
+        if (safariRound <= safariTotalRounds) {
+          loadSafariRound();
+        } else {
+          finishSafariGame();
+        }
+      }, 1600);
+    }
+
+    function finishSafariGame() {
+      playToneSound('celebrate');
+      triggerConfetti();
+      document.getElementById('safariFeedback').innerHTML = `
+        <span class="text-indigo-700 font-black text-sm">🏆 اكتمل التحدي! أحرزت ${globalScore} نقطة. تهانينا!</span>
+      `;
+      showToast(`مبروك! أنهيت 10 جولات برصيد ${globalScore} نقطة! 🏆`, "🌟");
+    }
+
+    function updateSafariScoreboard() {
+      document.getElementById('gameScoreBadge').textContent = `${globalScore} pts`;
+      document.getElementById('streakBadge').textContent = `${streakCount} Streak`;
+    }
+
+    function initSpellingSelect() {
+      const select = document.getElementById('spellWordSelect');
+      select.innerHTML = wordInventory.map(w => `
+        <option value="${w.id}">${w.en} (${w.ar})</option>
+      `).join('');
+      loadSpellChallenge(wordInventory[0].id);
+    }
+
+    function loadSpellChallenge(wordId) {
+      currentSpellTarget = wordInventory.find(w => w.id === wordId);
+      if (!currentSpellTarget) return;
+
+      document.getElementById('spellCardImage').innerHTML = currentSpellTarget.svg;
+      document.getElementById('spellCardArabic').textContent = currentSpellTarget.ar;
+      document.getElementById('spellCardPhonetic').textContent = currentSpellTarget.phonetic;
+
+      currentSpellPlaced = [];
+      const letters = currentSpellTarget.en.replace(/[^a-zA-Z]/g, '').toLowerCase().split('');
+      currentSpellPool = letters.map((char, idx) => ({ char, idx, used: false }));
+      currentSpellPool.sort(() => 0.5 - Math.random());
+
+      renderSpellDropzone();
+      renderSpellPool();
+      document.getElementById('spellFeedbackAlert').classList.add('hidden');
+    }
+
+    function renderSpellDropzone() {
+      const zone = document.getElementById('spellDropzone');
+      if (currentSpellPlaced.length === 0) {
+        zone.innerHTML = `<span class="text-xs font-bold text-slate-400 italic pointer-events-none select-none">👈 انقر على الحروف بالأسفل لتركيب الكلمة...</span>`;
+        return;
+      }
+      zone.innerHTML = currentSpellPlaced.map((item, idx) => `
+        <div class="inline-flex items-center gap-1.5 bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-en text-sm font-black px-2.5 py-1.5 rounded-xl shadow-md">
+          <span class="w-4 h-4 rounded-full bg-black/20 text-white text-[10px] flex items-center justify-center">${idx + 1}</span>
+          <span class="text-base uppercase">${item.char}</span>
+          <button onclick="removeSpelledLetter(${idx})" class="p-0.5 hover:bg-rose-500 rounded text-xs ml-1 transition" title="إزالة الحرف">✕</button>
         </div>
       `).join('');
     }
 
-    function chooseMissingLetter(qid, chosenLetter) {
-      const q = missingLetterQuestions.find(item => item.id === qid);
-      if (!q) return;
-
-      // Clear previous circles for this question
-      q.options.forEach(opt => {
-        const el = document.getElementById(`opt-${qid}-${opt}`);
-        if (el) el.classList.remove('selected');
-      });
-
-      // Mark chosen
-      const selectedEl = document.getElementById(`opt-${qid}-${chosenLetter}`);
-      if (selectedEl) selectedEl.classList.add('selected');
-
-      const isCorrect = (chosenLetter.toLowerCase() === q.missingLetter.toLowerCase());
-      missingQuizAnswers[qid] = isCorrect;
-
-      const slot = document.getElementById(`slot-${qid}`);
-      const feedback = document.getElementById(`missing-feedback-${qid}`);
-      feedback.classList.remove('hidden');
-
-      if (isCorrect) {
-        slot.textContent = chosenLetter;
-        slot.classList.add('filled', 'text-emerald-700');
-        feedback.className = "text-[11px] font-bold text-center text-emerald-700 bg-emerald-50 py-1 rounded-lg border border-emerald-200 block";
-        feedback.textContent = `✅ ممتاز! الكلمة الصحيحة هي (${q.fullWord})`;
-        playTone('correct');
-        speakWord(q.fullWord);
-      } else {
-        slot.textContent = chosenLetter;
-        slot.classList.add('filled', 'text-rose-700');
-        feedback.className = "text-[11px] font-bold text-center text-rose-700 bg-rose-50 py-1 rounded-lg border border-rose-200 block";
-        feedback.textContent = `❌ حاول ثانية! الحرف الصحيح هو (${q.missingLetter})`;
-        playTone('wrong');
-      }
-
-      updateGlobalScoreboard();
-    }
-
-    function renderSentenceBuilder() {
-      const container = document.getElementById('sentenceBuilderContainer');
-      container.innerHTML = sentenceReorderData.map(item => {
-        sentenceStates[item.id] = { selected: [], pool: [...item.shuffled] };
-        return `
-          <div class="p-5 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
-            
-            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-              <span class="px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-800 font-en text-xs font-black">
-                Sentence ${item.id}
-              </span>
-              <span class="text-xs font-bold text-slate-600">المعنى: ${item.arabic}</span>
-            </div>
-
-            <!-- Direction Indicator Banner -->
-            <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 ltr-content px-1">
-              <span>1️⃣ Start (Left) ➔</span>
-              <span>Finish (Right) 🏁</span>
-            </div>
-
-            <!-- Answer Dropzone (LTR) -->
-            <div id="answer-zone-${item.id}" class="min-h-[58px] p-2.5 bg-white rounded-2xl border-2 border-dashed border-sky-300 flex flex-wrap items-center gap-2 ltr-content shadow-inner">
-              <span class="text-xs font-bold text-slate-400 italic pointer-events-none" id="placeholder-${item.id}">
-                Click word chips below to place here from left to right...
-              </span>
-            </div>
-
-            <!-- Word Bank Pool -->
-            <div class="space-y-1.5">
-              <div class="text-[11px] font-bold text-slate-500">بنك الكلمات (انقر على الكلمة لإضافتها للترتيب):</div>
-              <div id="pool-zone-${item.id}" class="flex flex-wrap items-center gap-2 ltr-content">
-                ${item.shuffled.map((word, idx) => `
-                  <button onclick="addWordToAnswer(${item.id}, '${word}', ${idx})" id="pool-btn-${item.id}-${idx}" class="word-chip px-3 py-1.5 bg-white hover:bg-sky-50 text-slate-800 font-en text-xs font-bold rounded-xl border border-slate-300 shadow-sm transition">
-                    ${word}
-                  </button>
-                `).join('')}
-              </div>
-            </div>
-
-            <!-- Actions and Feedback -->
-            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-              <div class="flex items-center gap-2">
-                <button onclick="checkSentenceOrder(${item.id})" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
-                  <span>✔</span> تحقق من الترتيب
-                </button>
-                <button onclick="resetSingleSentence(${item.id})" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition">
-                  إعادة المحاولة
-                </button>
-                <button onclick="speakSentenceResult(${item.id})" class="p-2 bg-sky-100 hover:bg-sky-200 text-sky-800 rounded-xl text-xs font-bold transition" title="استمع للجملة">
-                  🔊
-                </button>
-              </div>
-              <div id="sentence-feedback-${item.id}" class="text-xs font-bold hidden"></div>
-            </div>
-
-          </div>
-        `;
-      }).join('');
-    }
-
-    function addWordToAnswer(sentenceId, word, index) {
-      const state = sentenceStates[sentenceId];
-      const btn = document.getElementById(`pool-btn-${sentenceId}-${index}`);
-      if (!btn || btn.disabled) return;
-
-      playTone('click');
-      btn.disabled = true;
-      btn.classList.add('opacity-30', 'pointer-events-none');
-
-      state.selected.push({ word, index });
-      renderAnswerChips(sentenceId);
-    }
-
-    function removeWordFromAnswer(sentenceId, selectedIndex) {
-      const state = sentenceStates[sentenceId];
-      const removed = state.selected.splice(selectedIndex, 1)[0];
-      playTone('click');
-
-      const poolBtn = document.getElementById(`pool-btn-${sentenceId}-${removed.index}`);
-      if (poolBtn) {
-        poolBtn.disabled = false;
-        poolBtn.classList.remove('opacity-30', 'pointer-events-none');
-      }
-
-      renderAnswerChips(sentenceId);
-    }
-
-    function renderAnswerChips(sentenceId) {
-      const state = sentenceStates[sentenceId];
-      const zone = document.getElementById(`answer-zone-${sentenceId}`);
-
-      if (state.selected.length === 0) {
-        zone.innerHTML = `<span class="text-xs font-bold text-slate-400 italic pointer-events-none" id="placeholder-${sentenceId}">Click word chips below to place here from left to right...</span>`;
-        return;
-      }
-
-      zone.innerHTML = state.selected.map((item, idx) => `
-        <button onclick="removeWordFromAnswer(${sentenceId}, ${idx})" class="word-chip px-3 py-1.5 bg-sky-600 text-white hover:bg-rose-500 font-en text-xs font-black rounded-xl shadow-sm transition flex items-center gap-1.5" title="انقر للإزالة">
-          <span class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-sans">${idx + 1}</span>
-          <span>${item.word}</span>
-          <span class="text-[10px] text-sky-200">✕</span>
+    function renderSpellPool() {
+      const poolEl = document.getElementById('spellLetterPool');
+      poolEl.innerHTML = currentSpellPool.map((item) => `
+        <button onclick="addSpelledLetter(${item.idx})" id="pool-btn-${item.idx}" class="w-11 h-12 bg-white hover:bg-teal-50 active:scale-95 text-slate-800 font-en text-lg font-black rounded-xl border-2 border-slate-300 hover:border-teal-400 shadow-sm transition flex items-center justify-center ${item.used ? 'opacity-20 pointer-events-none bg-slate-100' : ''}">
+          ${item.char.toUpperCase()}
         </button>
       `).join('');
     }
 
-    function checkSentenceOrder(sentenceId) {
-      const item = sentenceReorderData.find(s => s.id === sentenceId);
-      const state = sentenceStates[sentenceId];
-      const currentSentence = state.selected.map(s => s.word).join(' ');
-      const targetSentence = item.correctOrder.join(' ');
+    function addSpelledLetter(poolIdx) {
+      playToneSound('click');
+      const item = currentSpellPool.find(p => p.idx === poolIdx);
+      if (!item || item.used) return;
+      item.used = true;
+      currentSpellPlaced.push(item);
+      renderSpellDropzone();
+      renderSpellPool();
+    }
 
-      const feedback = document.getElementById(`sentence-feedback-${sentenceId}`);
+    function removeSpelledLetter(placedIdx) {
+      playToneSound('click');
+      const removed = currentSpellPlaced.splice(placedIdx, 1)[0];
+      if (removed) removed.used = false;
+      renderSpellDropzone();
+      renderSpellPool();
+    }
+
+    function checkSpelledWord() {
+      const entered = currentSpellPlaced.map(i => i.char).join('').toLowerCase();
+      const target = currentSpellTarget.en.replace(/[^a-zA-Z]/g, '').toLowerCase();
+      const feedback = document.getElementById('spellFeedbackAlert');
       feedback.classList.remove('hidden');
 
-      if (currentSentence === targetSentence) {
-        feedback.className = "text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 block";
-        feedback.textContent = `✅ ترتيب رائع ومتقن 100%! "${targetSentence}"`;
-        playTone('correct');
-        sentenceStates[sentenceId].isCorrect = true;
+      if (entered === target) {
+        playToneSound('correct');
+        globalScore += 15;
+        updateSafariScoreboard();
+        feedback.innerHTML = `
+          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs space-y-2 text-emerald-800">
+            <div class="font-bold flex items-center justify-between text-sm">
+              <span class="flex items-center gap-1.5"><span>✅</span> تهجئة صحيحة وممتازة 100%!</span>
+              <span class="px-2 py-0.5 bg-emerald-200 text-emerald-900 rounded-full font-black text-xs">+15 نقطة ⭐</span>
+            </div>
+            <div class="font-en text-xl font-black text-emerald-950 ltr-box">${currentSpellTarget.en.toUpperCase()}</div>
+          </div>
+        `;
+        speakText(currentSpellTarget.en);
       } else {
-        feedback.className = "text-xs font-bold text-rose-800 bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 block";
-        feedback.textContent = `❌ هناك خطأ في الترتيب! راجع سياق الجملة من اليسار لليمين.`;
-        playTone('wrong');
-        sentenceStates[sentenceId].isCorrect = false;
+        playToneSound('wrong');
+        feedback.innerHTML = `
+          <div class="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl text-xs space-y-1 text-rose-800">
+            <div class="font-bold flex items-center gap-1.5">
+              <span>❌</span> ترتيب غير صحيح! حاول مرة أخرى أو استمع للتهجئة.
+            </div>
+          </div>
+        `;
       }
-
-      updateGlobalScoreboard();
     }
 
-    function resetSingleSentence(sentenceId) {
-      const state = sentenceStates[sentenceId];
-      state.selected.forEach(item => {
-        const poolBtn = document.getElementById(`pool-btn-${sentenceId}-${item.index}`);
-        if (poolBtn) {
-          poolBtn.disabled = false;
-          poolBtn.classList.remove('opacity-30', 'pointer-events-none');
-        }
-      });
-      state.selected = [];
-      state.isCorrect = false;
-      renderAnswerChips(sentenceId);
-      const feedback = document.getElementById(`sentence-feedback-${sentenceId}`);
-      feedback.classList.add('hidden');
-      updateGlobalScoreboard();
+    function resetSpellingActive() {
+      loadSpellChallenge(currentSpellTarget.id);
+      playToneSound('click');
     }
 
-    function speakSentenceResult(sentenceId) {
-      const item = sentenceReorderData.find(s => s.id === sentenceId);
-      speakWord(item.correctOrder.join(' '));
-    }
-
-    function updateGlobalScoreboard() {
-      const missingScore = Object.values(missingQuizAnswers).filter(v => v === true).length;
-      const sentenceScore = Object.values(sentenceStates).filter(v => v && v.isCorrect === true).length;
-      const totalScore = missingScore + sentenceScore; // out of 15
-
-      const scoreEl = document.getElementById('totalScoreBadge');
-      const hintEl = document.getElementById('scoreFeedbackHint');
-      scoreEl.textContent = `${totalScore} / 15`;
-
-      if (totalScore === 0) {
-        hintEl.textContent = "ابدأ بحل التمارين بالأسفل!";
-      } else if (totalScore < 15) {
-        hintEl.textContent = `رائع! أحرزت ${totalScore} من 15 نقطة ⭐`;
-      } else {
-        hintEl.textContent = "علامة كاملة 15 / 15! إتقان تام 🏆";
-        playTone('celebrate');
-        triggerConfetti();
-        showToast("تهانينا! حققت الدرجة الكاملة بنجاح 15/15 🌟", "🎉");
+    function readSpelledWord() {
+      if (currentSpellTarget) {
+        speakText(currentSpellTarget.en);
+        playToneSound('click');
       }
+    }
+
+    function spellOutSpelledWord() {
+      if (!currentSpellTarget || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const letters = currentSpellTarget.en.replace(/[^a-zA-Z]/g, '').split('').join(' . ');
+      const utterance = new SpeechSynthesisUtterance(`Spelling: ${letters}. ${currentSpellTarget.en}`);
+      utterance.lang = currentAccent;
+      utterance.pitch = personas[currentPersona].pitch;
+      utterance.rate = 0.85;
+      window.speechSynthesis.speak(utterance);
+      showToast(`تهجئة: ${currentSpellTarget.en}`, "🔤");
     }
 
     function triggerConfetti() {
       if (window.confetti) {
         confetti({
-          particleCount: 130,
-          spread: 80,
+          particleCount: 150,
+          spread: 85,
           origin: { y: 0.6 }
         });
       }
     }
 
-    function resetAllExercises() {
-      missingQuizAnswers = {};
-      renderMissingLetterQuiz();
-      sentenceReorderData.forEach(item => resetSingleSentence(item.id));
-      updateGlobalScoreboard();
-      showToast("تمت إعادة تعيين جميع التمارين", "🔄");
-    }
-
     function showToast(message, icon = "🌟") {
-      const toast = document.getElementById('toastNotification');
+      const toast = document.getElementById('gameToast');
       const msg = document.getElementById('toastMessage');
       const icn = document.getElementById('toastIcon');
       msg.textContent = message;
@@ -1161,15 +1520,21 @@
       }, 2300);
     }
 
-    // Initialize all app components on load
+    // Ensure voices are cached on load
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+
+    // Initialize application on page ready
     window.addEventListener('DOMContentLoaded', () => {
       renderWordCards();
-      renderMissingLetterQuiz();
-      renderSentenceBuilder();
-      updateGlobalScoreboard();
+      initSpellingSelect();
+      updateSafariScoreboard();
 
       document.addEventListener('click', () => {
-        initSynth();
+        initAudio();
       }, { once: true });
     });
   </script>
