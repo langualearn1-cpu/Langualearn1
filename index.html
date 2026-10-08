@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Top Goal 3 - ضع دائرة حول الإجابة الصحيحة (✔ / ❌)</title>
+  <title>Top Goal - صندوق الكلمات التفاعلي والمتحدثون بالإنجليزية</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,7 +22,7 @@
   <style>
     body {
       font-family: 'Cairo', sans-serif;
-      background: radial-gradient(circle at top left, #eff6ff 0%, #f0fdf4 50%, #fefce8 100%);
+      background: radial-gradient(circle at top left, #f0fdf4 0%, #eff6ff 45%, #fefce8 100%);
       min-height: 100vh;
       color: #0f172a;
     }
@@ -35,59 +35,85 @@
       font-family: 'Fredoka', cursive, sans-serif;
     }
 
-    /* Pencil Hand-Drawn Circle Animation */
-    .pencil-circle-slot {
+    .ltr-content {
+      direction: ltr;
+      text-align: left;
+    }
+
+    /* Word Card Hover & Animation */
+    .word-card {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .word-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 16px 30px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    /* Accent Selector Active Pill */
+    .accent-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Missing Letter Slot */
+    .letter-slot {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2.2rem;
+      border-bottom: 3px solid #0284c7;
+      margin: 0 0.15rem;
+      font-weight: 800;
+      color: #0369a1;
+      transition: all 0.2s;
+    }
+    .letter-slot.filled {
+      background: #e0f2fe;
+      border-radius: 6px;
+      border-bottom: 3px solid #0369a1;
+    }
+
+    /* Pencil Hand-Drawn Circle */
+    .pencil-option {
       position: relative;
       cursor: pointer;
-      user-select: none;
-      transition: transform 0.18s ease;
+      transition: transform 0.15s ease;
     }
-
-    .pencil-circle-slot:hover {
-      transform: scale(1.06);
+    .pencil-option:hover {
+      transform: scale(1.08);
     }
-
-    .pencil-circle-slot:active {
-      transform: scale(0.96);
+    .pencil-option.selected .drawn-circle-svg {
+      display: block;
     }
-
-    /* Hand-Drawn SVG circle overlay */
-    .drawn-svg-overlay {
+    .drawn-circle-svg {
       position: absolute;
-      inset: -10px;
-      width: calc(100% + 20px);
-      height: calc(100% + 20px);
+      inset: -6px;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
       pointer-events: none;
       display: none;
     }
-
-    .pencil-circle-slot.selected .drawn-svg-overlay {
-      display: block;
+    .pencil-option.selected path {
+      stroke-dasharray: 220;
+      stroke-dashoffset: 220;
+      animation: drawInk 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+    @keyframes drawInk {
+      to { stroke-dashoffset: 0; }
     }
 
-    .pencil-circle-slot.selected path {
-      stroke-dasharray: 280;
-      stroke-dashoffset: 280;
-      animation: drawCircle 0.38s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    /* Drag/Word Chip Animations */
+    .word-chip {
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .word-chip:hover {
+      transform: translateY(-2px);
     }
 
-    @keyframes drawCircle {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    /* Card bounce hover */
-    .exercise-card {
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-    }
-
-    .exercise-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 30px -8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Print styles */
+    /* Print Styles */
     @media print {
       body {
         background: #ffffff !important;
@@ -100,13 +126,12 @@
       .print-only {
         display: block !important;
       }
-      .page-card {
+      .print-card {
         box-shadow: none !important;
-        border: 2px solid #cbd5e1 !important;
+        border: 1px solid #cbd5e1 !important;
         break-inside: avoid;
       }
     }
-
     .print-only {
       display: none;
     }
@@ -114,29 +139,48 @@
 </head>
 <body class="p-3 sm:p-6 lg:p-8">
 
-  <header class="max-w-5xl mx-auto mb-6 no-print">
+  <header class="max-w-6xl mx-auto mb-6 no-print">
     <div class="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+      
       <div class="flex items-center gap-3.5">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 via-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-emerald-200 text-2xl font-black">
-          ✏️
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-emerald-200 text-3xl font-black">
+          📚
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full font-en">Top Goal 3</span>
-            <span class="text-xs font-bold text-sky-800 bg-sky-100/70 px-2.5 py-0.5 rounded-full">تدريب نموذجي تفاعلي</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full font-en">Vocabulary Bank</span>
+            <span class="text-xs font-bold text-sky-800 bg-sky-100/70 px-2.5 py-0.5 rounded-full">قاموس ناطق وتدريبات</span>
           </div>
           <h1 class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight mt-0.5">
-            ضع دائرة حول الإجابة الصحيحة <span class="font-en text-emerald-600 font-bold text-lg">(Put ✔ Or ❌)</span>
+            صندوق الكلمات التفاعلي <span class="font-en text-emerald-600 font-bold text-lg">(Interactive Word Box)</span>
           </h1>
         </div>
       </div>
 
-      <!-- Action & Audio Controls -->
-      <div class="flex items-center flex-wrap gap-2">
-        <button onclick="toggleAudio()" id="audioToggleBtn" class="px-3.5 py-2 text-xs sm:text-sm font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-xl transition flex items-center gap-1.5 shadow-sm">
-          <span id="audioIcon">🔊</span> الصوت
+      <!-- Accent Switcher Bar (US, UK, CA) -->
+      <div class="flex flex-wrap items-center gap-2 bg-slate-50 p-2 rounded-2xl border border-slate-200">
+        <span class="text-xs font-bold text-slate-500 px-1 flex items-center gap-1">
+          <span>🎙️</span> المتحدث:
+        </span>
+        <button onclick="setAccent('en-US')" id="btn-accent-us" class="accent-btn active px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition shadow-sm">
+          <span>🇺🇸</span> American (US)
         </button>
-        <button onclick="resetTraining()" class="px-3.5 py-2 text-xs sm:text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl transition flex items-center gap-1.5 border border-rose-200 shadow-sm">
+        <button onclick="setAccent('en-GB')" id="btn-accent-uk" class="accent-btn px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition">
+          <span>🇬🇧</span> British (UK)
+        </button>
+        <button onclick="setAccent('en-CA')" id="btn-accent-ca" class="accent-btn px-3 py-1.5 rounded-xl text-xs font-bold font-en flex items-center gap-1.5 border border-slate-200 bg-white transition">
+          <span>🇨🇦</span> Canadian (CA)
+        </button>
+        
+        <!-- Speech Speed Toggle -->
+        <button onclick="toggleSpeechSpeed()" id="btn-speed-toggle" class="px-2.5 py-1.5 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 rounded-xl text-xs font-bold font-en transition" title="سرعة النطق">
+          ⚡ <span id="speedLabel">1.0x</span>
+        </button>
+      </div>
+
+      <!-- General Utilities -->
+      <div class="flex items-center gap-2">
+        <button onclick="resetAllExercises()" class="px-3.5 py-2 text-xs sm:text-sm font-bold bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl transition flex items-center gap-1.5 border border-rose-200 shadow-sm">
           <span>🔄</span> إعادة تعيين
         </button>
         <button onclick="window.print()" class="px-4 py-2 text-xs sm:text-sm font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-md transition flex items-center gap-1.5">
@@ -147,47 +191,35 @@
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto space-y-6">
+  <main class="max-w-6xl mx-auto space-y-8">
 
-    <!-- Printable Header for A3 / A4 Paper -->
+    <!-- Printable Header for Worksheet Paper -->
     <div class="print-only mb-6 border-b-2 border-slate-900 pb-4">
       <div class="flex justify-between items-center text-sm font-bold">
         <div>اسم الطالب / الطالبة: ....................................................</div>
         <div>الصف (Class): .........................</div>
         <div>التاريخ: .... / .... / 2026 م</div>
-        <div>الدرجة: ........ / 4</div>
+        <div>الدرجة: ........ / 20</div>
       </div>
-      <h2 class="text-center text-2xl font-black mt-3 font-en">Top Goal 3: 2) Put ( ✔ ) Or ( ❌ ) - Choose the Correct Answer</h2>
+      <h2 class="text-center text-2xl font-black mt-3 font-en">Top Goal: Word Box & Vocabulary Exercises</h2>
     </div>
 
     <!-- Student Dashboard Banner -->
-    <div class="bg-gradient-to-r from-teal-700 via-sky-700 to-indigo-800 rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden no-print">
+    <div class="bg-gradient-to-r from-emerald-800 via-teal-700 to-sky-800 rounded-3xl p-6 sm:p-7 text-white shadow-xl relative overflow-hidden no-print">
       <div class="absolute -right-12 -top-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
       <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="space-y-3 text-center md:text-right flex-1">
+        <div class="space-y-2 text-center md:text-right flex-1">
           <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
             <span class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-bold text-white">
-              <span>🎯</span> انقر على إشارة الصح أو الخطأ لرسم دائرة القلم الأزرق والتحقق الفوري
+              <span>🎧</span> استمع للمتحدثين الأمريكيين والبريطانيين والكنديين بضغطة زر واحدة
             </span>
           </div>
           <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
-            2) Put <span class="text-emerald-300 font-en font-black">( ✔ )</span> Or <span class="text-rose-300 font-en font-black">( ❌ )</span>
+            قاموس الكلمات المصور والأنشطة الذكية
           </h2>
-          <p class="text-xs sm:text-sm text-sky-100 max-w-xl">
-            شاهد الصورة واقرأ الجملة بتمعن، ثم ضع دائرة حول الإشارة المناسبة مع الاستماع لنطق الجملة والتعليل النحوي الدقيق.
+          <p class="text-xs sm:text-sm text-teal-100 max-w-2xl">
+            تعرف على الكلمات الـ 18 الواردة في المنهج (الحشرات، الديناصورات، الصفات والتعبيرات)، واستمع للنطق الصحيح بكل لهجة، ثم اختبر معلوماتك في تماريني "أوجد الحرف الناقص" و"رتّب الكلمات".
           </p>
-
-          <!-- Student Name Inputs -->
-          <div class="flex flex-wrap items-center gap-3 pt-1 justify-center md:justify-start">
-            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
-              <span class="text-xs font-bold font-en text-sky-200">Name:</span>
-              <input type="text" placeholder="اكتب اسمك..." class="bg-transparent text-xs font-bold text-white placeholder-sky-200/70 focus:outline-none w-36">
-            </div>
-            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20">
-              <span class="text-xs font-bold font-en text-sky-200">Class:</span>
-              <input type="text" placeholder="الصف..." class="bg-transparent text-xs font-bold text-white placeholder-sky-200/70 focus:outline-none w-20">
-            </div>
-          </div>
         </div>
 
         <!-- Live Score Counter -->
@@ -196,533 +228,116 @@
             ⭐
           </div>
           <div>
-            <div class="text-xs font-bold text-sky-100">درجات الإنجاز</div>
-            <div class="text-2xl sm:text-3xl font-black font-en text-white" id="totalScoreText">0 / 4</div>
-            <div class="text-[11px] text-amber-300 font-bold" id="progressStatusText">أجب عن الجمل الأربع!</div>
+            <div class="text-xs font-bold text-teal-100">درجات التمارين التفاعلية</div>
+            <div class="text-2xl sm:text-3xl font-black font-en text-white" id="totalScoreBadge">0 / 15</div>
+            <div class="text-[11px] text-amber-300 font-bold" id="scoreFeedbackHint">ابدأ بحل التمارين بالأسفل!</div>
           </div>
         </div>
       </div>
     </div>
 
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- ==================== ITEM 1 ==================== -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 exercise-card page-card" id="card-item-1">
-        <div>
-          <!-- Card Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span class="px-3 py-1 bg-sky-100 text-sky-800 rounded-xl font-en font-black text-xs">Item 1</span>
-            <span class="text-xs font-bold text-slate-400">الصورة الأولى: الأم المشغولة</span>
-          </div>
-
-          <!-- Illustration: Busy Mother at stove with baby & laptop -->
-          <div class="my-4 bg-gradient-to-b from-sky-50 to-slate-50 rounded-2xl p-4 border border-slate-200/70 flex items-center justify-center relative overflow-hidden min-h-[190px]">
-            <svg viewBox="0 0 320 200" class="w-full h-44 max-w-[280px]">
-              <!-- Background Kitchen Wall & Clock -->
-              <rect x="0" y="0" width="320" height="200" rx="14" fill="#f8fafc"/>
-              <circle cx="270" cy="40" r="20" fill="#ffffff" stroke="#94a3b8" stroke-width="2.5"/>
-              <line x1="270" y1="40" x2="270" y2="28" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="270" y1="40" x2="280" y2="40" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
-              
-              <!-- Kitchen Counter & Stove -->
-              <rect x="20" y="145" width="280" height="50" rx="6" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
-              <rect x="210" y="132" width="75" height="15" rx="3" fill="#64748b"/>
-              <!-- Frying pan with food and steam -->
-              <ellipse cx="245" cy="128" rx="28" ry="8" fill="#334155"/>
-              <line x1="273" y1="128" x2="305" y2="120" stroke="#1e293b" stroke-width="4.5" stroke-linecap="round"/>
-              <ellipse cx="240" cy="128" rx="14" ry="4" fill="#f59e0b"/>
-              <ellipse cx="250" cy="128" rx="6" ry="2.5" fill="#ef4444"/>
-              <!-- Steam curves -->
-              <path d="M235 115 Q230 105 235 95" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="3,3"/>
-              <path d="M248 112 Q253 100 248 90" stroke="#94a3b8" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="3,3"/>
-
-              <!-- Laptop on the left -->
-              <rect x="35" y="118" width="55" height="30" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
-              <polygon points="30,148 95,148 100,154 25,154" fill="#cbd5e1"/>
-              <!-- Work charts on screen -->
-              <rect x="42" y="123" width="41" height="18" fill="#ffffff" rx="2"/>
-              <line x1="47" y1="135" x2="55" y2="128" stroke="#3b82f6" stroke-width="2"/>
-              <line x1="55" y1="128" x2="65" y2="133" stroke="#3b82f6" stroke-width="2"/>
-              <line x1="65" y1="133" x2="78" y2="126" stroke="#10b981" stroke-width="2"/>
-
-              <!-- The Busy Mom -->
-              <g id="mom">
-                <!-- Hair -->
-                <path d="M125 55 C125 35 185 35 185 55 C185 95 195 105 195 115 C175 125 135 125 115 115 C115 95 125 75 125 55 Z" fill="#78350f"/>
-                <!-- Face -->
-                <circle cx="155" cy="72" r="22" fill="#fed7aa"/>
-                <!-- Stressed expression -->
-                <path d="M143 66 Q149 69 146 72" stroke="#451a03" stroke-width="1.8" fill="none"/>
-                <path d="M167 66 Q161 69 164 72" stroke="#451a03" stroke-width="1.8" fill="none"/>
-                <!-- Eyes and mouth -->
-                <ellipse cx="147" cy="71" rx="2" ry="3" fill="#1e293b"/>
-                <ellipse cx="163" cy="71" rx="2" ry="3" fill="#1e293b"/>
-                <!-- Mouth worried/tired -->
-                <path d="M149 84 Q155 80 161 84" stroke="#991b1b" stroke-width="2" fill="none" stroke-linecap="round"/>
-                <!-- Sweat drop -->
-                <path d="M175 66 C175 64 179 64 179 66 C179 69 175 70 175 66 Z" fill="#38bdf8"/>
-                <!-- Clothes -->
-                <path d="M135 94 L175 94 L185 150 L125 150 Z" fill="#f87171"/>
-              </g>
-
-              <!-- Crying Baby in Mom's Arm -->
-              <g id="baby">
-                <circle cx="118" cy="115" r="14" fill="#fed7aa"/>
-                <path d="M110 112 Q114 114 112 116" stroke="#1e293b" stroke-width="1.5" fill="none"/>
-                <path d="M122 112 Q126 114 124 116" stroke="#1e293b" stroke-width="1.5" fill="none"/>
-                <!-- Open crying mouth -->
-                <circle cx="118" cy="122" r="3.5" fill="#ef4444"/>
-                <path d="M106 128 C106 122 130 122 130 128 L130 148 L106 148 Z" fill="#60a5fa"/>
-                <!-- Tears -->
-                <circle cx="111" cy="118" r="1.5" fill="#38bdf8"/>
-                <circle cx="125" cy="118" r="1.5" fill="#38bdf8"/>
-              </g>
-
-              <!-- Cat knocking something over -->
-              <g id="cat">
-                <ellipse cx="40" cy="98" rx="12" ry="8" fill="#334155"/>
-                <circle cx="32" cy="92" r="7" fill="#334155"/>
-                <!-- Ears -->
-                <polygon points="27,88 32,84 32,88" fill="#334155"/>
-                <polygon points="34,88 38,84 36,89" fill="#334155"/>
-                <!-- Tail -->
-                <path d="M52 98 Q60 88 56 80" stroke="#334155" stroke-width="3" fill="none" stroke-linecap="round"/>
-              </g>
-            </svg>
-
-            <!-- Audio Pronounce Button -->
-            <button onclick="speakSentence('I am busy at the moment.')" class="absolute bottom-2 left-2 p-2 bg-white/90 hover:bg-white text-slate-700 rounded-xl shadow-sm text-xs font-bold flex items-center gap-1 border border-slate-200 transition" title="استمع للجملة">
-              🔊 <span class="hidden sm:inline font-en">Listen</span>
-            </button>
-          </div>
-
-          <!-- Sentence text -->
-          <div class="text-center space-y-1">
-            <div class="font-en text-xl sm:text-2xl font-black text-slate-800 tracking-tight">
-              "I am busy at the moment."
-            </div>
-            <div class="text-xs text-slate-500 font-bold">
-              المعنى: «أنا مشغولة في هذه اللحظة.»
-            </div>
-          </div>
+    <section class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-9 h-9 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-black">📦</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-800">
+            صندوق الكلمات المصوّر <span class="font-en text-amber-600 text-lg">(Word Box - 18 Words)</span>
+          </h2>
         </div>
 
-        <!-- Circling Interactive Option Buttons -->
-        <div class="space-y-3 pt-2">
-          <div class="text-xs font-bold text-center text-slate-600">
-            اختر الإجابة المناسبة ليتم رسم دائرة القلم حولها:
+        <!-- Category Filter & Search -->
+        <div class="flex flex-wrap items-center gap-2 no-print">
+          <div class="relative">
+            <input type="text" id="wordSearchInput" oninput="filterWords()" placeholder="ابحث عن كلمة..." class="px-3.5 py-1.5 text-xs font-bold rounded-xl border border-slate-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-44">
+            <span class="absolute left-2.5 top-2 text-xs text-slate-400">🔍</span>
           </div>
-
-          <div class="flex items-center justify-center gap-10 py-2">
-            <!-- Choice TRUE (✔) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-1-true" onclick="chooseAnswer(1, true)">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-50 border-2 border-emerald-300 hover:border-emerald-500 flex items-center justify-center text-3xl font-black text-emerald-600 shadow-sm relative">
-                ✔
-                <!-- Drawn Circle Overlay -->
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-emerald-700">صح (True)</span>
-            </div>
-
-            <!-- Choice FALSE (❌) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-1-false" onclick="chooseAnswer(1, false)">
-              <div class="w-16 h-16 rounded-2xl bg-rose-50 border-2 border-rose-300 hover:border-rose-500 flex items-center justify-center text-3xl font-black text-rose-600 shadow-sm relative">
-                ❌
-                <!-- Drawn Circle Overlay -->
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-rose-700">خطأ (False)</span>
-            </div>
-          </div>
-
-          <!-- Explanation Feedback Box -->
-          <div class="feedback-card hidden p-3 rounded-2xl text-xs font-bold transition-all" id="feedback-1"></div>
+          <button onclick="filterCategory('all')" class="cat-pill active px-3 py-1.5 text-xs font-bold bg-emerald-600 text-white rounded-xl shadow-sm transition">الكل (18)</button>
+          <button onclick="filterCategory('animals')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">حيوانات ومخلوقات</button>
+          <button onclick="filterCategory('adjectives')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">صفات</button>
+          <button onclick="filterCategory('extra')" class="cat-pill px-3 py-1.5 text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 rounded-xl transition">كلمات إضافية</button>
         </div>
       </div>
 
-
-      <!-- ==================== ITEM 2 ==================== -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 exercise-card page-card" id="card-item-2">
-        <div>
-          <!-- Card Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-xl font-en font-black text-xs">Item 2</span>
-            <span class="text-xs font-bold text-slate-400">الصورة الثانية: الفتاة الموافقة</span>
-          </div>
-
-          <!-- Illustration: Smiling girl giving double thumbs-up -->
-          <div class="my-4 bg-gradient-to-b from-amber-50 to-orange-50 rounded-2xl p-4 border border-slate-200/70 flex items-center justify-center relative overflow-hidden min-h-[190px]">
-            <svg viewBox="0 0 320 200" class="w-full h-44 max-w-[280px]">
-              <!-- Backdrop circle glow -->
-              <circle cx="160" cy="100" r="75" fill="#fef3c7" opacity="0.6"/>
-
-              <!-- Girl Body & Clothes -->
-              <path d="M120 150 C120 120 200 120 200 150 L205 200 L115 200 Z" fill="#7c3aed"/>
-              <!-- Collar / shirt -->
-              <polygon points="145,130 175,130 160,150" fill="#ffffff"/>
-
-              <!-- Hair Back -->
-              <circle cx="160" cy="75" r="48" fill="#b45309"/>
-              <!-- Hair Pigtails -->
-              <ellipse cx="108" cy="85" rx="14" ry="25" fill="#b45309"/>
-              <ellipse cx="212" cy="85" rx="14" ry="25" fill="#b45309"/>
-              <!-- Pink Hair Clips -->
-              <rect x="105" y="65" width="12" height="7" rx="3" fill="#ec4899" transform="rotate(-20 105 65)"/>
-              <rect x="203" y="65" width="12" height="7" rx="3" fill="#ec4899" transform="rotate(20 203 65)"/>
-
-              <!-- Face -->
-              <circle cx="160" cy="82" r="34" fill="#fed7aa"/>
-              <!-- Hair Bangs -->
-              <path d="M128 72 Q160 55 192 72 Q160 70 128 72 Z" fill="#92400e"/>
-
-              <!-- Big Happy Eyes -->
-              <ellipse cx="148" cy="80" rx="5" ry="6" fill="#1e293b"/>
-              <ellipse cx="172" cy="80" rx="5" ry="6" fill="#1e293b"/>
-              <circle cx="149" cy="78" r="2" fill="#ffffff"/>
-              <circle cx="173" cy="78" r="2" fill="#ffffff"/>
-
-              <!-- Cute Cheeks -->
-              <ellipse cx="140" cy="90" rx="6" ry="4" fill="#fda4af" opacity="0.8"/>
-              <ellipse cx="180" cy="90" rx="6" ry="4" fill="#fda4af" opacity="0.8"/>
-
-              <!-- Wide Smiling Mouth -->
-              <path d="M148 93 Q160 108 172 93" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
-              <path d="M152 95 Q160 92 168 95" stroke="#ffffff" stroke-width="3" fill="none"/>
-
-              <!-- Left Arm and Thumbs Up -->
-              <g id="left-thumbs-up">
-                <!-- Arm -->
-                <path d="M125 140 Q105 130 95 110" stroke="#fed7aa" stroke-width="14" stroke-linecap="round" fill="none"/>
-                <!-- Fist -->
-                <circle cx="95" cy="108" r="10" fill="#fdba74"/>
-                <!-- Thumb pointing straight up -->
-                <path d="M96 108 L96 90 Q96 84 90 84 Q84 84 84 90 L84 108 Z" fill="#fdba74" stroke="#ea580c" stroke-width="1.5"/>
-                <!-- Sparkle -->
-                <polygon points="76,82 80,82 82,78 84,82 88,82 85,85 86,89 82,86 78,89 79,85" fill="#facc15"/>
-              </g>
-
-              <!-- Right Arm and Thumbs Up -->
-              <g id="right-thumbs-up">
-                <!-- Arm -->
-                <path d="M195 140 Q215 130 225 110" stroke="#fed7aa" stroke-width="14" stroke-linecap="round" fill="none"/>
-                <!-- Fist -->
-                <circle cx="225" cy="108" r="10" fill="#fdba74"/>
-                <!-- Thumb pointing straight up -->
-                <path d="M224 108 L224 90 Q224 84 230 84 Q236 84 236 90 L236 108 Z" fill="#fdba74" stroke="#ea580c" stroke-width="1.5"/>
-                <!-- Sparkle -->
-                <polygon points="244,82 248,82 250,78 252,82 256,82 253,85 254,89 250,86 246,89 247,85" fill="#facc15"/>
-              </g>
-            </svg>
-
-            <!-- Audio Pronounce Button -->
-            <button onclick="speakSentence('Ok, no problem.')" class="absolute bottom-2 left-2 p-2 bg-white/90 hover:bg-white text-slate-700 rounded-xl shadow-sm text-xs font-bold flex items-center gap-1 border border-slate-200 transition" title="استمع للجملة">
-              🔊 <span class="hidden sm:inline font-en">Listen</span>
-            </button>
-          </div>
-
-          <!-- Sentence text -->
-          <div class="text-center space-y-1">
-            <div class="font-en text-xl sm:text-2xl font-black text-slate-800 tracking-tight">
-              "Ok, no problem."
-            </div>
-            <div class="text-xs text-slate-500 font-bold">
-              المعنى: «حسناً، لا توجد مشكلة.»
-            </div>
-          </div>
-        </div>
-
-        <!-- Circling Interactive Option Buttons -->
-        <div class="space-y-3 pt-2">
-          <div class="text-xs font-bold text-center text-slate-600">
-            اختر الإجابة المناسبة ليتم رسم دائرة القلم حولها:
-          </div>
-
-          <div class="flex items-center justify-center gap-10 py-2">
-            <!-- Choice TRUE (✔) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-2-true" onclick="chooseAnswer(2, true)">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-50 border-2 border-emerald-300 hover:border-emerald-500 flex items-center justify-center text-3xl font-black text-emerald-600 shadow-sm relative">
-                ✔
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-emerald-700">صح (True)</span>
-            </div>
-
-            <!-- Choice FALSE (❌) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-2-false" onclick="chooseAnswer(2, false)">
-              <div class="w-16 h-16 rounded-2xl bg-rose-50 border-2 border-rose-300 hover:border-rose-500 flex items-center justify-center text-3xl font-black text-rose-600 shadow-sm relative">
-                ❌
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-rose-700">خطأ (False)</span>
-            </div>
-          </div>
-
-          <!-- Explanation Feedback Box -->
-          <div class="feedback-card hidden p-3 rounded-2xl text-xs font-bold transition-all" id="feedback-2"></div>
-        </div>
+      <!-- WORD CARDS GRID (18 WORDS) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="wordsContainer">
+        <!-- Word cards will be rendered dynamically from the dataset below -->
       </div>
-
-
-      <!-- ==================== ITEM 3 ==================== -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 exercise-card page-card" id="card-item-3">
-        <div>
-          <!-- Card Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-xl font-en font-black text-xs">Item 3</span>
-            <span class="text-xs font-bold text-slate-400">الصورة الثالثة: إشارة الرفض والخطأ اللغوي</span>
-          </div>
-
-          <!-- Illustration: Bold Red Thumbs Down -->
-          <div class="my-4 bg-gradient-to-b from-rose-50 to-red-50 rounded-2xl p-4 border border-slate-200/70 flex items-center justify-center relative overflow-hidden min-h-[190px]">
-            <svg viewBox="0 0 320 200" class="w-full h-44 max-w-[280px]">
-              <!-- Red glow circle -->
-              <circle cx="160" cy="100" r="70" fill="#fee2e2" opacity="0.8"/>
-
-              <!-- Red 3D Thumbs Down Icon -->
-              <g id="thumbs-down" transform="translate(110, 40)">
-                <!-- Wrist -->
-                <rect x="0" y="25" width="26" height="42" rx="6" fill="#b91c1c" stroke="#991b1b" stroke-width="2"/>
-                <!-- Palm/Hand Body -->
-                <rect x="22" y="20" width="54" height="52" rx="10" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
-                <!-- Fingers folded -->
-                <line x1="28" y1="34" x2="68" y2="34" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
-                <line x1="28" y1="46" x2="68" y2="46" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
-                <line x1="28" y1="58" x2="68" y2="58" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
-                
-                <!-- Thumb pointing down -->
-                <path d="M72 40 L92 75 C95 82 88 92 80 92 L62 92 L60 68 Z" fill="#ef4444" stroke="#991b1b" stroke-width="2"/>
-                <!-- Highlight line -->
-                <path d="M26 26 L70 26" stroke="#fca5a5" stroke-width="2.5" stroke-linecap="round"/>
-              </g>
-
-              <!-- Warning exclamation bubble -->
-              <circle cx="230" cy="65" r="16" fill="#ef4444"/>
-              <text x="230" y="72" font-size="20" font-weight="900" fill="#ffffff" text-anchor="middle">!</text>
-            </svg>
-
-            <!-- Audio Pronounce Button -->
-            <button onclick="speakSentence('I agree. But the sentence says: I am agree.')" class="absolute bottom-2 left-2 p-2 bg-white/90 hover:bg-white text-slate-700 rounded-xl shadow-sm text-xs font-bold flex items-center gap-1 border border-slate-200 transition" title="استمع للجملة">
-              🔊 <span class="hidden sm:inline font-en">Listen</span>
-            </button>
-          </div>
-
-          <!-- Sentence text -->
-          <div class="text-center space-y-1">
-            <div class="font-en text-xl sm:text-2xl font-black text-rose-700 tracking-tight">
-              "I’m agree."
-            </div>
-            <div class="text-xs text-slate-500 font-bold">
-              مكتوب: «أنا أوافق» مع صورة عدم موافقة وإبهام للأسفل 👎
-            </div>
-          </div>
-        </div>
-
-        <!-- Circling Interactive Option Buttons -->
-        <div class="space-y-3 pt-2">
-          <div class="text-xs font-bold text-center text-slate-600">
-            اختر الإجابة المناسبة ليتم رسم دائرة القلم حولها:
-          </div>
-
-          <div class="flex items-center justify-center gap-10 py-2">
-            <!-- Choice TRUE (✔) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-3-true" onclick="chooseAnswer(3, true)">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-50 border-2 border-emerald-300 hover:border-emerald-500 flex items-center justify-center text-3xl font-black text-emerald-600 shadow-sm relative">
-                ✔
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-emerald-700">صح (True)</span>
-            </div>
-
-            <!-- Choice FALSE (❌) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-3-false" onclick="chooseAnswer(3, false)">
-              <div class="w-16 h-16 rounded-2xl bg-rose-50 border-2 border-rose-300 hover:border-rose-500 flex items-center justify-center text-3xl font-black text-rose-600 shadow-sm relative">
-                ❌
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-rose-700">خطأ (False)</span>
-            </div>
-          </div>
-
-          <!-- Explanation Feedback Box -->
-          <div class="feedback-card hidden p-3 rounded-2xl text-xs font-bold transition-all" id="feedback-3"></div>
-        </div>
-      </div>
-
-
-      <!-- ==================== ITEM 4 ==================== -->
-      <div class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-slate-200 flex flex-col justify-between space-y-4 exercise-card page-card" id="card-item-4">
-        <div>
-          <!-- Card Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-xl font-en font-black text-xs">Item 4</span>
-            <span class="text-xs font-bold text-slate-400">الصورة الرابعة: مقارنة أسعار الفواكه</span>
-          </div>
-
-          <!-- Illustration: Fruit Stand with Price tags -->
-          <div class="my-4 bg-gradient-to-b from-purple-50 to-indigo-50 rounded-2xl p-4 border border-slate-200/70 flex items-center justify-center relative overflow-hidden min-h-[190px]">
-            <svg viewBox="0 0 320 200" class="w-full h-44 max-w-[280px]">
-              <!-- Wooden shelf base -->
-              <rect x="15" y="150" width="290" height="35" rx="5" fill="#d97706" stroke="#b45309" stroke-width="2"/>
-              <line x1="15" y1="160" x2="305" y2="160" stroke="#b45309" stroke-width="1.5"/>
-
-              <!-- 1. CHERRIES (Price: 15) -->
-              <g id="cherries-group" transform="translate(25, 35)">
-                <!-- Bowl -->
-                <ellipse cx="45" cy="80" rx="36" ry="14" fill="#0f172a"/>
-                <path d="M12 78 Q45 110 78 78 Z" fill="#1e293b"/>
-                <!-- Cherry fruits -->
-                <circle cx="35" cy="62" r="10" fill="#dc2626"/>
-                <circle cx="50" cy="60" r="10.5" fill="#b91c1c"/>
-                <circle cx="42" cy="72" r="11" fill="#ef4444"/>
-                <circle cx="28" cy="74" r="9.5" fill="#991b1b"/>
-                <circle cx="58" cy="73" r="10" fill="#dc2626"/>
-                <!-- Green Stems -->
-                <path d="M35 55 Q42 42 48 35" stroke="#16a34a" stroke-width="2" fill="none"/>
-                <path d="M50 52 Q44 42 48 35" stroke="#16a34a" stroke-width="2" fill="none"/>
-                <!-- Price Badge: 15 -->
-                <circle cx="20" cy="45" r="16" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                <text x="20" y="50" font-size="13" font-weight="900" fill="#713f12" text-anchor="middle" font-family="Poppins">15﷼</text>
-              </g>
-
-              <!-- 2. APPLES (Price: 3) -->
-              <g id="apples-group" transform="translate(210, 40)">
-                <!-- Apple 1 -->
-                <circle cx="30" cy="75" r="18" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
-                <path d="M30 58 Q34 50 32 46" stroke="#78350f" stroke-width="2.5" fill="none"/>
-                <ellipse cx="36" cy="49" rx="4" ry="2" fill="#22c55e" transform="rotate(-30 36 49)"/>
-
-                <!-- Apple 2 -->
-                <circle cx="65" cy="78" r="16" fill="#dc2626" stroke="#991b1b" stroke-width="1.5"/>
-                <path d="M65 63 Q68 56 66 52" stroke="#78350f" stroke-width="2.5" fill="none"/>
-
-                <!-- Price Badge: 3 -->
-                <circle cx="85" cy="50" r="15" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                <text x="85" y="55" font-size="13" font-weight="900" fill="#713f12" text-anchor="middle" font-family="Poppins">3﷼</text>
-              </g>
-
-              <!-- 3. BANANAS (Price: 5) In the center -->
-              <g id="bananas-group" transform="translate(105, 90)">
-                <!-- Bunch of bananas -->
-                <path d="M15 15 Q45 55 90 40 Q40 40 15 15 Z" fill="#eab308" stroke="#ca8a04" stroke-width="2"/>
-                <path d="M12 20 Q40 65 85 48 Q35 50 12 20 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                <path d="M18 24 Q48 72 95 56 Q42 58 18 24 Z" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
-                <!-- Stem top -->
-                <polygon points="12,14 20,18 16,28 8,22" fill="#451a03"/>
-                <!-- Tips -->
-                <circle cx="90" cy="40" r="2.5" fill="#713f12"/>
-                <circle cx="85" cy="48" r="2.5" fill="#713f12"/>
-                <circle cx="95" cy="56" r="2.5" fill="#713f12"/>
-
-                <!-- Price Badge: 5 -->
-                <circle cx="95" cy="22" r="15" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                <text x="95" y="27" font-size="13" font-weight="900" fill="#713f12" text-anchor="middle" font-family="Poppins">5﷼</text>
-              </g>
-            </svg>
-
-            <!-- Audio Pronounce Button -->
-            <button onclick="speakSentence('Bananas are the most expensive fruit.')" class="absolute bottom-2 left-2 p-2 bg-white/90 hover:bg-white text-slate-700 rounded-xl shadow-sm text-xs font-bold flex items-center gap-1 border border-slate-200 transition" title="استمع للجملة">
-              🔊 <span class="hidden sm:inline font-en">Listen</span>
-            </button>
-          </div>
-
-          <!-- Sentence text -->
-          <div class="text-center space-y-1">
-            <div class="font-en text-lg sm:text-xl font-black text-slate-800 tracking-tight">
-              "Bananas are the most expensive fruit."
-            </div>
-            <div class="text-xs text-slate-500 font-bold">
-              المعنى: «الموز هو الفاكهة الأغلى سعراً.»
-            </div>
-          </div>
-        </div>
-
-        <!-- Circling Interactive Option Buttons -->
-        <div class="space-y-3 pt-2">
-          <div class="text-xs font-bold text-center text-slate-600">
-            اختر الإجابة المناسبة ليتم رسم دائرة القلم حولها:
-          </div>
-
-          <div class="flex items-center justify-center gap-10 py-2">
-            <!-- Choice TRUE (✔) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-4-true" onclick="chooseAnswer(4, true)">
-              <div class="w-16 h-16 rounded-2xl bg-emerald-50 border-2 border-emerald-300 hover:border-emerald-500 flex items-center justify-center text-3xl font-black text-emerald-600 shadow-sm relative">
-                ✔
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-emerald-700">صح (True)</span>
-            </div>
-
-            <!-- Choice FALSE (❌) -->
-            <div class="pencil-circle-slot flex flex-col items-center gap-1" id="slot-4-false" onclick="chooseAnswer(4, false)">
-              <div class="w-16 h-16 rounded-2xl bg-rose-50 border-2 border-rose-300 hover:border-rose-500 flex items-center justify-center text-3xl font-black text-rose-600 shadow-sm relative">
-                ❌
-                <svg class="drawn-svg-overlay" viewBox="0 0 100 100">
-                  <path d="M 50,10 A 40,38 0 1,1 15,65 A 40,38 0 0,1 50,10 Z" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="text-xs font-bold text-rose-700">خطأ (False)</span>
-            </div>
-          </div>
-
-          <!-- Explanation Feedback Box -->
-          <div class="feedback-card hidden p-3 rounded-2xl text-xs font-bold transition-all" id="feedback-4"></div>
-        </div>
-      </div>
-
     </section>
 
-    <section class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 space-y-4 no-print">
-      <div class="flex items-center gap-2 pb-2 border-b border-slate-100">
-        <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-black">💡</span>
-        <h3 class="text-lg sm:text-xl font-black text-slate-800">
-          جدول التوضيح النحوي والدلالي للجمل الأربع
-        </h3>
+    <section class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 space-y-6 print-card" id="missing-letters-section">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-2xl bg-sky-100 text-sky-700 flex items-center justify-center text-2xl font-black">🔤</span>
+          <div>
+            <span class="px-2.5 py-0.5 bg-sky-100 text-sky-800 rounded-full font-en text-[11px] font-black uppercase">Exercise 1</span>
+            <h3 class="text-lg sm:text-xl font-black text-slate-800 mt-0.5">
+              أوجد الحرف الناقص <span class="font-en text-sky-600 text-sm">(Find the Missing Letter)</span>
+            </h3>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
+          انقر على الحرف الصحيح لإكمال الكلمة ورسم الدائرة حوله ✏️
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-bold">
-        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-3.5 space-y-1.5">
-          <div class="text-emerald-800 font-black font-en text-sm">1) I am busy at the moment</div>
-          <div class="text-emerald-700 font-bold">الإجابة: ✔ (صح)</div>
-          <p class="text-slate-600 leading-relaxed">
-            الصورة توضح انشغال الأم بالطبخ والطفل والعمل. وعبارة <strong>at the moment</strong> تدل على ما يحدث الآن.
+      <!-- Missing Letter Questions Grid (10 Questions) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4" id="missingLetterQuizContainer">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200 space-y-6 print-card" id="reorder-words-section">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-2xl font-black">🧩</span>
+          <div>
+            <span class="px-2.5 py-0.5 bg-amber-100 text-amber-800 rounded-full font-en text-[11px] font-black uppercase">Exercise 2</span>
+            <h3 class="text-lg sm:text-xl font-black text-slate-800 mt-0.5">
+              رتب الكلمات بشكل جميل من اليسار إلى اليمين <span class="font-en text-amber-600 text-sm">(Reorder the Words - LTR)</span>
+            </h3>
+          </div>
+        </div>
+        <div class="text-xs font-bold text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100 flex items-center gap-1.5">
+          <span>👈</span> الترتيب الإنجليزي الصحيح يبدأ من اليسار إلى اليمين
+        </div>
+      </div>
+
+      <!-- Sentence Builder Items (5 Sentences) -->
+      <div class="space-y-5" id="sentenceBuilderContainer">
+        <!-- Injected dynamically via JS -->
+      </div>
+    </section>
+
+    <section class="bg-gradient-to-br from-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg space-y-4 no-print">
+      <div class="flex items-center gap-3 pb-2 border-b border-white/10">
+        <span class="text-2xl">💡</span>
+        <h3 class="text-lg sm:text-xl font-black">دليل الفروق بين اللهجات الإنجليزية الثلاث (US, UK, CA)</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
+          <div class="flex items-center gap-2 text-amber-300 font-bold text-sm">
+            <span>🇺🇸</span> الإنجليزية الأمريكية (American)
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            تتميز بنطق حرف <strong>R</strong> بوضوح شديد (Rhoticity)، ونطق حرف <strong>T</strong> بين حرفين متحركين مخففاً مثل d (Flap T كما في <em>butterfly</em> و <em>little</em>).
           </p>
         </div>
 
-        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-3.5 space-y-1.5">
-          <div class="text-emerald-800 font-black font-en text-sm">2) Ok, no problem</div>
-          <div class="text-emerald-700 font-bold">الإجابة: ✔ (صح)</div>
-          <p class="text-slate-600 leading-relaxed">
-            إشارة الإبهامين للأعلى مع الابتسامة تعني الموافقة والقبول التام وعدم وجود أي إشكال.
+        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
+          <div class="flex items-center gap-2 text-sky-300 font-bold text-sm">
+            <span>🇬🇧</span> الإنجليزية البريطانية (British)
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            يُنطق حرف <strong>T</strong> صريحاً وحاداً (Crisp T)، بينما لا يُنطق حرف <strong>R</strong> إذا جاء في نهاية الكلمة أو قبل حرف ساكن إلا إذا تبعه حرف علة (Non-rhotic).
           </p>
         </div>
 
-        <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-3.5 space-y-1.5">
-          <div class="text-rose-800 font-black font-en text-sm">3) I’m agree</div>
-          <div class="text-rose-700 font-bold">الإجابة: ❌ (خطأ)</div>
-          <p class="text-slate-600 leading-relaxed">
-            الصورة بها إبهام للأسفل (رفض)، ولغوياً كلمة <strong>agree</strong> فعل ولا تأخذ am؛ والصحيح: <em>I agree</em> أو <em>I disagree</em>.
-          </p>
-        </div>
-
-        <div class="bg-rose-50/70 border border-rose-200 rounded-2xl p-3.5 space-y-1.5">
-          <div class="text-rose-800 font-black font-en text-sm">4) Bananas are the most expensive</div>
-          <div class="text-rose-700 font-bold">الإجابة: ❌ (خطأ)</div>
-          <p class="text-slate-600 leading-relaxed">
-            الكرز سعره 15﷼ وهو الأغلى (Cherries are the most expensive)، والموز بـ 5﷼ فقط والتفاح بـ 3﷼.
+        <div class="bg-white/10 rounded-2xl p-4 border border-white/10 space-y-2">
+          <div class="flex items-center gap-2 text-rose-300 font-bold text-sm">
+            <span>🇨🇦</span> الإنجليزية الكندية (Canadian)
+          </div>
+          <p class="text-slate-300 leading-relaxed">
+            مزيج فريد بين الأمريكية والبريطانية؛ تتبع النطق الأمريكي في حرف الـ R، لكنها تحتفظ بنغمات كندية خاصة (Canadian Raising) في حروف العلة، مع تهجئة بريطانية لبعض الكلمات.
           </p>
         </div>
       </div>
@@ -730,63 +345,392 @@
 
   </main>
 
-  <!-- Floating Toast Notification -->
   <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700 pointer-events-none">
     <span id="toastIcon" class="text-xl">🌟</span>
     <span id="toastMessage" class="text-sm font-bold">إشعار</span>
   </div>
 
   <script>
-    // Data definition for the 4 items
-    const exerciseItems = [
+    // Full vocabulary dataset extracted from the user's worksheet
+    const vocabularyList = [
       {
-        id: 1,
-        sentence: "I am busy at the moment.",
-        correctAnswer: true,
-        correctText: "إجابة صحيحة (True)! الأم مشغولة جداً بالطبخ ورعاية الطفل والعمل في نفس اللحظة.",
-        wrongText: "إجابة غير صحيحة! انتبه للصورة؛ الأم تقوم بعدة أعمال في وقت واحد، لذا هي مشغولة بالتأكيد."
+        id: "insects",
+        en: "insects",
+        ar: "حشرات",
+        category: "animals",
+        example: "Bees, ants, and butterflies are insects.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Bee -->
+          <ellipse cx="50" cy="50" rx="20" ry="14" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+          <path d="M42 37 L42 63 M50 36 L50 64 M58 37 L58 63" stroke="#1e293b" stroke-width="3"/>
+          <circle cx="32" cy="50" r="10" fill="#1e293b"/>
+          <circle cx="30" cy="48" r="2" fill="#ffffff"/>
+          <!-- Wings -->
+          <ellipse cx="48" cy="30" rx="9" ry="14" fill="#bae6fd" opacity="0.8" transform="rotate(-20 48 30)"/>
+          <ellipse cx="58" cy="30" rx="9" ry="14" fill="#bae6fd" opacity="0.8" transform="rotate(20 58 30)"/>
+          <path d="M28 42 Q22 34 24 30" stroke="#1e293b" stroke-width="2" fill="none"/>
+        </svg>`,
+        badgeColor: "bg-amber-100 text-amber-800"
       },
       {
-        id: 2,
-        sentence: "Ok, no problem.",
-        correctAnswer: true,
-        correctText: "إجابة صحيحة (True)! علامة الإبهام للأعلى (Thumbs up) والابتسامة تعني الموافقة والترحيب.",
-        wrongText: "إجابة غير صحيحة! علامة الإبهام للأعلى والابتسامة تعبر تماماً عن عبارة (Ok, no problem)."
+        id: "butterfly",
+        en: "butterfly",
+        ar: "فراشة",
+        category: "animals",
+        example: "The butterfly has beautiful colorful wings.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Wings Left -->
+          <path d="M46 50 C25 20 10 35 22 60 C12 75 25 88 46 62 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/>
+          <circle cx="28" cy="45" r="5" fill="#fbcfe8"/>
+          <!-- Wings Right -->
+          <path d="M54 50 C75 20 90 35 78 60 C88 75 75 88 54 62 Z" fill="#f472b6" stroke="#db2777" stroke-width="2"/>
+          <circle cx="72" cy="45" r="5" fill="#fbcfe8"/>
+          <!-- Body -->
+          <rect x="47" y="38" width="6" height="30" rx="3" fill="#475569"/>
+          <circle cx="50" cy="35" r="4.5" fill="#475569"/>
+          <!-- Antennae -->
+          <path d="M48 32 Q42 22 38 24" stroke="#475569" stroke-width="1.8" fill="none"/>
+          <path d="M52 32 Q58 22 62 24" stroke="#475569" stroke-width="1.8" fill="none"/>
+        </svg>`,
+        badgeColor: "bg-pink-100 text-pink-800"
       },
       {
-        id: 3,
-        sentence: "I’m agree.",
-        correctAnswer: false,
-        correctText: "إجابة ممتازة (False)! الصورة تدل على الرفض (Thumbs down)، وتركيب الجملة خاطئ، والصواب: I agree أو I disagree.",
-        wrongText: "انتبه! الإشارة هي إبهام للأسفل (عدم موافقة)، كما أن كتابة I'm agree خاطئة قواعدياً (الصواب: I agree)."
+        id: "beetle",
+        en: "beetle",
+        ar: "خنفساء",
+        category: "animals",
+        example: "The black beetle is crawling on the ground.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Legs -->
+          <path d="M30 40 L18 35 M30 52 L15 52 M30 65 L18 70" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M70 40 L82 35 M70 52 L85 52 M70 65 L82 70" stroke="#334155" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Shell Body -->
+          <ellipse cx="50" cy="55" rx="22" ry="26" fill="#1e293b"/>
+          <line x1="50" y1="35" x2="50" y2="81" stroke="#475569" stroke-width="2"/>
+          <!-- Head -->
+          <ellipse cx="50" cy="32" rx="14" ry="10" fill="#0f172a"/>
+          <!-- Antennae -->
+          <path d="M45 25 Q40 16 34 18" stroke="#0f172a" stroke-width="2" fill="none"/>
+          <path d="M55 25 Q60 16 66 18" stroke="#0f172a" stroke-width="2" fill="none"/>
+        </svg>`,
+        badgeColor: "bg-slate-100 text-slate-800"
       },
       {
-        id: 4,
-        sentence: "Bananas are the most expensive fruit.",
-        correctAnswer: false,
-        correctText: "إجابة ممتازة (False)! الكرز سعره 15﷼ وهو الأغلى (the most expensive)، بينما الموز سعره 5﷼ فقط.",
-        wrongText: "لاحظ الأسعار جيداً! الكرز بـ 15﷼ وهو الأغلى، بينما الموز بـ 5﷼، لذا العبارة خاطئة."
+        id: "wing",
+        en: "wing",
+        ar: "جناح",
+        category: "animals",
+        example: "The bird injured its left wing.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <path d="M25 75 C20 40 45 25 85 20 C75 45 65 65 35 80 Z" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/>
+          <path d="M40 38 Q65 38 75 28" stroke="#93c5fd" stroke-width="2" fill="none"/>
+          <path d="M35 52 Q60 52 70 42" stroke="#93c5fd" stroke-width="2" fill="none"/>
+          <path d="M30 65 Q50 65 60 56" stroke="#93c5fd" stroke-width="2" fill="none"/>
+        </svg>`,
+        badgeColor: "bg-blue-100 text-blue-800"
+      },
+      {
+        id: "extinct",
+        en: "extinct",
+        ar: "منقرض",
+        category: "animals",
+        example: "Dinosaurs are extinct animals that lived long ago.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Pterodactyl flying dinosaur -->
+          <path d="M50 48 L20 30 L38 58 L50 52 L62 58 L80 30 Z" fill="#ea580c" stroke="#c2410c" stroke-width="2"/>
+          <polygon points="50,32 54,48 46,48" fill="#ea580c"/>
+          <circle cx="50" cy="30" r="5" fill="#ea580c"/>
+          <polygon points="50,26 65,22 53,30" fill="#ea580c"/>
+          <!-- Hourglass cross representing extinction -->
+          <circle cx="76" cy="74" r="14" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+          <text x="76" y="80" font-size="16" font-weight="900" fill="#dc2626" text-anchor="middle">✕</text>
+        </svg>`,
+        badgeColor: "bg-red-100 text-red-800"
+      },
+      {
+        id: "dinosaur",
+        en: "dinosaur",
+        ar: "ديناصور",
+        category: "animals",
+        example: "The T-Rex is a famous giant dinosaur.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- T-Rex Silhouette/Cartoon -->
+          <path d="M30 75 Q40 85 50 78 Q60 65 65 52 Q75 50 82 42 Q82 32 72 32 L62 32 L58 40 Q50 42 45 48 Q35 52 25 70 Z" fill="#16a34a" stroke="#15803d" stroke-width="2"/>
+          <ellipse cx="75" cy="36" rx="2" ry="3" fill="#ffffff"/>
+          <path d="M40 78 L42 88 M52 75 L56 88" stroke="#15803d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M58 54 L65 58" stroke="#15803d" stroke-width="3" stroke-linecap="round"/>
+        </svg>`,
+        badgeColor: "bg-emerald-100 text-emerald-800"
+      },
+      {
+        id: "tortoise",
+        en: "tortoise",
+        ar: "سلحفاة برية",
+        category: "animals",
+        example: "The tortoise moves very slowly on land.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Legs -->
+          <ellipse cx="34" cy="68" rx="6" ry="8" fill="#a16207"/>
+          <ellipse cx="66" cy="68" rx="6" ry="8" fill="#a16207"/>
+          <!-- Shell -->
+          <path d="M25 65 Q50 30 75 65 Z" fill="#ca8a04" stroke="#854d0e" stroke-width="2.5"/>
+          <path d="M38 52 L50 42 L62 52 L50 62 Z" stroke="#854d0e" stroke-width="2" fill="#eab308"/>
+          <!-- Head -->
+          <ellipse cx="82" cy="60" rx="9" ry="7" fill="#a16207"/>
+          <circle cx="85" cy="58" r="1.5" fill="#000000"/>
+        </svg>`,
+        badgeColor: "bg-amber-100 text-amber-900"
+      },
+      {
+        id: "creature",
+        en: "creature",
+        ar: "مخلوق",
+        category: "animals",
+        example: "Whales are amazing sea creatures.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Dolphin/Whale Sea Creature -->
+          <path d="M20 55 C35 30 70 35 85 45 C75 55 65 65 45 65 C30 65 20 58 15 62 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
+          <polygon points="85,45 92,38 90,52" fill="#0284c7"/>
+          <polygon points="50,38 56,28 60,38" fill="#0284c7"/>
+          <circle cx="28" cy="50" r="2" fill="#ffffff"/>
+          <!-- Water splashes -->
+          <circle cx="48" cy="22" r="2" fill="#38bdf8"/>
+          <circle cx="56" cy="18" r="2.5" fill="#38bdf8"/>
+        </svg>`,
+        badgeColor: "bg-cyan-100 text-cyan-800"
+      },
+      {
+        id: "heavy",
+        en: "heavy",
+        ar: "ثقيل",
+        category: "adjectives",
+        example: "This big rock is very heavy to lift.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Big boulder rock with weight lines -->
+          <circle cx="50" cy="45" r="24" fill="#64748b" stroke="#334155" stroke-width="2.5"/>
+          <text x="50" y="52" font-size="14" font-weight="900" fill="#f8fafc" text-anchor="middle" font-family="Fredoka">50kg</text>
+          <!-- Downward force arrows -->
+          <path d="M50 72 L50 86 M45 80 L50 86 L55 80" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`,
+        badgeColor: "bg-slate-200 text-slate-800"
+      },
+      {
+        id: "quiet",
+        en: "quiet",
+        ar: "هادئ",
+        category: "adjectives",
+        example: "Please be quiet in the school library.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Shushing Emoji -->
+          <circle cx="50" cy="50" r="26" fill="#facc15" stroke="#eab308" stroke-width="2"/>
+          <ellipse cx="40" cy="42" rx="3" ry="4" fill="#451a03"/>
+          <ellipse cx="60" cy="42" rx="3" ry="4" fill="#451a03"/>
+          <!-- Finger on mouth -->
+          <rect x="47" y="48" width="8" height="22" rx="4" fill="#fdba74" stroke="#ea580c" stroke-width="1.5"/>
+        </svg>`,
+        badgeColor: "bg-yellow-100 text-yellow-800"
+      },
+      {
+        id: "furry",
+        en: "furry",
+        ar: "ذو فرو",
+        category: "adjectives",
+        example: "My little rabbit is warm and furry.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Cute fluffy creature face -->
+          <circle cx="50" cy="52" r="24" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
+          <!-- Fluffy ears -->
+          <polygon points="32,36 38,18 46,32" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+          <polygon points="68,36 62,18 54,32" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="42" cy="48" r="3" fill="#1e293b"/>
+          <circle cx="58" cy="48" r="3" fill="#1e293b"/>
+          <polygon points="50,56 46,52 54,52" fill="#f43f5e"/>
+          <!-- Whiskers -->
+          <line x1="30" y1="55" x2="20" y2="53" stroke="#64748b" stroke-width="2"/>
+          <line x1="70" y1="55" x2="80" y2="53" stroke="#64748b" stroke-width="2"/>
+        </svg>`,
+        badgeColor: "bg-indigo-100 text-indigo-800"
+      },
+      {
+        id: "look-like",
+        en: "look like",
+        ar: "يبدو مثل",
+        category: "extra",
+        example: "These two baby dinos look like twins.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Twin dinos looking at each other -->
+          <circle cx="35" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+          <circle cx="32" cy="48" r="2.5" fill="#0f172a"/>
+          <circle cx="65" cy="50" r="16" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+          <circle cx="68" cy="48" r="2.5" fill="#0f172a"/>
+          <!-- Equal sign between them -->
+          <line x1="46" y1="47" x2="54" y2="47" stroke="#e11d48" stroke-width="3"/>
+          <line x1="46" y1="53" x2="54" y2="53" stroke="#e11d48" stroke-width="3"/>
+        </svg>`,
+        badgeColor: "bg-sky-100 text-sky-800"
+      },
+      {
+        id: "fur",
+        en: "fur",
+        ar: "فرو",
+        category: "adjectives",
+        example: "Polar bears have thick fur to keep them warm.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Fur coat / texture patch -->
+          <rect x="22" y="24" width="56" height="52" rx="12" fill="#d97706" stroke="#b45309" stroke-width="2"/>
+          <path d="M30 40 Q38 32 46 40 Q54 32 62 40" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
+          <path d="M35 55 Q43 47 51 55 Q59 47 67 55" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
+          <path d="M30 70 Q38 62 46 70 Q54 62 62 70" stroke="#fef3c7" stroke-width="2.5" fill="none"/>
+        </svg>`,
+        badgeColor: "bg-amber-100 text-amber-800"
+      },
+      {
+        id: "dont-touch",
+        en: "don't touch",
+        ar: "لا تلمس",
+        category: "extra",
+        example: "Don't touch that broken glass!",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Red Prohibition Sign with Hand -->
+          <circle cx="50" cy="50" r="28" fill="#ffffff" stroke="#ef4444" stroke-width="5"/>
+          <!-- Hand inside -->
+          <rect x="42" y="42" width="16" height="20" rx="3" fill="#cbd5e1"/>
+          <!-- Red diagonal slash -->
+          <line x1="30" y1="30" x2="70" y2="70" stroke="#ef4444" stroke-width="5"/>
+        </svg>`,
+        badgeColor: "bg-rose-100 text-rose-800"
+      },
+      {
+        id: "tiny",
+        en: "Tiny",
+        ar: "صغير / صغيرة",
+        category: "extra",
+        example: "The ant carries a tiny piece of bread.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Pinching Fingers holding tiny berry -->
+          <path d="M25 60 Q45 50 50 42" stroke="#fdba74" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M30 35 Q45 42 50 42" stroke="#fdba74" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <!-- Tiny red berry -->
+          <circle cx="58" cy="42" r="5" fill="#ef4444"/>
+          <circle cx="57" cy="40" r="1.5" fill="#ffffff"/>
+        </svg>`,
+        badgeColor: "bg-red-50 text-red-700"
+      },
+      {
+        id: "bones",
+        en: "bones",
+        ar: "عظام",
+        category: "extra",
+        example: "Archaeologists found fossil dinosaur bones.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Dog bone -->
+          <path d="M32 40 C28 40 24 35 24 45 C24 55 28 50 32 50 L68 50 C72 50 76 55 76 45 C76 35 72 40 68 40 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+          <circle cx="28" cy="40" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="28" cy="52" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="72" cy="40" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="72" cy="52" r="5" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+        </svg>`,
+        badgeColor: "bg-slate-100 text-slate-700"
+      },
+      {
+        id: "live",
+        en: "Live",
+        ar: "يعيش",
+        category: "extra",
+        example: "Tigers live in the green jungle.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- House and heart representing living -->
+          <polygon points="50,22 22,44 78,44" fill="#0284c7"/>
+          <rect x="30" y="44" width="40" height="34" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+          <!-- Heart in center -->
+          <path d="M50 56 C46 50 40 52 40 57 C40 63 50 69 50 69 C50 69 60 63 60 57 C60 52 54 50 50 56 Z" fill="#ef4444"/>
+        </svg>`,
+        badgeColor: "bg-emerald-100 text-emerald-800"
+      },
+      {
+        id: "wild-animals",
+        en: "Wild animals",
+        ar: "حيوانات برية",
+        category: "extra",
+        example: "Lions and elephants are wild animals.",
+        iconSvg: `<svg viewBox="0 0 100 100" class="w-12 h-12">
+          <!-- Lion face / Safari theme -->
+          <circle cx="50" cy="50" r="26" fill="#f59e0b"/>
+          <!-- Mane spikes -->
+          <path d="M50 16 L54 26 M74 26 L66 32 M84 50 L74 50 M74 74 L66 66 M50 84 L50 74 M26 74 L34 66 M16 50 L26 50 M26 26 L34 32" stroke="#b45309" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="42" cy="46" r="3" fill="#1e293b"/>
+          <circle cx="58" cy="46" r="3" fill="#1e293b"/>
+          <polygon points="50,54 46,50 54,50" fill="#78350f"/>
+        </svg>`,
+        badgeColor: "bg-orange-100 text-orange-800"
       }
     ];
 
-    // State
-    const userAnswers = { 1: null, 2: null, 3: null, 4: null };
-    let audioEnabled = true;
+    // Missing Letter Questions (10 items)
+    const missingLetterQuestions = [
+      { id: 1, fullWord: "insects", display: "i n s _ c t s", missingLetter: "e", options: ["a", "e", "o"], meaning: "حشرات" },
+      { id: 2, fullWord: "butterfly", display: "b u t t _ r f l y", missingLetter: "e", options: ["e", "a", "i"], meaning: "فراشة" },
+      { id: 3, fullWord: "dinosaur", display: "d i n _ s a u r", missingLetter: "o", options: ["a", "u", "o"], meaning: "ديناصور" },
+      { id: 4, fullWord: "extinct", display: "e x t _ n c t", missingLetter: "i", options: ["e", "i", "u"], meaning: "منقرض" },
+      { id: 5, fullWord: "tortoise", display: "t _ r t o i s e", missingLetter: "o", options: ["o", "a", "u"], meaning: "سلحفاة برية" },
+      { id: 6, fullWord: "creature", display: "c r e a t _ r e", missingLetter: "u", options: ["e", "o", "u"], meaning: "مخلوق" },
+      { id: 7, fullWord: "beetle", display: "b e _ t l e", missingLetter: "e", options: ["a", "e", "i"], meaning: "خنفساء" },
+      { id: 8, fullWord: "heavy", display: "h e _ v y", missingLetter: "a", options: ["a", "e", "o"], meaning: "ثقيل" },
+      { id: 9, fullWord: "quiet", display: "q u _ e t", missingLetter: "i", options: ["e", "i", "a"], meaning: "هادئ" },
+      { id: 10, fullWord: "bones", display: "b _ n e s", missingLetter: "o", options: ["u", "a", "o"], meaning: "عظام" }
+    ];
+
+    // Sentence Reordering Questions (LTR - 5 items)
+    const sentenceReorderData = [
+      {
+        id: 1,
+        arabic: "الديناصورات هي مخلوقات منقرضة.",
+        correctOrder: ["Dinosaurs", "are", "extinct", "creatures."],
+        shuffled: ["extinct", "Dinosaurs", "creatures.", "are"]
+      },
+      {
+        id: 2,
+        arabic: "الفراشة تملك أجنحة ملونة.",
+        correctOrder: ["The", "butterfly", "has", "colorful", "wings."],
+        shuffled: ["colorful", "butterfly", "wings.", "The", "has"]
+      },
+      {
+        id: 3,
+        arabic: "السلاحف البرية حيوانات هادئة جداً.",
+        correctOrder: ["Tortoises", "are", "very", "quiet", "animals."],
+        shuffled: ["quiet", "Tortoises", "animals.", "are", "very"]
+      },
+      {
+        id: 4,
+        arabic: "لا تلمس الحيوانات البرية.",
+        correctOrder: ["Don't", "touch", "the", "wild", "animals."],
+        shuffled: ["wild", "touch", "animals.", "Don't", "the"]
+      },
+      {
+        id: 5,
+        arabic: "النمل حشرات صغيرة تعيش هنا.",
+        correctOrder: ["Ants", "are", "tiny", "insects.", "they", "live", "here."],
+        shuffled: ["insects.", "Ants", "live", "are", "tiny", "here.", "they"]
+      }
+    ];
+
+    // App State
+    let currentAccent = 'en-US'; // 'en-US', 'en-GB', 'en-CA'
+    let speechRate = 1.0;
+    let missingQuizAnswers = {};
+    let sentenceStates = {};
     let appSynth = null;
 
-    // Initialize Web Audio Synth
     function initSynth() {
       if (!appSynth && window.Tone) {
         try {
           appSynth = new Tone.PolySynth(Tone.Synth).toDestination();
           appSynth.volume.value = -6;
-        } catch(e) {}
+        } catch (e) {}
       }
     }
 
-    // Play Educational Tone
     function playTone(type) {
-      if (!audioEnabled) return;
       initSynth();
       if (Tone.context && Tone.context.state !== 'running') {
         Tone.start();
@@ -800,6 +744,8 @@
         } else if (type === 'wrong') {
           appSynth.triggerAttackRelease("Eb4", "8n", now);
           appSynth.triggerAttackRelease("B3", "6n", now + 0.12);
+        } else if (type === 'click') {
+          appSynth.triggerAttackRelease("A5", "16n", now);
         } else if (type === 'celebrate') {
           appSynth.triggerAttackRelease("G4", "8n", now);
           appSynth.triggerAttackRelease("C5", "8n", now + 0.1);
@@ -810,118 +756,396 @@
       } catch (e) {}
     }
 
-    // Toggle Audio
-    function toggleAudio() {
-      audioEnabled = !audioEnabled;
-      const icon = document.getElementById('audioIcon');
-      const btn = document.getElementById('audioToggleBtn');
-      if (audioEnabled) {
-        icon.textContent = "🔊";
-        showToast("تم تشغيل الصوت", "🔊");
-        btn.classList.replace("text-slate-400", "text-slate-700");
+    function setAccent(langCode) {
+      currentAccent = langCode;
+      document.querySelectorAll('.accent-btn').forEach(b => b.classList.remove('active'));
+      if (langCode === 'en-US') document.getElementById('btn-accent-us').classList.add('active');
+      if (langCode === 'en-GB') document.getElementById('btn-accent-uk').classList.add('active');
+      if (langCode === 'en-CA') document.getElementById('btn-accent-ca').classList.add('active');
+
+      const names = { 'en-US': 'الأمريكية 🇺🇸', 'en-GB': 'البريطانية 🇬🇧', 'en-CA': 'الكندية 🇨🇦' };
+      showToast(`تم اختيار اللهجة ${names[langCode]}`, "🎙️");
+    }
+
+    function toggleSpeechSpeed() {
+      if (speechRate === 1.0) speechRate = 0.75;
+      else if (speechRate === 0.75) speechRate = 1.2;
+      else speechRate = 1.0;
+
+      document.getElementById('speedLabel').textContent = `${speechRate}x`;
+      showToast(`تم تغيير سرعة النطق إلى ${speechRate}x`, "⚡");
+    }
+
+    function speakWord(text, forcedAccent = null) {
+      if (!('speechSynthesis' in window)) {
+        showToast("المتصفح لا يدعم نطق الصوت", "⚠️");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const targetLang = forcedAccent || currentAccent;
+      utterance.lang = targetLang;
+      utterance.rate = speechRate;
+
+      // Try finding the specific regional voice
+      const voices = window.speechSynthesis.getVoices();
+      const matchVoice = voices.find(v => v.lang === targetLang || v.lang.startsWith(targetLang));
+      if (matchVoice) {
+        utterance.voice = matchVoice;
+      }
+
+      window.speechSynthesis.speak(utterance);
+      const flags = { 'en-US': '🇺🇸', 'en-GB': '🇬🇧', 'en-CA': '🇨🇦' };
+      showToast(`نطق: "${text}" (${flags[targetLang] || '🗣️'})`, "🔊");
+    }
+
+    // Ensure voices are loaded
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
+    }
+
+    function renderWordCards(items = vocabularyList) {
+      const container = document.getElementById('wordsContainer');
+      container.innerHTML = items.map(word => `
+        <div class="word-card bg-white rounded-3xl p-5 shadow-sm border border-slate-200 flex flex-col justify-between space-y-3 relative group">
+          
+          <div class="flex items-start justify-between">
+            <span class="px-2.5 py-1 rounded-xl text-xs font-bold ${word.badgeColor}">
+              ${word.ar}
+            </span>
+            <div class="w-14 h-14 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center p-1.5 shadow-inner">
+              ${word.iconSvg}
+            </div>
+          </div>
+
+          <div>
+            <div class="font-en text-xl font-black text-slate-800 tracking-tight flex items-center justify-between">
+              <span>${word.en}</span>
+              <button onclick="speakWord('${word.en}')" class="p-2 rounded-xl bg-sky-50 text-sky-700 hover:bg-sky-500 hover:text-white transition shadow-sm" title="استمع باللهجة المختارة">
+                🔊
+              </button>
+            </div>
+            <p class="text-[11px] text-slate-500 font-en italic mt-1 line-clamp-2">
+              "${word.example}"
+            </p>
+          </div>
+
+          <!-- Triple Accent Quick Pronounce Bar -->
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-bold text-slate-600">
+            <span class="text-[10px] text-slate-400">اللهجات:</span>
+            <div class="flex items-center gap-1.5">
+              <button onclick="speakWord('${word.en}', 'en-US')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 transition font-en text-[10px]" title="نطق أمريكي">
+                🇺🇸 US
+              </button>
+              <button onclick="speakWord('${word.en}', 'en-GB')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-indigo-100 hover:text-indigo-800 transition font-en text-[10px]" title="نطق بريطاني">
+                🇬🇧 UK
+              </button>
+              <button onclick="speakWord('${word.en}', 'en-CA')" class="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-rose-100 hover:text-rose-800 transition font-en text-[10px]" title="نطق كندي">
+                🇨🇦 CA
+              </button>
+            </div>
+          </div>
+
+        </div>
+      `).join('');
+    }
+
+    // Filter words by Category & Search
+    function filterCategory(cat) {
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('active', 'bg-emerald-600', 'text-white');
+        btn.classList.add('bg-white', 'text-slate-700');
+      });
+      event.target.classList.add('active', 'bg-emerald-600', 'text-white');
+      event.target.classList.remove('bg-white', 'text-slate-700');
+
+      if (cat === 'all') {
+        renderWordCards(vocabularyList);
       } else {
-        icon.textContent = "🔇";
-        showToast("تم كتم الصوت", "🔇");
-        btn.classList.add("text-slate-400");
+        const filtered = vocabularyList.filter(w => w.category === cat);
+        renderWordCards(filtered);
       }
     }
 
-    // Text to Speech Pronunciation
-    function speakSentence(text) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.9;
-        window.speechSynthesis.speak(utterance);
-        showToast("جارٍ نطق الجملة بالإنجليزية", "🗣️");
-      }
+    function filterWords() {
+      const q = document.getElementById('wordSearchInput').value.trim().toLowerCase();
+      const filtered = vocabularyList.filter(w => 
+        w.en.toLowerCase().includes(q) || w.ar.includes(q)
+      );
+      renderWordCards(filtered);
     }
 
-    function chooseAnswer(itemId, chosenValue) {
-      const item = exerciseItems.find(it => it.id === itemId);
-      if (!item) return;
+    function renderMissingLetterQuiz() {
+      const container = document.getElementById('missingLetterQuizContainer');
+      container.innerHTML = missingLetterQuestions.map(q => `
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between space-y-3" id="missing-card-${q.id}">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-500 font-en">Question ${q.id}</span>
+            <span class="text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded-lg">${q.meaning}</span>
+          </div>
 
-      const slotTrue = document.getElementById(`slot-${itemId}-true`);
-      const slotFalse = document.getElementById(`slot-${itemId}-false`);
-      const feedbackEl = document.getElementById(`feedback-${itemId}`);
+          <div class="text-center py-2">
+            <div class="font-en text-2xl font-black text-slate-800 tracking-wider flex items-center justify-center" id="display-word-${q.id}">
+              ${q.display.split(' ').map(char => {
+                if (char === '_') {
+                  return `<span class="letter-slot" id="slot-${q.id}">_</span>`;
+                }
+                return `<span>${char}</span>`;
+              }).join(' ')}
+            </div>
+          </div>
 
-      // Clear previous circle selection
-      slotTrue.classList.remove('selected');
-      slotFalse.classList.remove('selected');
+          <!-- Letter Choice Bubbles -->
+          <div class="flex items-center justify-center gap-4 pt-1">
+            ${q.options.map(letter => `
+              <div class="pencil-option flex flex-col items-center" id="opt-${q.id}-${letter}" onclick="chooseMissingLetter(${q.id}, '${letter}')">
+                <div class="w-11 h-11 rounded-xl bg-white border-2 border-slate-300 hover:border-sky-500 flex items-center justify-center font-en text-lg font-black text-slate-800 shadow-sm relative">
+                  ${letter}
+                  <svg class="drawn-circle-svg" viewBox="0 0 100 100">
+                    <path d="M 50,12 A 38,36 0 1,1 18,65 A 38,36 0 0,1 50,12 Z" fill="none" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            `).join('')}
+          </div>
 
-      // Add selected circle to the clicked choice
-      if (chosenValue === true) {
-        slotTrue.classList.add('selected');
-      } else {
-        slotFalse.classList.add('selected');
-      }
+          <div class="text-[11px] font-bold text-center hidden" id="missing-feedback-${q.id}"></div>
+        </div>
+      `).join('');
+    }
 
-      const isCorrect = (chosenValue === item.correctAnswer);
-      userAnswers[itemId] = isCorrect;
+    function chooseMissingLetter(qid, chosenLetter) {
+      const q = missingLetterQuestions.find(item => item.id === qid);
+      if (!q) return;
 
-      feedbackEl.classList.remove('hidden');
+      // Clear previous circles for this question
+      q.options.forEach(opt => {
+        const el = document.getElementById(`opt-${qid}-${opt}`);
+        if (el) el.classList.remove('selected');
+      });
+
+      // Mark chosen
+      const selectedEl = document.getElementById(`opt-${qid}-${chosenLetter}`);
+      if (selectedEl) selectedEl.classList.add('selected');
+
+      const isCorrect = (chosenLetter.toLowerCase() === q.missingLetter.toLowerCase());
+      missingQuizAnswers[qid] = isCorrect;
+
+      const slot = document.getElementById(`slot-${qid}`);
+      const feedback = document.getElementById(`missing-feedback-${qid}`);
+      feedback.classList.remove('hidden');
+
       if (isCorrect) {
-        feedbackEl.className = "feedback-card p-3.5 rounded-2xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 block shadow-sm animate-fade-in";
-        feedbackEl.innerHTML = `✅ <strong>رائع!</strong> ${item.correctText}`;
+        slot.textContent = chosenLetter;
+        slot.classList.add('filled', 'text-emerald-700');
+        feedback.className = "text-[11px] font-bold text-center text-emerald-700 bg-emerald-50 py-1 rounded-lg border border-emerald-200 block";
+        feedback.textContent = `✅ ممتاز! الكلمة الصحيحة هي (${q.fullWord})`;
         playTone('correct');
+        speakWord(q.fullWord);
       } else {
-        feedbackEl.className = "feedback-card p-3.5 rounded-2xl text-xs font-bold bg-rose-50 text-rose-800 border border-rose-200 block shadow-sm animate-fade-in";
-        feedbackEl.innerHTML = `❌ <strong>حاول مجدداً:</strong> ${item.wrongText}`;
+        slot.textContent = chosenLetter;
+        slot.classList.add('filled', 'text-rose-700');
+        feedback.className = "text-[11px] font-bold text-center text-rose-700 bg-rose-50 py-1 rounded-lg border border-rose-200 block";
+        feedback.textContent = `❌ حاول ثانية! الحرف الصحيح هو (${q.missingLetter})`;
         playTone('wrong');
       }
 
-      updateScoreboard();
+      updateGlobalScoreboard();
     }
 
-    // Update Live Score and Celebrate Full Marks
-    function updateScoreboard() {
-      const correctCount = Object.values(userAnswers).filter(val => val === true).length;
-      const totalCount = exerciseItems.length;
+    function renderSentenceBuilder() {
+      const container = document.getElementById('sentenceBuilderContainer');
+      container.innerHTML = sentenceReorderData.map(item => {
+        sentenceStates[item.id] = { selected: [], pool: [...item.shuffled] };
+        return `
+          <div class="p-5 rounded-3xl bg-slate-50 border border-slate-200 space-y-4">
+            
+            <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+              <span class="px-2.5 py-0.5 rounded-lg bg-amber-100 text-amber-800 font-en text-xs font-black">
+                Sentence ${item.id}
+              </span>
+              <span class="text-xs font-bold text-slate-600">المعنى: ${item.arabic}</span>
+            </div>
 
-      const scoreEl = document.getElementById('totalScoreText');
-      const statusEl = document.getElementById('progressStatusText');
+            <!-- Direction Indicator Banner -->
+            <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 ltr-content px-1">
+              <span>1️⃣ Start (Left) ➔</span>
+              <span>Finish (Right) 🏁</span>
+            </div>
 
-      scoreEl.textContent = `${correctCount} / ${totalCount}`;
+            <!-- Answer Dropzone (LTR) -->
+            <div id="answer-zone-${item.id}" class="min-h-[58px] p-2.5 bg-white rounded-2xl border-2 border-dashed border-sky-300 flex flex-wrap items-center gap-2 ltr-content shadow-inner">
+              <span class="text-xs font-bold text-slate-400 italic pointer-events-none" id="placeholder-${item.id}">
+                Click word chips below to place here from left to right...
+              </span>
+            </div>
 
-      if (correctCount === 0) {
-        statusEl.textContent = "أجب عن الجمل الأربع لتحقيق النجوم!";
-      } else if (correctCount < totalCount) {
-        statusEl.textContent = `أحسنت! أحرزت ${correctCount} من ${totalCount} ⭐`;
+            <!-- Word Bank Pool -->
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-bold text-slate-500">بنك الكلمات (انقر على الكلمة لإضافتها للترتيب):</div>
+              <div id="pool-zone-${item.id}" class="flex flex-wrap items-center gap-2 ltr-content">
+                ${item.shuffled.map((word, idx) => `
+                  <button onclick="addWordToAnswer(${item.id}, '${word}', ${idx})" id="pool-btn-${item.id}-${idx}" class="word-chip px-3 py-1.5 bg-white hover:bg-sky-50 text-slate-800 font-en text-xs font-bold rounded-xl border border-slate-300 shadow-sm transition">
+                    ${word}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Actions and Feedback -->
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+              <div class="flex items-center gap-2">
+                <button onclick="checkSentenceOrder(${item.id})" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition flex items-center gap-1.5">
+                  <span>✔</span> تحقق من الترتيب
+                </button>
+                <button onclick="resetSingleSentence(${item.id})" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl text-xs font-bold transition">
+                  إعادة المحاولة
+                </button>
+                <button onclick="speakSentenceResult(${item.id})" class="p-2 bg-sky-100 hover:bg-sky-200 text-sky-800 rounded-xl text-xs font-bold transition" title="استمع للجملة">
+                  🔊
+                </button>
+              </div>
+              <div id="sentence-feedback-${item.id}" class="text-xs font-bold hidden"></div>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addWordToAnswer(sentenceId, word, index) {
+      const state = sentenceStates[sentenceId];
+      const btn = document.getElementById(`pool-btn-${sentenceId}-${index}`);
+      if (!btn || btn.disabled) return;
+
+      playTone('click');
+      btn.disabled = true;
+      btn.classList.add('opacity-30', 'pointer-events-none');
+
+      state.selected.push({ word, index });
+      renderAnswerChips(sentenceId);
+    }
+
+    function removeWordFromAnswer(sentenceId, selectedIndex) {
+      const state = sentenceStates[sentenceId];
+      const removed = state.selected.splice(selectedIndex, 1)[0];
+      playTone('click');
+
+      const poolBtn = document.getElementById(`pool-btn-${sentenceId}-${removed.index}`);
+      if (poolBtn) {
+        poolBtn.disabled = false;
+        poolBtn.classList.remove('opacity-30', 'pointer-events-none');
+      }
+
+      renderAnswerChips(sentenceId);
+    }
+
+    function renderAnswerChips(sentenceId) {
+      const state = sentenceStates[sentenceId];
+      const zone = document.getElementById(`answer-zone-${sentenceId}`);
+
+      if (state.selected.length === 0) {
+        zone.innerHTML = `<span class="text-xs font-bold text-slate-400 italic pointer-events-none" id="placeholder-${sentenceId}">Click word chips below to place here from left to right...</span>`;
+        return;
+      }
+
+      zone.innerHTML = state.selected.map((item, idx) => `
+        <button onclick="removeWordFromAnswer(${sentenceId}, ${idx})" class="word-chip px-3 py-1.5 bg-sky-600 text-white hover:bg-rose-500 font-en text-xs font-black rounded-xl shadow-sm transition flex items-center gap-1.5" title="انقر للإزالة">
+          <span class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-sans">${idx + 1}</span>
+          <span>${item.word}</span>
+          <span class="text-[10px] text-sky-200">✕</span>
+        </button>
+      `).join('');
+    }
+
+    function checkSentenceOrder(sentenceId) {
+      const item = sentenceReorderData.find(s => s.id === sentenceId);
+      const state = sentenceStates[sentenceId];
+      const currentSentence = state.selected.map(s => s.word).join(' ');
+      const targetSentence = item.correctOrder.join(' ');
+
+      const feedback = document.getElementById(`sentence-feedback-${sentenceId}`);
+      feedback.classList.remove('hidden');
+
+      if (currentSentence === targetSentence) {
+        feedback.className = "text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl border border-emerald-200 block";
+        feedback.textContent = `✅ ترتيب رائع ومتقن 100%! "${targetSentence}"`;
+        playTone('correct');
+        sentenceStates[sentenceId].isCorrect = true;
       } else {
-        statusEl.textContent = "علامة كاملة 4 / 4! إجابات نموذجية 🏆";
+        feedback.className = "text-xs font-bold text-rose-800 bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 block";
+        feedback.textContent = `❌ هناك خطأ في الترتيب! راجع سياق الجملة من اليسار لليمين.`;
+        playTone('wrong');
+        sentenceStates[sentenceId].isCorrect = false;
+      }
+
+      updateGlobalScoreboard();
+    }
+
+    function resetSingleSentence(sentenceId) {
+      const state = sentenceStates[sentenceId];
+      state.selected.forEach(item => {
+        const poolBtn = document.getElementById(`pool-btn-${sentenceId}-${item.index}`);
+        if (poolBtn) {
+          poolBtn.disabled = false;
+          poolBtn.classList.remove('opacity-30', 'pointer-events-none');
+        }
+      });
+      state.selected = [];
+      state.isCorrect = false;
+      renderAnswerChips(sentenceId);
+      const feedback = document.getElementById(`sentence-feedback-${sentenceId}`);
+      feedback.classList.add('hidden');
+      updateGlobalScoreboard();
+    }
+
+    function speakSentenceResult(sentenceId) {
+      const item = sentenceReorderData.find(s => s.id === sentenceId);
+      speakWord(item.correctOrder.join(' '));
+    }
+
+    function updateGlobalScoreboard() {
+      const missingScore = Object.values(missingQuizAnswers).filter(v => v === true).length;
+      const sentenceScore = Object.values(sentenceStates).filter(v => v && v.isCorrect === true).length;
+      const totalScore = missingScore + sentenceScore; // out of 15
+
+      const scoreEl = document.getElementById('totalScoreBadge');
+      const hintEl = document.getElementById('scoreFeedbackHint');
+      scoreEl.textContent = `${totalScore} / 15`;
+
+      if (totalScore === 0) {
+        hintEl.textContent = "ابدأ بحل التمارين بالأسفل!";
+      } else if (totalScore < 15) {
+        hintEl.textContent = `رائع! أحرزت ${totalScore} من 15 نقطة ⭐`;
+      } else {
+        hintEl.textContent = "علامة كاملة 15 / 15! إتقان تام 🏆";
         playTone('celebrate');
         triggerConfetti();
-        showToast("تهانينا! حققت الدرجة الكاملة بنجاح باهر 4/4 🌟", "🎉");
+        showToast("تهانينا! حققت الدرجة الكاملة بنجاح 15/15 🌟", "🎉");
       }
     }
 
-    // Confetti Fireworks Celebration
     function triggerConfetti() {
       if (window.confetti) {
         confetti({
-          particleCount: 140,
+          particleCount: 130,
           spread: 80,
           origin: { y: 0.6 }
         });
       }
     }
 
-    // Reset Training
-    function resetTraining() {
-      [1, 2, 3, 4].forEach(id => {
-        userAnswers[id] = null;
-        document.getElementById(`slot-${id}-true`).classList.remove('selected');
-        document.getElementById(`slot-${id}-false`).classList.remove('selected');
-        const feedback = document.getElementById(`feedback-${id}`);
-        feedback.classList.add('hidden');
-      });
-
-      updateScoreboard();
-      showToast("تمت إعادة تعيين التدريب", "🔄");
+    function resetAllExercises() {
+      missingQuizAnswers = {};
+      renderMissingLetterQuiz();
+      sentenceReorderData.forEach(item => resetSingleSentence(item.id));
+      updateGlobalScoreboard();
+      showToast("تمت إعادة تعيين جميع التمارين", "🔄");
     }
 
-    // Toast Notification helper
     function showToast(message, icon = "🌟") {
       const toast = document.getElementById('toastNotification');
       const msg = document.getElementById('toastMessage');
@@ -934,13 +1158,20 @@
       setTimeout(() => {
         toast.classList.remove('translate-y-0', 'opacity-100');
         toast.classList.add('translate-y-28', 'opacity-0');
-      }, 2400);
+      }, 2300);
     }
 
-    // Unlock Tone.js on first user interaction
-    document.addEventListener('click', () => {
-      initSynth();
-    }, { once: true });
+    // Initialize all app components on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderWordCards();
+      renderMissingLetterQuiz();
+      renderSentenceBuilder();
+      updateGlobalScoreboard();
+
+      document.addEventListener('click', () => {
+        initSynth();
+      }, { once: true });
+    });
   </script>
 </body>
 </html>
