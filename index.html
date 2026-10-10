@@ -231,6 +231,12 @@
                     <i class="fa-solid fa-volume-high text-xs"></i>
                     <span>تجربة الصوت</span>
                 </button>
+
+                <!-- WhatsApp Share Button in Header -->
+                <button onclick="shareViaWhatsApp()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition flex items-center gap-1 shadow-xs" title="مشاركة الدرس عبر الواتساب">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>مشاركة</span>
+                </button>
             </div>
         </div>
     </header>
@@ -314,6 +320,10 @@
                     <a href="#interactive-practice" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm flex items-center gap-2 transition border border-white/20">
                         <i class="fa-solid fa-award"></i> 4) اختبار الفهم التفاعلي
                     </a>
+                    <!-- WhatsApp Share Quick Link -->
+                    <button onclick="shareViaWhatsApp()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
+                        <i class="fa-brands fa-whatsapp text-base"></i> إرسال عبر الواتساب
+                    </button>
                 </div>
             </div>
         </div>
@@ -480,7 +490,32 @@
         <span id="toastMsg">تم الإجراء بنجاح</span>
     </div>
 
+    <!-- Floating WhatsApp Share Button -->
+    <button onclick="shareViaWhatsApp()" class="fixed bottom-6 left-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition flex items-center gap-2 border-2 border-white/80" title="مشاركة الدرس عبر الواتساب">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="text-xs font-black hidden sm:inline">مشاركة بالواتساب</span>
+    </button>
+
     <script>
+        /* ==========================================================
+           WHATSAPP SHARING HELPER
+           ========================================================== */
+        function shareViaWhatsApp() {
+            const currentUrl = window.location.href;
+            const message = 
+`📚 *درس اللغة الإنجليزية التفاعلي (Vocabulary Mastery)*
+👨‍🏫 *معلم المادة:* الأستاذ / ماجد السويهري
+🍁 *الميزات:* نطق كندي نقي بصوت المعلمة Emma + ترجمة عربية صامتة + اختبار تفاعلي مباشر
+
+🔗 *رابط الدخول للدرس:*
+${currentUrl}`;
+
+            const encodedMsg = encodeURIComponent(message);
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMsg}`;
+            window.open(whatsappUrl, '_blank');
+            showToast('جاري فتح الواتساب للمشاركة...', 'fa-brands fa-whatsapp text-emerald-400');
+        }
+
         /* ==========================================================
            DATASET 1: VOCABULARY PAGE 4 & 5 (7 ITEMS)
            Matching image_e939af.png exactly:
@@ -736,7 +771,7 @@
                 id: 10,
                 word: "no problem",
                 ar: "لا مشكلة",
-                sentence: "Thanks for your help! - No problem at all.",
+                sentence: "Thanks for your help. No problem at all.",
                 icon: "🔄",
                 svgGraphic: `
                     <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -927,7 +962,7 @@
                 const voices = synth.getVoices();
                 if (!voices || voices.length === 0) return;
 
-                // Strict Priority for Canadian English voice (en-CA)
+                // Priority 1: High-fidelity Canadian English voices (en-CA)
                 const canadianVoices = voices.filter(v => 
                     v.lang === 'en-CA' || 
                     v.lang === 'en_CA' || 
@@ -936,12 +971,13 @@
                 );
 
                 let selected = canadianVoices.find(v => 
+                    v.name.toLowerCase().includes('natural') ||
+                    v.name.toLowerCase().includes('online') ||
                     v.name.toLowerCase().includes('female') ||
                     v.name.toLowerCase().includes('linda') ||
                     v.name.toLowerCase().includes('heather') ||
                     v.name.toLowerCase().includes('samantha') ||
                     v.name.toLowerCase().includes('victoria') ||
-                    v.name.toLowerCase().includes('zira') ||
                     v.name.toLowerCase().includes('jenny')
                 );
 
@@ -949,16 +985,20 @@
                     selected = canadianVoices[0];
                 }
 
-                // Fallback: Clear neutral English female voice
+                // Priority 2: High-fidelity natural female English voices if device lacks en-CA
                 if (!selected) {
-                    const femaleKeywords = ['female', 'samantha', 'victoria', 'karen', 'moira', 'fiona', 'zira', 'susan', 'catherine'];
+                    const naturalFemaleKeywords = [
+                        'natural', 'online', 'jenny', 'aria', 'ava', 
+                        'samantha', 'victoria', 'karen', 'moira', 'fiona', 
+                        'zira', 'susan', 'catherine', 'female'
+                    ];
                     selected = voices.find(v => 
                         v.lang.startsWith('en') && 
-                        femaleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
+                        naturalFemaleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
                     );
                 }
 
-                // General fallback
+                // General fallback to any English voice
                 if (!selected) {
                     selected = voices.find(v => v.lang.startsWith('en'));
                 }
@@ -972,22 +1012,45 @@
             }
         }
 
-        /* Sanitize text for clean speech without saying symbols, exclamation points, or blanks */
+        /* Sanitize text for clean, authentic pronunciation without symbol artifacts or mispronunciations */
         function sanitizeTextForSpeech(text) {
-            return text
-                .replace(/!+/g, '')
+            if (!text) return '';
+            
+            let clean = text
+                // Replace hyphens or dashes between clauses with natural pause comma (prevents voice saying "dash" or "hyphen")
+                .replace(/\s*[-—–]\s*/g, ', ')
+                // Replace exclamation points with periods for calm falling intonation
+                .replace(/!+/g, '.')
+                // Replace fill-in-the-blank lines with single space
                 .replace(/_+/g, ' ')
+                // Strip literal artifacts
                 .replace(/\bblank\b/gi, ' ')
                 .replace(/\bexclamation\s+(point|mark)\b/gi, '')
-                .replace(/['"“”‘’]/g, '')
-                .replace(/\//g, ' , ')
+                // Remove outer quotation marks while preserving apostrophes inside contractions (e.g. don't, I'll, it's)
+                .replace(/[“”"«»]/g, '')
+                .replace(/(^|\s)'|'(\s|$)/g, '$1$2')
+                // Convert slashes or ellipsis to natural conversational pauses
+                .replace(/\//g, ', ')
                 .replace(/\.\.\./g, ', ')
+                // Normalize multiple spaces
                 .replace(/\s+/g, ' ')
                 .trim();
+
+            // Ensure every spoken phrase ends with terminal punctuation for complete phoneme release
+            if (clean && !/[.?!]$/.test(clean)) {
+                clean += '.';
+            }
+
+            return clean;
         }
 
         function playSentence(englishText, elementToHighlight = null, callback = null) {
             if (!('speechSynthesis' in window)) return;
+
+            // Prevent browser speech lock / pause state
+            if (synth.paused) {
+                synth.resume();
+            }
 
             synth.cancel();
 
@@ -996,12 +1059,17 @@
 
             if (currentVoice) {
                 utterance.voice = currentVoice;
+                utterance.lang = currentVoice.lang;
             } else {
                 utterance.lang = 'en-CA';
             }
 
+            // Natural calibrated cadence: steady and articulate
             utterance.rate = speechRate;
-            utterance.pitch = 1.02;
+            utterance.pitch = 1.0; // Optimal natural pitch
+
+            // Keep reference to prevent Chromium garbage collection cutting off audio
+            window._activeUtterance = utterance;
 
             // Audio Status Bar notification
             const audioBar = document.getElementById('audioStatusBar');
@@ -1019,6 +1087,7 @@
             }
 
             utterance.onend = () => {
+                window._activeUtterance = null;
                 if (audioBar && !isSpeakingSequential) {
                     audioBar.classList.add('hidden');
                 }
@@ -1027,12 +1096,16 @@
             };
 
             utterance.onerror = () => {
+                window._activeUtterance = null;
                 if (audioBar) audioBar.classList.add('hidden');
                 clearHighlights();
                 if (callback) callback();
             };
 
-            synth.speak(utterance);
+            // Small delay to ensure synth.cancel() completes safely across all browsers
+            setTimeout(() => {
+                synth.speak(utterance);
+            }, 30);
         }
 
         function clearHighlights() {
@@ -1450,9 +1523,16 @@
                     </div>
                 `;
 
-                const spokenCompleted = q.prompt.includes('_') 
-                    ? q.prompt.replace(/_+/, q.correct) 
-                    : `${q.prompt} ${q.correct}`;
+                // Speak clean completed sentence without quotes or blanks
+                let spokenCompleted = "";
+                if (qId === 3) {
+                    spokenCompleted = "When someone says Thank you, you can politely reply: No problem.";
+                } else if (q.prompt.includes('_')) {
+                    spokenCompleted = q.prompt.replace(/_+/, q.correct).replace(/['"“”‘’]/g, '');
+                } else {
+                    spokenCompleted = `${q.prompt} ${q.correct}`.replace(/['"“”‘’]/g, '');
+                }
+
                 playSentence(spokenCompleted, card);
                 showToast(`سؤال ${qId}: إجابة صحيحة! أحسنت 🌟`, 'fa-circle-check text-emerald-400');
             } else {
@@ -1474,9 +1554,15 @@
                     </div>
                 `;
 
-                const spokenCompleted = q.prompt.includes('_') 
-                    ? q.prompt.replace(/_+/, q.correct) 
-                    : `${q.prompt} ${q.correct}`;
+                let spokenCompleted = "";
+                if (qId === 3) {
+                    spokenCompleted = "When someone says Thank you, you can politely reply: No problem.";
+                } else if (q.prompt.includes('_')) {
+                    spokenCompleted = q.prompt.replace(/_+/, q.correct).replace(/['"“”‘’]/g, '');
+                } else {
+                    spokenCompleted = `${q.prompt} ${q.correct}`.replace(/['"“”‘’]/g, '');
+                }
+
                 playSentence(spokenCompleted, card);
             }
         }
