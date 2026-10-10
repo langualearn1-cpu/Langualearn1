@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس المفردات المصورة: اختر الكلمة الصحيحة - Glory English Academy</title>
+    <title>درس المفردات والعبارات التفاعلي - Vocabulary Mastery (Pages 4 to 7)</title>
     <!-- Google Fonts: Tajawal for Arabic, Plus Jakarta Sans for English -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,22 +24,13 @@
                         english: ['Plus Jakarta Sans', 'sans-serif'],
                     },
                     colors: {
-                        gloryPink: {
+                        gloryBrand: {
                             50: '#fdf2f8',
                             100: '#fce7f3',
-                            200: '#fbcfe8',
                             500: '#ec4899',
                             600: '#db2777',
                             700: '#be185d',
                             800: '#9d174d',
-                        },
-                        amberGold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
                         },
                         vibrantTeal: {
                             50: '#f0fdfa',
@@ -47,6 +38,14 @@
                             500: '#14b8a6',
                             600: '#0d9488',
                             700: '#0f766e',
+                        },
+                        goldenAmber: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
                         }
                     }
                 }
@@ -58,7 +57,7 @@
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: #f8fafc;
-            /* Modern soft micro-dot mesh gradient without chalkboard aesthetic */
+            /* Modern micro-dot mesh gradient without chalkboard aesthetic */
             background-image: 
                 radial-gradient(rgba(148, 163, 184, 0.16) 1.2px, transparent 1.2px),
                 radial-gradient(at 0% 0%, rgba(236, 72, 153, 0.12) 0px, transparent 48%),
@@ -149,7 +148,7 @@
             animation: floatMascot 4s ease-in-out infinite;
         }
 
-        /* Enforce absolute center alignment across all Arabic and English texts */
+        /* Enforce absolute center alignment across all layouts */
         .arabic-center {
             text-align: center !important;
             display: block !important;
@@ -158,17 +157,12 @@
             margin-right: auto !important;
         }
 
-        /* Interactive checkbox token button styles */
-        .check-option-btn {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            user-select: none;
-        }
-        .check-option-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px -1px rgba(236, 72, 153, 0.2);
-        }
-        .check-option-btn:active:not(:disabled) {
-            transform: scale(0.97);
+        .sentence-centered {
+            text-align: center !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
         }
 
         /* Custom Scrollbar */
@@ -199,7 +193,7 @@
             
             <div class="flex items-center gap-3">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-500 to-amber-500 flex items-center justify-center text-white shadow-md shadow-pink-500/20 text-xl font-black">
-                    <i class="fa-solid fa-square-check"></i>
+                    <i class="fa-solid fa-spell-check"></i>
                 </div>
                 <div>
                     <div class="flex flex-wrap items-center gap-2">
@@ -209,14 +203,14 @@
                         <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center gap-1">
                             <span>🍁</span> Canadian Voice (Emma)
                         </span>
-                        <!-- Teacher Badge in Header with Luxury Background -->
+                        <!-- Teacher Badge in Header -->
                         <span class="text-[11px] font-extrabold px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-50 via-rose-50 to-pink-50 text-amber-900 border border-amber-300 shadow-2xs flex items-center gap-1.5">
                             <i class="fa-solid fa-chalkboard-user text-amber-600 text-xs"></i>
                             <span>معلم اللغة الإنجليزية: <strong>الأستاذ / ماجد السويهري</strong></span>
                         </span>
                     </div>
                     <h1 class="text-lg md:text-xl font-extrabold text-slate-800 mt-0.5">
-                        انظر إلى الصورة واختر الكلمة الصحيحة <span class="en-font text-pink-700 font-bold tracking-tight text-base">(Check the Correct Word)</span>
+                        درس المفردات والعبارات <span class="en-font text-pink-700 font-bold tracking-tight text-base">Vocabulary (Pages 4, 5, 6 & 7)</span>
                     </h1>
                 </div>
             </div>
@@ -283,7 +277,7 @@
             <div class="relative z-10 max-w-3xl">
                 <div class="flex flex-wrap items-center gap-2.5 mb-3.5">
                     <div class="inline-flex items-center gap-2 bg-pink-500/20 border border-pink-400/30 px-3.5 py-1 rounded-full text-xs text-pink-200 font-semibold">
-                        <i class="fa-solid fa-images text-amber-300"></i> ورقة التدريب المصورة (1. Look at each picture and check the correct word)
+                        <i class="fa-solid fa-book-open-reader text-amber-300"></i> ورقة المفردات والتراكيب اليومية (Pages 4, 5, 6 & 7)
                     </div>
                     
                     <!-- Featured Teacher Luxury Ribbon -->
@@ -297,101 +291,185 @@
                 </div>
 
                 <h2 class="text-2xl md:text-3xl font-extrabold mb-3 leading-snug">
-                    انظر إلى كل صورة وضع إشارة صح أمام الكلمة الصحيحة المعبرة عنها
+                    بنك المفردات الأساسية والتعبيرات اليومية والكلمات الإضافية
                 </h2>
                 <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-5">
-                    تدرّب على حل البطاقات العشر المطابقة لورقة العمل بالكامل: اختر المربع المناسب أمام الكلمة المطابقة للصورة، واستمع للنطق الكندي الطبيعي الهادئ بصوت المعلمة <span class="en-font font-bold text-amber-300">Emma</span>.
+                    استكشف جميع مفردات ورقة العمل بالضغط على أي بطاقة لسماع النطق الكندي الطبيعي الهادئ بصوت المعلمة <span class="en-font font-bold text-amber-300">Emma</span>.
                     <span class="text-amber-200 font-bold block sm:inline mt-1 sm:mt-0">
-                        (جميع الجمل والترجمات العربية معروضة في المنتصف تماماً دون صوت لضمان سلامة ونقاء مخارج الحروف الإنجليزية).
+                        (جميع الجمل والترجمات العربية موضوعة في المنتصف تماماً دون صوت لضمان سلامة ونقاء مخارج الحروف الإنجليزية).
                     </span>
                 </p>
 
-                <!-- Navigation Shortcuts & Stats -->
-                <div class="flex flex-wrap items-center gap-3">
-                    <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-2xl flex items-center gap-2">
-                        <i class="fa-solid fa-star text-amber-400"></i>
-                        <span class="text-xs md:text-sm font-bold text-white">النتيجة: <span id="heroScoreDisplay" class="font-black text-amber-300">0</span> من 10</span>
-                    </div>
-                    <button onclick="playAllWordsSequential()" id="heroPlayAllBtn" class="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-400 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
-                        <i class="fa-solid fa-circle-play"></i> استمع لجميع الكلمات العشر
-                    </button>
-                    <button onclick="resetExercise()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm flex items-center gap-2 transition border border-white/20">
-                        <i class="fa-solid fa-rotate-right"></i> إعادة الحل
-                    </button>
-                    <button onclick="toggleRevealAll()" id="heroRevealBtn" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
-                        <i class="fa-solid fa-key"></i> كشف الحل النموذجي
-                    </button>
+                <!-- Navigation Shortcuts -->
+                <div class="flex flex-wrap gap-2.5">
+                    <a href="#page-4-5-section" class="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-400 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
+                        <i class="fa-solid fa-shapes"></i> 1) مفردات (Page 4&5) - 7 كلمات
+                    </a>
+                    <a href="#page-6-7-section" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
+                        <i class="fa-solid fa-clock"></i> 2) تعبيرات يومية (Page 6&7) - 8 عبارات
+                    </a>
+                    <a href="#extra-words-section" class="px-4 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
+                        <i class="fa-solid fa-plus-circle"></i> 3) الكلمات الإضافية (Extra Words) - 6 كلمات
+                    </a>
+                    <a href="#interactive-practice" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm flex items-center gap-2 transition border border-white/20">
+                        <i class="fa-solid fa-award"></i> 4) اختبار الفهم التفاعلي
+                    </a>
                 </div>
             </div>
         </div>
 
-        <section class="mb-14">
+        <section id="page-4-5-section" class="mb-14">
             
             <div class="glass-card rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
                 
-                <!-- Section Header -->
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
                     <div class="flex items-center gap-3">
                         <span class="w-10 h-10 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-black text-lg shadow-xs">
-                            1
+                            <i class="fa-solid fa-cube"></i>
                         </span>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="text-xl md:text-2xl font-black text-slate-800">1) Look at each picture and check the correct word</h3>
+                                <h3 class="text-xl md:text-2xl font-black text-slate-800">المفردات الأساسية المصورة</h3>
+                                <span class="en-font text-sm font-extrabold text-pink-800 bg-pink-50 px-2.5 py-0.5 rounded-full border border-pink-200">Page 4 & 5</span>
                             </div>
                             <p class="text-xs text-slate-500 mt-0.5">
-                                انظر إلى الصورة ثم ضع علامة صح داخل المربع أمام الكلمة الصحيحة، واستمع للنطق الصحيح والمثال التوضيحي.
+                                انقر على أي بطاقة لسماع النطق الإنجليزي الهادئ، مع مطالعة الترجمة العربية الصامتة الموضوعة في المنتصف تماماً.
                             </p>
                         </div>
                     </div>
 
-                    <!-- Header Counter & Reset Action -->
                     <div class="flex items-center gap-2 self-start md:self-auto">
-                        <div class="bg-pink-50 border border-pink-200 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xs">
-                            <i class="fa-solid fa-award text-pink-600"></i>
-                            <span class="text-xs font-bold text-pink-950">إجابات صحيحة: <span id="sectionScoreDisplay">0</span> من 10</span>
-                        </div>
+                        <button onclick="playAllPage45Sequential()" id="playAllPage45Btn" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs transition shadow-xs flex items-center gap-1.5" title="استمع لجميع مفردات الصفحة 4 و 5">
+                            <i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لكلمات الصفحة (4&5)</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- 10 Cards Grid (Exact 2-column layout matching image_f42e19.png) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="matchCardsContainer">
-                    <!-- Populated dynamically via JavaScript with high-resolution vector graphics and options -->
+                <!-- 7 Cards Grid: Pages 4&5 matching the exact table layout in image_e939af.png -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="page45GridContainer">
+                    <!-- Populated dynamically by JavaScript -->
                 </div>
 
-                <!-- Bottom Bulk Action Buttons -->
-                <div class="flex flex-wrap items-center justify-center gap-3 mt-8 pt-6 border-t border-slate-100">
-                    <button onclick="checkAllAnswers()" class="px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-xs md:text-sm transition shadow-md flex items-center gap-2">
-                        <i class="fa-solid fa-check"></i> تحقق من جميع الإجابات
-                    </button>
-                    <button onclick="resetExercise()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-700 font-bold text-xs md:text-sm transition border border-slate-300 flex items-center gap-1.5">
-                        <i class="fa-solid fa-rotate-right"></i> مسح الاختيارات
-                    </button>
-                    <button onclick="toggleRevealAll()" id="bottomRevealBtn" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs md:text-sm transition shadow-md flex items-center gap-1.5">
-                        <i class="fa-solid fa-key"></i> كشف نموذج الحل الصحيح
-                    </button>
+                <!-- Featured Wide Card for Storyboard matching the bottom row of Page 4&5 -->
+                <div class="mt-5" id="storyboardContainer">
+                    <!-- Populated dynamically by JavaScript -->
                 </div>
 
             </div>
 
         </section>
 
-        <!-- Educational Inspirational Quote matching the bottom of image_f42e19.png -->
-        <section class="mb-14">
-            <div class="bg-gradient-to-r from-pink-50/70 via-white to-rose-50/70 rounded-3xl p-6 md:p-8 border-2 border-pink-200/80 shadow-xs text-center relative overflow-hidden group hover:border-pink-300 transition">
-                <div class="text-3xl text-pink-300 mb-2">
-                    <i class="fa-solid fa-quote-right"></i>
+        <section id="page-6-7-section" class="mb-14">
+            
+            <div class="glass-card rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-lg shadow-xs">
+                            <i class="fa-solid fa-clock"></i>
+                        </span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-xl md:text-2xl font-black text-slate-800">العبارات والتعبيرات اليومية</h3>
+                                <span class="en-font text-sm font-extrabold text-amber-900 bg-amber-100 px-2.5 py-0.5 rounded-full border border-amber-300">Page 6 & 7</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-0.5">
+                                تعبيرات الوقت والمحادثة اليومية الواردة بالورقة مع النطق الكندي الهادئ والترجمة الصامتة.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 self-start md:self-auto">
+                        <button onclick="playAllPage67Sequential()" id="playAllPage67Btn" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs transition shadow-xs flex items-center gap-1.5" title="استمع لجميع تعبيرات الصفحة 6 و 7">
+                            <i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لتعبيرات (6&7)</span>
+                        </button>
+                    </div>
                 </div>
-                <blockquote class="en-font font-black text-base md:text-xl text-slate-800 leading-relaxed max-w-3xl mx-auto arabic-center mb-3">
-                    "Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
-                </blockquote>
-                <div class="text-xs md:text-sm text-slate-500 font-bold arabic-center mb-1">
-                    «التعليم هو جواز السفر إلى المستقبل، فالغد ملك لأولئك الذين يستعدون له اليوم.»
+
+                <!-- 8 Cards Grid: Pages 6&7 matching image_e939af.png -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="page67GridContainer">
+                    <!-- Populated dynamically by JavaScript -->
                 </div>
-                <cite class="en-font text-xs font-black text-pink-700 not-italic block arabic-center">
-                    — Malcolm X
-                </cite>
+
             </div>
+
+        </section>
+
+        <section id="extra-words-section" class="mb-14">
+            
+            <div class="glass-card rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-teal-600 text-white flex items-center justify-center font-black text-lg shadow-xs">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-xl md:text-2xl font-black text-slate-800">الكلمات الإضافية</h3>
+                                <span class="en-font text-sm font-extrabold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">Extra Words (6 Items)</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-0.5">
+                                الكلمات الست في الجدول الإضافي بأسفل ورقة العمل مع التوسيط الكامل والنطق السليم.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 self-start md:self-auto">
+                        <button onclick="playAllExtraWordsSequential()" id="playAllExtraBtn" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs transition shadow-xs flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-play text-xs"></i> <span>استمع للكلمات الإضافية</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6 Extra Words Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5" id="extraWordsContainer">
+                    <!-- Populated dynamically by JavaScript -->
+                </div>
+
+            </div>
+
+        </section>
+
+        <section id="interactive-practice" class="mb-14">
+            
+            <div class="glass-card rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
+                
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-lg shadow-xs">
+                            <i class="fa-solid fa-award"></i>
+                        </span>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-xl md:text-2xl font-black text-slate-800">اختبر استيعابك للمفردات والعبارات</h3>
+                                <span class="en-font text-sm font-extrabold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">Interactive Quiz</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-0.5">
+                                اختر الكلمة أو العبارة المناسبة لكل سياق، مع احتساب فوري للنتيجة وتأثيرات Tone.js الصوتية.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Score Badge & Reset Action -->
+                    <div class="flex items-center gap-2 self-start md:self-auto">
+                        <div class="bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xs">
+                            <i class="fa-solid fa-star text-amber-500"></i>
+                            <span class="text-xs font-bold text-emerald-950">النتيجة: <span id="quizScoreDisplay">0</span> من 4</span>
+                        </div>
+                        <button onclick="resetQuiz()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-700 font-bold text-xs transition border border-slate-300 flex items-center gap-1.5" title="إعادة حل الاختبار">
+                            <i class="fa-solid fa-rotate-right text-xs"></i> إعادة
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Quiz Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="quizCardsContainer">
+                    <!-- Populated dynamically by JavaScript -->
+                </div>
+
+            </div>
+
         </section>
 
     </main>
@@ -404,161 +482,20 @@
 
     <script>
         /* ==========================================================
-           DATASET: 10 PICTURE ITEMS DIRECTLY MATCHING image_f42e19.png
-           Pairs arranged in the exact order as the printed sheet
+           DATASET 1: VOCABULARY PAGE 4 & 5 (7 ITEMS)
+           Matching image_e939af.png exactly:
+           gate, taxi, tie, cookie, helmet, journalist, storyboard
            ========================================================== */
-        const exerciseItems = [
+        const page45Items = [
             {
                 id: 1,
-                correctWord: "glass",
-                ar: "كوب / زجاج",
-                sentence: "She drank a fresh glass of cold water.",
-                options: ["go away", "Tie", "glass"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f8fafc"/>
-                        <!-- Glass Tumbler Outline matching the worksheet picture -->
-                        <path d="M30 24 L36 82 C36 86 64 86 64 82 L70 24 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="2.2"/>
-                        <!-- Water level inside glass -->
-                        <path d="M34 46 L37 80 C37 84 63 84 63 80 L66 46 Q50 50 34 46 Z" fill="#bae6fd" opacity="0.8"/>
-                        <!-- Light reflections -->
-                        <path d="M38 30 L42 74" stroke="#e0f2fe" stroke-width="2.5" stroke-linecap="round"/>
-                        <ellipse cx="50" cy="24" rx="20" ry="4.5" stroke="#94a3b8" stroke-width="1.8" fill="#f1f5f9"/>
-                    </svg>
-                `
-            },
-            {
-                id: 2,
-                correctWord: "agree",
-                ar: "موافق",
-                sentence: "We all agree that learning is important.",
-                options: ["agree", "Cookie", "gate"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0fdf4"/>
-                        <!-- Green outlined glowing Thumbs Up matching the worksheet icon -->
-                        <path d="M36 78 L28 78 L28 50 L36 50 Z" fill="#86efac" stroke="#16a34a" stroke-width="2.5"/>
-                        <path d="M36 54 C46 54 46 44 46 34 C46 26 54 26 54 32 C54 40 48 48 52 48 L72 48 C76 48 80 52 78 58 L74 74 C73 78 68 80 62 80 L36 80 Z" fill="#bbf7d0" stroke="#16a34a" stroke-width="2.5" stroke-linejoin="round"/>
-                        <!-- Sparkle rays above thumb -->
-                        <line x1="54" y1="18" x2="54" y2="23" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="42" y1="20" x2="46" y2="24" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="66" y1="20" x2="62" y2="24" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                `
-            },
-            {
-                id: 3,
-                correctWord: "Taxi",
-                ar: "سيارة أجرة",
-                sentence: "We took a yellow taxi to the city center.",
-                options: ["glass", "Taxi", "Tie"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fef3c7"/>
-                        <!-- Yellow Taxi Car Body matching worksheet -->
-                        <path d="M14 60 L24 46 L76 46 L86 60 L88 70 L12 70 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                        <!-- Cab Roof Sign: TAXI -->
-                        <rect x="40" y="38" width="20" height="8" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1.2"/>
-                        <text x="50" y="44.5" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="5" fill="#0f172a" text-anchor="middle">TAXI</text>
-                        <!-- Windows -->
-                        <polygon points="28,49 46,49 46,59 23,59" fill="#e0f2fe"/>
-                        <polygon points="52,49 72,49 77,59 52,59" fill="#e0f2fe"/>
-                        <!-- Checkerboard side stripe -->
-                        <rect x="16" y="62" width="68" height="4" fill="#0f172a"/>
-                        <line x1="22" y1="62" x2="22" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="34" y1="62" x2="34" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="46" y1="62" x2="46" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="58" y1="62" x2="58" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="70" y1="62" x2="70" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="82" y1="62" x2="82" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <!-- Wheels -->
-                        <circle cx="28" cy="72" r="8" fill="#1e293b"/>
-                        <circle cx="28" cy="72" r="3.5" fill="#94a3b8"/>
-                        <circle cx="72" cy="72" r="8" fill="#1e293b"/>
-                        <circle cx="72" cy="72" r="3.5" fill="#94a3b8"/>
-                    </svg>
-                `
-            },
-            {
-                id: 4,
-                correctWord: "Helmet",
-                ar: "خوذة",
-                sentence: "Wear a protective helmet when working or cycling.",
-                options: ["Storyboard", "Journalist", "Helmet"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fffbeb"/>
-                        <!-- Yellow Hard Hat Helmet matching the worksheet illustration -->
-                        <path d="M22 60 C22 36 38 24 50 24 C62 24 78 36 78 60 Z" fill="#eab308"/>
-                        <path d="M16 60 Q50 56 84 60 L86 67 Q50 63 14 67 Z" fill="#ca8a04"/>
-                        <!-- Helmet rib top ridges -->
-                        <path d="M46 25 Q50 38 48 58" stroke="#fde047" stroke-width="3.5" stroke-linecap="round"/>
-                        <path d="M54 25 Q50 38 52 58" stroke="#a16207" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Front visor highlight -->
-                        <ellipse cx="50" cy="62" rx="28" ry="3" fill="#fef08a" opacity="0.6"/>
-                    </svg>
-                `
-            },
-            {
-                id: 5,
-                correctWord: "Tie",
-                ar: "رابطة عنق",
-                sentence: "He wore a neat striped tie for the job interview.",
-                options: ["Tie", "Helmet", "gate"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0f9ff"/>
-                        <!-- Striped Blue Tie matching the worksheet picture -->
-                        <!-- Tie Knot -->
-                        <polygon points="44,22 56,22 53,32 47,32" fill="#0369a1"/>
-                        <!-- Tie Body with diagonal stripes -->
-                        <polygon points="46,32 54,32 60,74 50,88 40,74" fill="#0284c7" stroke="#0369a1" stroke-width="1.8"/>
-                        <!-- Diagonal white/cyan stripes -->
-                        <line x1="43" y1="42" x2="57" y2="48" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="42" y1="54" x2="58" y2="60" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="41" y1="66" x2="59" y2="72" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="43" y1="78" x2="57" y2="84" stroke="#bae6fd" stroke-width="2.5"/>
-                    </svg>
-                `
-            },
-            {
-                id: 6,
-                correctWord: "Storyboard",
-                ar: "مخطط القصة",
-                sentence: "The director sketched scenes on the storyboard before filming.",
-                options: ["agree", "Taxi", "Storyboard"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f8fafc"/>
-                        <!-- Easel Stand Legs -->
-                        <line x1="38" y1="65" x2="26" y2="88" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="62" y1="65" x2="74" y2="88" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="50" y1="65" x2="50" y2="90" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Storyboard Board matching worksheet line drawing -->
-                        <rect x="24" y="20" width="52" height="46" rx="3" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
-                        <!-- 4 Film Panel Frames -->
-                        <rect x="28" y="24" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="52" y="24" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="28" y="44" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="52" y="44" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <!-- Panel Drawings (Sun, Mountain, Sea, Moon) -->
-                        <circle cx="34" cy="30" r="2.5" fill="#0f172a"/>
-                        <polygon points="56,36 62,28 68,36" fill="#0f172a"/>
-                        <path d="M30 54 Q38 50 46 54" stroke="#0f172a" stroke-width="1.5" fill="none"/>
-                        <path d="M64 48 C62 50 62 54 64 56 C61 55 61 49 64 48 Z" fill="#0f172a"/>
-                    </svg>
-                `
-            },
-            {
-                id: 7,
-                correctWord: "Cookie",
+                word: "cookie",
                 ar: "بسكوت",
                 sentence: "She baked a sweet chocolate chip cookie.",
-                options: ["agree", "Cookie", "Taxi"],
                 svgGraphic: `
                     <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fffbeb"/>
-                        <!-- Delicious Cookie matching worksheet picture -->
+                        <rect width="100" height="100" rx="18" fill="#fffbeb"/>
+                        <!-- Golden crunchy cookie body -->
                         <circle cx="50" cy="50" r="34" fill="#d97706" stroke="#b45309" stroke-width="2.5"/>
                         <circle cx="50" cy="50" r="30" fill="#f59e0b" opacity="0.9"/>
                         <!-- Chocolate chips -->
@@ -575,93 +512,405 @@
                 `
             },
             {
-                id: 8,
-                correctWord: "gate",
+                id: 2,
+                word: "gate",
                 ar: "بوابة",
                 sentence: "The tall iron gate opens into the garden.",
-                options: ["gate", "Journalist", "go away"],
                 svgGraphic: `
                     <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f1f5f9"/>
-                        <!-- Wrought Iron Gate matching the intricate worksheet illustration -->
+                        <rect width="100" height="100" rx="18" fill="#f1f5f9"/>
+                        <!-- Stone Posts -->
                         <rect x="14" y="24" width="10" height="58" rx="2" fill="#64748b"/>
                         <polygon points="12,24 26,24 19,16" fill="#475569"/>
                         <rect x="76" y="24" width="10" height="58" rx="2" fill="#64748b"/>
                         <polygon points="74,24 88,24 81,16" fill="#475569"/>
-                        <!-- Horizontal bars -->
+                        <!-- Iron Gate bars -->
                         <line x1="24" y1="36" x2="76" y2="36" stroke="#1e293b" stroke-width="3"/>
                         <line x1="24" y1="72" x2="76" y2="72" stroke="#1e293b" stroke-width="3"/>
-                        <!-- Spearhead Vertical Bars -->
+                        <!-- Vertical bars with speartops -->
                         <path d="M32 30 L32 78 M32 30 L30 33 M32 30 L34 33" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
                         <path d="M41 24 L41 78 M41 24 L39 27 M41 24 L43 27" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
                         <path d="M50 20 L50 78 M50 20 L48 23 M50 20 L52 23" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
                         <path d="M59 24 L59 78 M59 24 L57 27 M59 24 L61 27" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
                         <path d="M68 30 L68 78 M68 30 L66 33 M68 30 L70 33" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Ornate middle scroll circles -->
-                        <circle cx="50" cy="54" r="4" stroke="#0f172a" stroke-width="2" fill="none"/>
+                        <!-- Center handle -->
+                        <circle cx="50" cy="54" r="3" fill="#cbd5e1"/>
+                    </svg>
+                `
+            },
+            {
+                id: 3,
+                word: "helmet",
+                ar: "خوذة",
+                sentence: "Wear a protective helmet when riding a bicycle.",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#fdf2f8"/>
+                        <!-- Helmet dome (Pink/Navy sport design from worksheet) -->
+                        <path d="M22 56 C22 32 40 22 52 22 C68 22 80 34 80 56 L22 56 Z" fill="#f43f5e"/>
+                        <path d="M22 56 Q50 48 80 56 L82 62 Q50 56 20 62 Z" fill="#0f172a"/>
+                        <!-- Ventilation grooves -->
+                        <ellipse cx="40" cy="38" rx="8" ry="3.5" fill="#ffffff" opacity="0.8" transform="rotate(-20 40 38)"/>
+                        <ellipse cx="62" cy="38" rx="8" ry="3.5" fill="#ffffff" opacity="0.8" transform="rotate(20 62 38)"/>
+                        <!-- Chin buckle straps -->
+                        <path d="M30 60 L48 80 L52 80 L70 60" stroke="#334155" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                        <rect x="46" y="78" width="8" height="4" rx="1" fill="#ef4444"/>
+                    </svg>
+                `
+            },
+            {
+                id: 4,
+                word: "taxi",
+                ar: "سيارة أجرة",
+                sentence: "We took a yellow taxi to the city center.",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#fef3c7"/>
+                        <!-- Taxi Car Body -->
+                        <path d="M16 60 L24 46 L76 46 L84 60 L86 70 L14 70 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
+                        <!-- Cab Roof Sign: TAXI -->
+                        <rect x="40" y="38" width="20" height="8" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1.2"/>
+                        <text x="50" y="44.5" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="5" fill="#0f172a" text-anchor="middle">TAXI</text>
+                        <!-- Windows -->
+                        <polygon points="28,49 46,49 46,59 23,59" fill="#e0f2fe"/>
+                        <polygon points="52,49 72,49 77,59 52,59" fill="#e0f2fe"/>
+                        <!-- Checkerboard side stripe -->
+                        <rect x="18" y="62" width="64" height="4" fill="#0f172a"/>
+                        <line x1="24" y1="62" x2="24" y2="66" stroke="#ffffff" stroke-width="3"/>
+                        <line x1="36" y1="62" x2="36" y2="66" stroke="#ffffff" stroke-width="3"/>
+                        <line x1="48" y1="62" x2="48" y2="66" stroke="#ffffff" stroke-width="3"/>
+                        <line x1="60" y1="62" x2="60" y2="66" stroke="#ffffff" stroke-width="3"/>
+                        <line x1="72" y1="62" x2="72" y2="66" stroke="#ffffff" stroke-width="3"/>
+                        <!-- Wheels -->
+                        <circle cx="28" cy="72" r="8" fill="#1e293b"/>
+                        <circle cx="28" cy="72" r="3.5" fill="#94a3b8"/>
+                        <circle cx="72" cy="72" r="8" fill="#1e293b"/>
+                        <circle cx="72" cy="72" r="3.5" fill="#94a3b8"/>
+                    </svg>
+                `
+            },
+            {
+                id: 5,
+                word: "journalist",
+                ar: "صحفي",
+                sentence: "The journalist reported the breaking news on television.",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#f0fdf4"/>
+                        <!-- Reporter Suit & Shoulders -->
+                        <rect x="30" y="54" width="40" height="34" rx="6" fill="#0284c7"/>
+                        <polygon points="44,54 50,70 56,54" fill="#ffffff"/>
+                        <polygon points="48,58 50,68 52,58" fill="#dc2626"/>
+                        <!-- Head & Hair -->
+                        <circle cx="50" cy="38" r="14" fill="#fed7aa"/>
+                        <path d="M36 34 C36 20 64 20 64 34 Z" fill="#78350f"/>
+                        <circle cx="45" cy="38" r="2" fill="#0f172a"/>
+                        <circle cx="55" cy="38" r="2" fill="#0f172a"/>
+                        <path d="M47 44 Q50 47 53 44" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
+                        <!-- Hand holding Microphone -->
+                        <circle cx="68" cy="68" r="5" fill="#fed7aa"/>
+                        <!-- Microphone -->
+                        <rect x="66" y="54" width="7" height="12" rx="3" fill="#334155"/>
+                        <ellipse cx="69.5" cy="52" rx="4.5" ry="5.5" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+                        <line x1="69.5" y1="66" x2="69.5" y2="76" stroke="#0f172a" stroke-width="2"/>
+                    </svg>
+                `
+            },
+            {
+                id: 6,
+                word: "tie",
+                ar: "رابطة عنق",
+                sentence: "He wore a neat striped tie for the job interview.",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#f0fdf4"/>
+                        <!-- Shirt Collar -->
+                        <polygon points="34,22 50,30 38,36" fill="#e2e8f0"/>
+                        <polygon points="66,22 50,30 62,36" fill="#e2e8f0"/>
+                        <!-- Tie Knot -->
+                        <polygon points="44,28 56,28 53,38 47,38" fill="#15803d"/>
+                        <!-- Tie Body with diagonal stripes -->
+                        <polygon points="46,38 54,38 58,74 50,86 42,74" fill="#16a34a" stroke="#14532d" stroke-width="1.5"/>
+                        <!-- Yellow & White stripes -->
+                        <line x1="45" y1="46" x2="55" y2="52" stroke="#fef08a" stroke-width="2.5"/>
+                        <line x1="44" y1="58" x2="56" y2="64" stroke="#ffffff" stroke-width="2.5"/>
+                        <line x1="44" y1="70" x2="56" y2="76" stroke="#fef08a" stroke-width="2.5"/>
+                    </svg>
+                `
+            }
+        ];
+
+        /* Storyboard item represented in a dedicated wide presentation card */
+        const storyboardItem = {
+            id: 7,
+            word: "storyboard",
+            ar: "مخطط القصة",
+            sentence: "The director sketched scenes on the storyboard before filming.",
+            svgGraphic: `
+                <svg width="100%" height="100%" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="140" height="100" rx="18" fill="#f8fafc"/>
+                    <!-- Board Stand Legs -->
+                    <line x1="45" y1="70" x2="30" y2="92" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="95" y1="70" x2="110" y2="92" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="70" y1="70" x2="70" y2="94" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Main Storyboard Board with Frame -->
+                    <rect x="22" y="14" width="96" height="60" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="2.5"/>
+                    <!-- 6 Scene Panels -->
+                    <rect x="28" y="20" width="24" height="20" rx="2" fill="#ffffff"/>
+                    <rect x="58" y="20" width="24" height="20" rx="2" fill="#ffffff"/>
+                    <rect x="88" y="20" width="24" height="20" rx="2" fill="#ffffff"/>
+                    
+                    <rect x="28" y="46" width="24" height="20" rx="2" fill="#ffffff"/>
+                    <rect x="58" y="46" width="24" height="20" rx="2" fill="#ffffff"/>
+                    <rect x="88" y="46" width="24" height="20" rx="2" fill="#ffffff"/>
+                    <!-- Sketch drawings in panels -->
+                    <circle cx="40" cy="28" r="4" fill="#38bdf8"/>
+                    <path d="M32 36 Q40 32 48 36" stroke="#0284c7" stroke-width="1.5" fill="none"/>
+                    
+                    <polygon points="70,24 64,34 76,34" fill="#eab308"/>
+                    <rect x="94" y="26" width="12" height="8" rx="1" fill="#f43f5e"/>
+
+                    <circle cx="40" cy="54" r="3" fill="#10b981"/>
+                    <rect x="64" y="52" width="12" height="6" fill="#a855f7"/>
+                    <path d="M92 56 L104 56" stroke="#0f172a" stroke-width="2"/>
+                </svg>
+            `
+        };
+
+        /* ==========================================================
+           DATASET 2: PAGES 6 & 7 EXPRESSIONS (8 ITEMS)
+           Matching image_e939af.png exactly:
+           last name, in a minute, no problem, glass,
+           go away, at the moment, agree, if you want
+           ========================================================== */
+        const page67Items = [
+            {
+                id: 8,
+                word: "last name",
+                ar: "اسم العائلة (الاسم الأخير)",
+                sentence: "What is your last name, please?",
+                icon: "🏷️",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#f8fafc"/>
+                        <!-- ID Card Badge -->
+                        <rect x="18" y="24" width="64" height="52" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+                        <circle cx="50" cy="18" r="3" fill="#cbd5e1"/>
+                        <!-- Photo placeholder -->
+                        <circle cx="36" cy="45" r="9" fill="#0284c7"/>
+                        <circle cx="36" cy="42" r="4.5" fill="#fed7aa"/>
+                        <!-- Family Name Highlights -->
+                        <rect x="52" y="38" width="22" height="4" rx="2" fill="#0f172a"/>
+                        <rect x="52" y="46" width="16" height="4" rx="2" fill="#0284c7"/>
+                        <line x1="26" y1="62" x2="74" y2="62" stroke="#e2e8f0" stroke-width="2"/>
+                        <rect x="32" y="66" width="36" height="3" rx="1.5" fill="#94a3b8"/>
                     </svg>
                 `
             },
             {
                 id: 9,
-                correctWord: "Journalist",
-                ar: "صحفي",
-                sentence: "The journalist reported the breaking news on television.",
-                options: ["gate", "Helmet", "Journalist"],
+                word: "in a minute",
+                ar: "بعد دقيقة / لاحقاً",
+                sentence: "I will call you back in a minute.",
+                icon: "⏱️",
                 svgGraphic: `
                     <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0fdf4"/>
-                        <!-- Journalist with microphone & earpiece matching worksheet drawing -->
-                        <rect x="28" y="56" width="44" height="34" rx="6" fill="#64748b"/>
-                        <polygon points="44,56 50,72 56,56" fill="#ffffff"/>
-                        <!-- Head & Hair -->
-                        <circle cx="50" cy="38" r="14" fill="#fed7aa"/>
-                        <path d="M36 34 C36 20 64 20 64 34 Z" fill="#b45309"/>
-                        <!-- Eyes & Smile -->
-                        <circle cx="45" cy="38" r="1.8" fill="#0f172a"/>
-                        <circle cx="55" cy="38" r="1.8" fill="#0f172a"/>
-                        <path d="M47 44 Q50 47 53 44" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
-                        <!-- Right Hand pressing earpiece -->
-                        <circle cx="34" cy="40" r="3.5" fill="#fed7aa"/>
-                        <line x1="32" y1="40" x2="28" y2="52" stroke="#fed7aa" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Left Hand holding microphone in front -->
-                        <circle cx="50" cy="72" r="4.5" fill="#fed7aa"/>
-                        <rect x="46.5" y="62" width="7" height="12" rx="3" fill="#334155"/>
-                        <ellipse cx="50" cy="60" rx="4.5" ry="5.5" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+                        <rect width="100" height="100" rx="18" fill="#fef3c7"/>
+                        <!-- Stopwatch Circle -->
+                        <circle cx="50" cy="54" r="30" fill="#ffffff" stroke="#0f172a" stroke-width="3"/>
+                        <rect x="47" y="16" width="6" height="8" rx="2" fill="#0f172a"/>
+                        <line x1="43" y1="16" x2="57" y2="16" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Clock ticks -->
+                        <line x1="50" y1="28" x2="50" y2="33" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="76" y1="54" x2="71" y2="54" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="50" y1="80" x2="50" y2="75" stroke="#0f172a" stroke-width="2"/>
+                        <line x1="24" y1="54" x2="29" y2="54" stroke="#0f172a" stroke-width="2"/>
+                        <!-- '1 MIN' badge in center -->
+                        <text x="50" y="58" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="12" fill="#ef4444" text-anchor="middle">1 MIN</text>
+                        <!-- Pointer needle -->
+                        <line x1="50" y1="54" x2="62" y2="42" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round"/>
                     </svg>
                 `
             },
             {
                 id: 10,
-                correctWord: "go away",
-                ar: "ابتعد",
-                sentence: "The noisy dog was told to go away.",
-                options: ["Tie", "go away", "Storyboard"],
+                word: "no problem",
+                ar: "لا مشكلة",
+                sentence: "Thanks for your help. No problem at all.",
+                icon: "🔄",
                 svgGraphic: `
                     <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fef2f2"/>
-                        <!-- Silhouette Figures matching the worksheet picture -->
-                        <!-- Person 1 Outstretched pointing arm -->
-                        <circle cx="68" cy="36" r="8" fill="#334155"/>
-                        <rect x="62" y="46" width="14" height="28" rx="3" fill="#334155"/>
-                        <!-- Arm pointing left to command go away -->
-                        <path d="M64 52 L36 52 L40 48 M36 52 L40 56" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="65" y1="74" x2="63" y2="92" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-                        <line x1="73" y1="74" x2="75" y2="92" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-                        <!-- Person 2 Dejected Walking Away -->
-                        <circle cx="28" cy="44" r="7" fill="#64748b"/>
-                        <path d="M30 52 C30 52 25 68 22 74" stroke="#64748b" stroke-width="4.5" stroke-linecap="round"/>
-                        <line x1="23" y1="74" x2="18" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="25" y1="74" x2="28" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                        <rect width="100" height="100" rx="18" fill="#f0fdf4"/>
+                        <!-- Question bubble -->
+                        <ellipse cx="40" cy="38" rx="14" ry="11" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/>
+                        <text x="40" y="42" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="11" fill="#0284c7" text-anchor="middle">?</text>
+                        <!-- Checkmark circle -->
+                        <circle cx="62" cy="62" r="14" fill="#fef08a" stroke="#ca8a04" stroke-width="2"/>
+                        <path d="M56 62 L60 66 L68 58" stroke="#15803d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Two arrows looping -->
+                        <path d="M66 36 C76 44, 76 56, 76 60" stroke="#0284c7" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <polygon points="78,35 66,35 72,42" fill="#0284c7"/>
+                        <path d="M34 64 C24 56, 24 44, 24 40" stroke="#15803d" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <polygon points="22,65 34,65 28,58" fill="#15803d"/>
+                    </svg>
+                `
+            },
+            {
+                id: 11,
+                word: "glass",
+                ar: "كوب / زجاج",
+                sentence: "She drank a fresh glass of cold water.",
+                icon: "🥛",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#f8fafc"/>
+                        <!-- Glass Tumbler Outline -->
+                        <path d="M32 26 L38 78 C38 82 62 82 62 78 L68 26 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+                        <!-- Water level inside -->
+                        <path d="M35 44 L38 74 C38 78 62 78 62 74 L65 44 Q50 48 35 44 Z" fill="#bae6fd" opacity="0.8"/>
+                        <!-- Reflections -->
+                        <path d="M40 32 L44 70" stroke="#e0f2fe" stroke-width="2.5" stroke-linecap="round"/>
+                        <ellipse cx="50" cy="26" rx="18" ry="4" stroke="#94a3b8" stroke-width="1.5" fill="#f1f5f9"/>
+                    </svg>
+                `
+            },
+            {
+                id: 12,
+                word: "go away",
+                ar: "ابتعد",
+                sentence: "The noisy dog was told to go away.",
+                icon: "👉",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#fef2f2"/>
+                        <!-- Person 1 Pointing Arm Away -->
+                        <circle cx="34" cy="36" r="8" fill="#0f172a"/>
+                        <rect x="28" y="46" width="12" height="26" rx="3" fill="#0f172a"/>
+                        <!-- Outstretched pointing arm -->
+                        <path d="M38 52 L62 52 L58 48 M62 52 L58 56" stroke="#dc2626" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="30" y1="72" x2="28" y2="90" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="38" y1="72" x2="38" y2="90" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- Person 2 Walking Away (Sad head down) -->
+                        <circle cx="76" cy="42" r="7" fill="#64748b"/>
+                        <path d="M72 52 C72 52 76 68 80 74" stroke="#64748b" stroke-width="4.5" stroke-linecap="round"/>
+                        <line x1="78" y1="74" x2="84" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="76" y1="74" x2="72" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 13,
+                word: "at the moment",
+                ar: "حالاً",
+                sentence: "She is busy studying at the moment.",
+                icon: "⏱️",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#e0f2fe"/>
+                        <!-- Compass/Clock design with NOW badge from worksheet -->
+                        <circle cx="50" cy="50" r="32" fill="#ffffff" stroke="#0284c7" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="28" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3 3"/>
+                        <!-- 'NOW' banner across center -->
+                        <rect x="26" y="44" width="48" height="13" rx="3" fill="#0284c7"/>
+                        <text x="50" y="54" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="9" fill="#ffffff" text-anchor="middle">NOW</text>
+                        <!-- Clock hands pointing -->
+                        <line x1="50" y1="50" x2="50" y2="28" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
+                        <line x1="50" y1="50" x2="66" y2="50" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 14,
+                word: "agree",
+                ar: "موافق",
+                sentence: "We all agree that learning is important.",
+                icon: "👍",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#f0fdf4"/>
+                        <!-- Glowing Thumbs Up Green Outline matching worksheet -->
+                        <path d="M38 78 L30 78 L30 50 L38 50 Z" fill="#86efac" stroke="#16a34a" stroke-width="2.5"/>
+                        <path d="M38 54 C48 54 48 44 48 34 C48 26 56 26 56 32 C56 40 50 48 54 48 L72 48 C76 48 80 52 78 58 L74 74 C73 78 68 80 62 80 L38 80 Z" fill="#bbf7d0" stroke="#16a34a" stroke-width="2.5" stroke-linejoin="round"/>
+                        <!-- Click rays / sparkle -->
+                        <line x1="56" y1="18" x2="56" y2="22" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="44" y1="20" x2="48" y2="23" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+                        <line x1="68" y1="20" x2="64" y2="23" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                `
+            },
+            {
+                id: 15,
+                word: "if you want",
+                ar: "إذا أردت",
+                sentence: "You can join us for dinner if you want.",
+                icon: "💭",
+                svgGraphic: `
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="100" height="100" rx="18" fill="#fff7ed"/>
+                        <!-- Friendly Invitation Card / Heart Gesture -->
+                        <rect x="22" y="28" width="56" height="44" rx="6" fill="#ffffff" stroke="#f97316" stroke-width="2"/>
+                        <!-- Envelope / Card fold -->
+                        <path d="M22 28 L50 52 L78 28" stroke="#f97316" stroke-width="2" fill="none"/>
+                        <circle cx="50" cy="54" r="8" fill="#ffedd5"/>
+                        <!-- Heart of choice -->
+                        <path d="M50 51 C50 49, 52 48, 54 50 C56 52, 50 56, 50 56 C50 56, 44 52, 46 50 C48 48, 50 49, 50 51 Z" fill="#ea580c"/>
                     </svg>
                 `
             }
         ];
 
         /* ==========================================================
-           CANADIAN VOICE ENGINE (EMMA 🇨🇦)
-           Calibrated for calm, natural and articulate speech
+           DATASET 3: EXTRA WORDS TABLE (6 ITEMS)
+           Matching image_e939af.png exactly:
+           Object, Right now, Stressed, Opinion, Want, very soon
            ========================================================== */
+        const extraWordsItems = [
+            { id: 1, word: "Object", ar: "شيء", icon: "📦" },
+            { id: 2, word: "Right now", ar: "حالاً", icon: "⚡" },
+            { id: 3, word: "Stressed", ar: "مضغوط نفسياً", icon: "😰" },
+            { id: 4, word: "Opinion", ar: "رأي", icon: "💡" },
+            { id: 5, word: "Want", ar: "يريد", icon: "🎯" },
+            { id: 6, word: "very soon", ar: "قريباً جداً", icon: "🚀" }
+        ];
+
+        /* ==========================================================
+           DATASET 4: INTERACTIVE QUIZ ITEMS (4 QUESTIONS)
+           ========================================================== */
+        const quizItems = [
+            {
+                id: 1,
+                prompt: "You should wear a ______ on your head when riding a bicycle.",
+                spokenPrompt: "You should wear what on your head when riding a bicycle?",
+                options: ["tie", "helmet", "cookie", "gate"],
+                correct: "helmet",
+                explanation: "الخوذة (helmet) هي التي تحمي الرأس أثناء ركوب الدراجة."
+            },
+            {
+                id: 2,
+                prompt: "A person who reports news on TV and in newspapers is a ______.",
+                spokenPrompt: "A person who reports news on TV and in newspapers is what?",
+                options: ["taxi", "gate", "journalist", "storyboard"],
+                correct: "journalist",
+                explanation: "الصحفي (journalist) هو من يقوم بجمع الأخبار والتقارير الصحفية."
+            },
+            {
+                id: 3,
+                prompt: "When someone says 'Thank you', you can politely reply: '______'",
+                spokenPrompt: "When someone says Thank you, you can politely reply:",
+                options: ["No problem", "Go away", "Stressed", "In a minute"],
+                correct: "No problem",
+                explanation: "العبارة (No problem) تعني 'عفواً / لا مشكلة على الإطلاق'."
+            },
+            {
+                id: 4,
+                prompt: "Which phrase means 'at this very moment'?",
+                spokenPrompt: "Which phrase means at this very moment?",
+                options: ["in a minute", "very soon", "Right now", "last name"],
+                correct: "Right now",
+                explanation: "المصطلح (Right now) يعني 'حالاً / في هذه اللحظة بالذات'."
+            }
+        ];
+
         let currentVoice = null;
         let speechRate = 0.85; // Calm, articulate cadence (0.85x)
         let synth = window.speechSynthesis;
@@ -728,23 +977,31 @@
             }
         }
 
-        /* Sanitize text for clean, authentic pronunciation without symbol artifacts */
+        /* Sanitize text for clean, authentic pronunciation without symbol artifacts or mispronunciations */
         function sanitizeTextForSpeech(text) {
             if (!text) return '';
             
             let clean = text
+                // Replace hyphens or dashes between clauses with natural pause comma (prevents voice saying "dash" or "hyphen")
                 .replace(/\s*[-—–]\s*/g, ', ')
+                // Replace exclamation points with periods for calm falling intonation
                 .replace(/!+/g, '.')
+                // Replace fill-in-the-blank lines with single space
                 .replace(/_+/g, ' ')
+                // Strip literal artifacts
                 .replace(/\bblank\b/gi, ' ')
                 .replace(/\bexclamation\s+(point|mark)\b/gi, '')
+                // Remove outer quotation marks while preserving apostrophes inside contractions (e.g. don't, I'll, it's)
                 .replace(/[“”"«»]/g, '')
                 .replace(/(^|\s)'|'(\s|$)/g, '$1$2')
+                // Convert slashes or ellipsis to natural conversational pauses
                 .replace(/\//g, ', ')
                 .replace(/\.\.\./g, ', ')
+                // Normalize multiple spaces
                 .replace(/\s+/g, ' ')
                 .trim();
 
+            // Ensure every spoken phrase ends with terminal punctuation for complete phoneme release
             if (clean && !/[.?!]$/.test(clean)) {
                 clean += '.';
             }
@@ -755,6 +1012,7 @@
         function playSentence(englishText, elementToHighlight = null, callback = null) {
             if (!('speechSynthesis' in window)) return;
 
+            // Prevent browser speech lock / pause state
             if (synth.paused) {
                 synth.resume();
             }
@@ -771,11 +1029,14 @@
                 utterance.lang = 'en-CA';
             }
 
+            // Natural calibrated cadence: steady and articulate
             utterance.rate = speechRate;
-            utterance.pitch = 1.0;
+            utterance.pitch = 1.0; // Optimal natural pitch
 
+            // Keep reference to prevent Chromium garbage collection cutting off audio
             window._activeUtterance = utterance;
 
+            // Audio Status Bar notification
             const audioBar = document.getElementById('audioStatusBar');
             const speakingTextEl = document.getElementById('currentSpeakingText');
             if (audioBar && speakingTextEl) {
@@ -783,6 +1044,7 @@
                 audioBar.classList.remove('hidden');
             }
 
+            // Visual card highlight
             if (elementToHighlight) {
                 clearHighlights();
                 currentAudioHighlightEl = elementToHighlight;
@@ -805,6 +1067,7 @@
                 if (callback) callback();
             };
 
+            // Small delay to ensure synth.cancel() completes safely across all browsers
             setTimeout(() => {
                 synth.speak(utterance);
             }, 30);
@@ -827,12 +1090,18 @@
             const audioBar = document.getElementById('audioStatusBar');
             if (audioBar) audioBar.classList.add('hidden');
             
-            const btn = document.getElementById('heroPlayAllBtn');
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> استمع لجميع الكلمات العشر`;
+            const btn45 = document.getElementById('playAllPage45Btn');
+            if (btn45) btn45.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لكلمات الصفحة (4&5)</span>`;
+
+            const btn67 = document.getElementById('playAllPage67Btn');
+            if (btn67) btn67.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لتعبيرات (6&7)</span>`;
+
+            const btnExtra = document.getElementById('playAllExtraBtn');
+            if (btnExtra) btnExtra.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع للكلمات الإضافية</span>`;
         }
 
         function testCanadianVoice() {
-            playSentence("Hello! I am Emma from Canada. Look at each picture and check the correct word.");
+            playSentence("Hello explorer! I am Emma from Canada. Welcome to our English vocabulary lesson.");
             showToast("جاري التحدث بنمط كندي هادئ وطبيعي ومريح (0.85x)", "fa-check text-emerald-400");
         }
 
@@ -873,221 +1142,119 @@
             }
         }
 
-        /* ==========================================================
-           RENDER 10 INTERACTIVE MATCH CARDS
-           ========================================================== */
-        let exerciseScore = 0;
-        let solvedCardsSet = new Set();
-        let userSelectedOptions = {}; // Map of cardId => chosenOption
-
-        function renderMatchCards() {
-            const container = document.getElementById('matchCardsContainer');
+        function renderPage45Cards() {
+            const container = document.getElementById('page45GridContainer');
+            const storyboardContainer = document.getElementById('storyboardContainer');
             if (!container) return;
 
-            container.innerHTML = exerciseItems.map(item => `
-                <div id="match-card-${item.id}" 
-                    class="bg-white rounded-3xl p-5 border-2 border-pink-100 shadow-2xs hover:border-pink-300 transition flex flex-col sm:flex-row items-center justify-between gap-5 group">
+            container.innerHTML = page45Items.map(item => `
+                <div id="card-p45-${item.id}" 
+                    class="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-2xs hover:border-pink-300 transition flex flex-col justify-between group">
                     
-                    <!-- Left: Picture Frame with ID badge -->
-                    <div class="relative w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center p-2 bg-slate-50 border-2 border-pink-200/80 shadow-2xs group-hover:scale-105 transition duration-200">
-                        <span class="absolute top-2 right-2 w-6 h-6 rounded-lg bg-pink-100 text-pink-800 font-black text-xs flex items-center justify-center shadow-2xs z-10">
-                            ${item.id}
-                        </span>
-                        ${item.svgGraphic}
-                    </div>
-
-                    <!-- Center & Right: 3 Checkbox Option Buttons & Translation -->
-                    <div class="flex-1 w-full flex flex-col justify-between">
-                        
-                        <!-- Top Header with Audio Button -->
-                        <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-100">
-                            <span class="text-xs font-black text-slate-400">اختر الكلمة المطابقة:</span>
-                            <button onclick="playItemAudio(${item.id})" class="p-2 rounded-xl bg-slate-100 hover:bg-pink-50 text-slate-600 hover:text-pink-700 transition" title="استمع لنطق الكلمة">
+                    <div>
+                        <!-- Header with Speaker Button -->
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                            <span class="w-7 h-7 rounded-xl bg-pink-100 text-pink-800 font-black text-xs flex items-center justify-center">
+                                ${item.id}
+                            </span>
+                            <button onclick="playSentence('${item.word}', document.getElementById('card-p45-${item.id}'))" class="p-2 rounded-xl bg-slate-100 hover:bg-pink-50 text-slate-600 hover:text-pink-700 transition" title="استمع للكلمة">
                                 <i class="fa-solid fa-volume-high text-xs"></i>
                             </button>
                         </div>
 
-                        <!-- 3 Checkbox Buttons matching worksheet layout -->
-                        <div class="space-y-2 mb-2" dir="ltr">
-                            ${item.options.map((opt, optIdx) => `
-                                <button type="button" 
-                                    id="opt-btn-${item.id}-${optIdx}" 
-                                    onclick="selectCardOption(${item.id}, '${opt}', ${optIdx})"
-                                    class="check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-slate-200 bg-slate-50/80 hover:bg-pink-50/60 hover:border-pink-300 text-slate-800 font-extrabold text-sm en-font transition flex items-center gap-2.5 text-left">
-                                    
-                                    <!-- Custom Styled Checkbox Square -->
-                                    <span id="checkbox-box-${item.id}-${optIdx}" class="w-5 h-5 rounded-md border-2 border-pink-300 bg-white flex items-center justify-center shrink-0 transition">
-                                        <i class="fa-solid fa-check text-[11px] text-white opacity-0 transition"></i>
-                                    </span>
-
-                                    <!-- Option Text -->
-                                    <span class="flex-1">${opt}</span>
-                                </button>
-                            `).join('')}
+                        <!-- Vector Graphic Frame -->
+                        <div class="w-full h-36 bg-gradient-to-b from-slate-50 to-pink-50/40 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center p-2 mb-3 group-hover:scale-[1.02] transition">
+                            ${item.svgGraphic}
                         </div>
 
-                        <!-- Silent Arabic Translation Strictly Centered -->
-                        <div class="text-xs text-slate-500 font-bold mt-1 arabic-center">
-                            الترجمة: <span class="text-pink-800 font-black" id="translation-display-${item.id}">${item.ar}</span>
+                        <!-- English Word Strictly Centered -->
+                        <div class="my-2 text-center arabic-center">
+                            <h4 class="en-font font-black text-xl text-slate-800 tracking-wide arabic-center group-hover:text-pink-700 transition">
+                                ${item.word}
+                            </h4>
+                            <!-- Arabic Silent Translation Strictly Centered Directly Below -->
+                            <div class="text-xs text-slate-500 font-bold mt-1 arabic-center">
+                                ${item.ar}
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- Individual Feedback Box -->
-                        <div id="feedback-${item.id}" class="hidden text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold"></div>
-
+                    <!-- Listen to Example Sentence Button -->
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-center">
+                        <button onclick="playSentence('${item.sentence}', document.getElementById('card-p45-${item.id}'))" 
+                            class="w-full py-2 px-3 rounded-xl bg-slate-50 hover:bg-pink-100 text-pink-900 font-bold text-xs transition border border-slate-200 flex items-center justify-center gap-1.5 shadow-2xs">
+                            <i class="fa-solid fa-headphones text-pink-600 text-xs"></i>
+                            <span>استمع للجملة في سياق</span>
+                        </button>
                     </div>
 
                 </div>
             `).join('');
-        }
 
-        function selectCardOption(cardId, chosenOption, optIdx) {
-            userSelectedOptions[cardId] = chosenOption;
-            const item = exerciseItems.find(x => x.id === cardId);
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            const feedbackEl = document.getElementById(`feedback-${cardId}`);
+            // Storyboard Wide Showcase Card
+            if (storyboardContainer) {
+                storyboardContainer.innerHTML = `
+                    <div id="card-p45-${storyboardItem.id}" 
+                        class="bg-gradient-to-r from-pink-50/50 via-white to-amber-50/50 rounded-3xl p-6 border-2 border-pink-200 shadow-xs hover:border-pink-400 transition flex flex-col md:flex-row items-center justify-between gap-6 group">
+                        
+                        <!-- Graphic on Right -->
+                        <div class="w-full md:w-56 h-36 bg-white rounded-2xl overflow-hidden border border-slate-200 flex items-center justify-center p-2 shrink-0 group-hover:scale-105 transition shadow-2xs">
+                            ${storyboardItem.svgGraphic}
+                        </div>
 
-            // Reset visual states of all 3 buttons in this card
-            item.options.forEach((opt, idx) => {
-                const btn = document.getElementById(`opt-btn-${cardId}-${idx}`);
-                const box = document.getElementById(`checkbox-box-${cardId}-${idx}`);
-                const checkIcon = box.querySelector('i');
+                        <!-- Word and Centered Translations -->
+                        <div class="flex-1 text-center arabic-center">
+                            <div class="inline-flex items-center justify-center gap-2 mb-1">
+                                <span class="px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-900 text-xs font-black">7</span>
+                                <h4 class="en-font font-black text-2xl text-slate-800 tracking-wide group-hover:text-pink-700 transition">
+                                    ${storyboardItem.word}
+                                </h4>
+                                <button onclick="playSentence('${storyboardItem.word}', document.getElementById('card-p45-${storyboardItem.id}'))" class="p-2 rounded-xl bg-white hover:bg-pink-50 text-slate-600 hover:text-pink-700 transition shadow-2xs border border-slate-200">
+                                    <i class="fa-solid fa-volume-high text-xs"></i>
+                                </button>
+                            </div>
 
-                if (idx === optIdx) {
-                    btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-pink-500 bg-pink-50/80 text-pink-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                    box.className = 'w-5 h-5 rounded-md border-2 border-pink-600 bg-pink-600 flex items-center justify-center shrink-0 transition';
-                    checkIcon.classList.remove('opacity-0');
-                } else {
-                    btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-slate-200 bg-slate-50/80 hover:bg-pink-50/60 hover:border-pink-300 text-slate-800 font-extrabold text-sm en-font transition flex items-center gap-2.5 text-left';
-                    box.className = 'w-5 h-5 rounded-md border-2 border-pink-300 bg-white flex items-center justify-center shrink-0 transition';
-                    checkIcon.classList.add('opacity-0');
-                }
-            });
+                            <div class="text-sm text-slate-600 font-black mt-1 arabic-center">
+                                المعنى: <span class="text-pink-800">${storyboardItem.ar}</span>
+                            </div>
 
-            // Evaluate Selection Immediately
-            checkSingleCardAnswer(cardId, chosenOption, optIdx);
-        }
+                            <p class="en-font text-xs font-bold text-slate-500 mt-2 text-center arabic-center">
+                                "${storyboardItem.sentence}"
+                            </p>
+                        </div>
 
-        function checkSingleCardAnswer(cardId, chosenOption, optIdx) {
-            const item = exerciseItems.find(x => x.id === cardId);
-            const feedbackEl = document.getElementById(`feedback-${cardId}`);
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            const btn = document.getElementById(`opt-btn-${cardId}-${optIdx}`);
-            const box = document.getElementById(`checkbox-box-${cardId}-${optIdx}`);
+                        <!-- Action Button -->
+                        <div class="shrink-0">
+                            <button onclick="playSentence('${storyboardItem.sentence}', document.getElementById('card-p45-${storyboardItem.id}'))" 
+                                class="px-4 py-2.5 rounded-2xl bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-xs transition shadow-xs flex items-center gap-2">
+                                <i class="fa-solid fa-volume-high"></i>
+                                <span>استمع لجملة مخطط القصة</span>
+                            </button>
+                        </div>
 
-            feedbackEl.classList.remove('hidden');
-
-            const isCorrect = (chosenOption.toLowerCase().trim() === item.correctWord.toLowerCase().trim());
-
-            if (isCorrect) {
-                if (!solvedCardsSet.has(cardId)) {
-                    solvedCardsSet.add(cardId);
-                    exerciseScore++;
-                    updateScoreDisplay();
-                }
-                playChime(true);
-
-                btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                box.className = 'w-5 h-5 rounded-md border-2 border-emerald-600 bg-emerald-600 flex items-center justify-center shrink-0 transition';
-
-                feedbackEl.className = 'text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold bg-emerald-50 border border-emerald-200 text-emerald-900';
-                feedbackEl.innerHTML = `
-                    <div class="arabic-center">
-                        <i class="fa-solid fa-circle-check text-emerald-600 ml-1"></i>
-                        <span>إجابة صحيحة وممتازة! (${item.correctWord})</span>
-                    </div>
-                `;
-
-                playSentence(item.correctWord, cardEl);
-                showToast(`صورة ${cardId}: إجابة صحيحة! أحسنت 🌟`, 'fa-circle-check text-emerald-400');
-            } else {
-                playChime(false);
-
-                btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-rose-400 bg-rose-50 text-rose-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                box.className = 'w-5 h-5 rounded-md border-2 border-rose-500 bg-rose-500 flex items-center justify-center shrink-0 transition';
-
-                feedbackEl.className = 'text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold bg-rose-50 border border-rose-200 text-rose-900';
-                feedbackEl.innerHTML = `
-                    <div class="arabic-center">
-                        <i class="fa-solid fa-circle-xmark text-rose-600 ml-1"></i>
-                        <span>حاول مرة أخرى: الكلمة (${chosenOption}) غير مطابقة لهذه الصورة</span>
                     </div>
                 `;
             }
         }
 
-        function playItemAudio(cardId) {
-            const item = exerciseItems.find(x => x.id === cardId);
-            if (!item) return;
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            playSentence(item.correctWord, cardEl);
-        }
-
-        function checkAllAnswers() {
-            let correctCount = 0;
-            exerciseItems.forEach(item => {
-                const chosen = userSelectedOptions[item.id];
-                if (chosen && chosen.toLowerCase().trim() === item.correctWord.toLowerCase().trim()) {
-                    correctCount++;
-                }
-            });
-            showToast(`تم التحقق: لديك ${correctCount} من 10 إجابات صحيحة`, 'fa-circle-check text-emerald-400');
-        }
-
-        function updateScoreDisplay() {
-            document.getElementById('heroScoreDisplay').textContent = exerciseScore;
-            document.getElementById('sectionScoreDisplay').textContent = exerciseScore;
-        }
-
-        function resetExercise() {
-            exerciseScore = 0;
-            solvedCardsSet.clear();
-            userSelectedOptions = {};
-            updateScoreDisplay();
-            renderMatchCards();
-            showToast('تمت إعادة ضبط التمارين للتدريب من جديد', 'fa-rotate-right text-slate-300');
-        }
-
-        let isAllRevealed = false;
-        function toggleRevealAll() {
-            isAllRevealed = !isAllRevealed;
-            const heroBtn = document.getElementById('heroRevealBtn');
-            const bottomBtn = document.getElementById('bottomRevealBtn');
-
-            if (isAllRevealed) {
-                exerciseItems.forEach(item => {
-                    const optIdx = item.options.findIndex(opt => opt.toLowerCase().trim() === item.correctWord.toLowerCase().trim());
-                    if (optIdx !== -1) {
-                        selectCardOption(item.id, item.correctWord, optIdx);
-                    }
-                });
-                if (heroBtn) heroBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i> إخفاء الحل`;
-                if (bottomBtn) bottomBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i> إخفاء الحل`;
-                showToast('تم إظهار الحل النموذجي لجميع الصور العشر', 'fa-key text-amber-400');
-            } else {
-                resetExercise();
-                if (heroBtn) heroBtn.innerHTML = `<i class="fa-solid fa-key"></i> كشف الحل النموذجي`;
-                if (bottomBtn) bottomBtn.innerHTML = `<i class="fa-solid fa-key"></i> كشف نموذج الحل الصحيح`;
-            }
-        }
-
-        /* Sequential audio reading of all 10 words */
-        async function playAllWordsSequential() {
+        async function playAllPage45Sequential() {
             if (isSpeakingSequential) {
                 stopAudio();
                 return;
             }
 
+            const allP45 = [...page45Items, storyboardItem];
             isSpeakingSequential = true;
-            const btn = document.getElementById('heroPlayAllBtn');
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-stop text-white"></i> <span>إيقاف القراءة</span>`;
+            const btn = document.getElementById('playAllPage45Btn');
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-stop text-white"></i> <span>إيقاف</span>`;
 
-            for (let i = 0; i < exerciseItems.length; i++) {
+            for (let i = 0; i < allP45.length; i++) {
                 if (!isSpeakingSequential) break;
-                const item = exerciseItems[i];
-                const card = document.getElementById(`match-card-${item.id}`);
+                const item = allP45[i];
+                const card = document.getElementById(`card-p45-${item.id}`);
 
                 await new Promise(resolve => {
-                    playSentence(item.correctWord, card, resolve);
+                    playSentence(item.word, card, resolve);
                 });
 
                 if (isSpeakingSequential) {
@@ -1096,7 +1263,281 @@
             }
 
             isSpeakingSequential = false;
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>استمع لجميع الكلمات العشر</span>`;
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لكلمات الصفحة (4&5)</span>`;
+        }
+
+        function renderPage67Cards() {
+            const container = document.getElementById('page67GridContainer');
+            if (!container) return;
+
+            container.innerHTML = page67Items.map(item => `
+                <div id="card-p67-${item.id}" 
+                    class="bg-white rounded-3xl p-5 border border-slate-200 shadow-2xs hover:border-amber-300 transition flex flex-col justify-between group">
+                    
+                    <div>
+                        <!-- Header with Speaker Button -->
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                            <span class="text-2xl">${item.icon}</span>
+                            <button onclick="playSentence('${item.word}', document.getElementById('card-p67-${item.id}'))" class="p-2 rounded-xl bg-slate-100 hover:bg-amber-50 text-slate-600 hover:text-amber-800 transition" title="استمع للعبارة">
+                                <i class="fa-solid fa-volume-high text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Vector Graphic Frame -->
+                        <div class="w-full h-32 bg-gradient-to-b from-slate-50 to-amber-50/40 rounded-2xl overflow-hidden border border-slate-100 flex items-center justify-center p-2 mb-3 group-hover:scale-[1.02] transition">
+                            ${item.svgGraphic}
+                        </div>
+
+                        <!-- English Expression Strictly Centered -->
+                        <div class="my-2 text-center arabic-center">
+                            <h4 class="en-font font-black text-lg text-slate-800 tracking-wide arabic-center group-hover:text-amber-800 transition">
+                                ${item.word}
+                            </h4>
+                            <!-- Arabic Silent Translation Strictly Centered Directly Below -->
+                            <div class="text-xs text-slate-500 font-bold mt-1 arabic-center">
+                                ${item.ar}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Listen to Example Sentence Button -->
+                    <div class="mt-4 pt-3 border-t border-slate-100 text-center">
+                        <button onclick="playSentence('${item.sentence}', document.getElementById('card-p67-${item.id}'))" 
+                            class="w-full py-2 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 font-bold text-xs transition border border-amber-200 flex items-center justify-center gap-1.5 shadow-2xs">
+                            <i class="fa-solid fa-headphones text-amber-600 text-xs"></i>
+                            <span>استمع في جملة</span>
+                        </button>
+                    </div>
+
+                </div>
+            `).join('');
+        }
+
+        async function playAllPage67Sequential() {
+            if (isSpeakingSequential) {
+                stopAudio();
+                return;
+            }
+
+            isSpeakingSequential = true;
+            const btn = document.getElementById('playAllPage67Btn');
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-stop text-slate-950"></i> <span>إيقاف</span>`;
+
+            for (let i = 0; i < page67Items.length; i++) {
+                if (!isSpeakingSequential) break;
+                const item = page67Items[i];
+                const card = document.getElementById(`card-p67-${item.id}`);
+
+                await new Promise(resolve => {
+                    playSentence(item.word, card, resolve);
+                });
+
+                if (isSpeakingSequential) {
+                    await new Promise(r => setTimeout(r, 650));
+                }
+            }
+
+            isSpeakingSequential = false;
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع لتعبيرات (6&7)</span>`;
+        }
+
+        function renderExtraWords() {
+            const container = document.getElementById('extraWordsContainer');
+            if (!container) return;
+
+            container.innerHTML = extraWordsItems.map(item => `
+                <div id="card-extra-${item.id}" onclick="playSentence('${item.word}', this)"
+                    class="bg-white rounded-2xl p-4 border border-slate-200/90 shadow-2xs hover:border-teal-400 hover:bg-teal-50/30 cursor-pointer transition flex flex-col items-center justify-between text-center group">
+                    
+                    <div class="text-3xl mb-1.5 group-hover:scale-110 transition duration-200">
+                        ${item.icon}
+                    </div>
+
+                    <div class="my-1 text-center arabic-center">
+                        <span class="en-font font-black text-base text-slate-800 group-hover:text-teal-800 transition block">
+                            ${item.word}
+                        </span>
+                        <!-- Centered Silent Arabic Translation -->
+                        <span class="text-xs text-slate-500 font-bold mt-0.5 block arabic-center">
+                            ${item.ar}
+                        </span>
+                    </div>
+
+                    <div class="mt-2 text-slate-300 group-hover:text-teal-600 transition">
+                        <i class="fa-solid fa-volume-high text-xs"></i>
+                    </div>
+
+                </div>
+            `).join('');
+        }
+
+        async function playAllExtraWordsSequential() {
+            if (isSpeakingSequential) {
+                stopAudio();
+                return;
+            }
+
+            isSpeakingSequential = true;
+            const btn = document.getElementById('playAllExtraBtn');
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-stop text-white"></i> <span>إيقاف</span>`;
+
+            for (let i = 0; i < extraWordsItems.length; i++) {
+                if (!isSpeakingSequential) break;
+                const item = extraWordsItems[i];
+                const card = document.getElementById(`card-extra-${item.id}`);
+
+                await new Promise(resolve => {
+                    playSentence(item.word, card, resolve);
+                });
+
+                if (isSpeakingSequential) {
+                    await new Promise(r => setTimeout(r, 600));
+                }
+            }
+
+            isSpeakingSequential = false;
+            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play text-xs"></i> <span>استمع للكلمات الإضافية</span>`;
+        }
+
+        let quizScore = 0;
+        let answeredQuizSet = new Set();
+
+        function renderQuiz() {
+            const container = document.getElementById('quizCardsContainer');
+            if (!container) return;
+
+            container.innerHTML = quizItems.map(q => `
+                <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-2xs hover:border-emerald-300 transition flex flex-col justify-between" id="quiz-card-${q.id}">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
+                            <span class="w-7 h-7 rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs flex items-center justify-center">
+                                ${q.id}
+                            </span>
+                            <button onclick="playQuizPrompt(${q.id})" class="p-2 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-600 hover:text-emerald-700 transition" title="استمع للسؤال">
+                                <i class="fa-solid fa-volume-high text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Prompt Display Centered -->
+                        <div class="my-2 text-center arabic-center">
+                            <h4 class="en-font font-black text-base md:text-lg text-slate-800 leading-snug arabic-center" id="quiz-prompt-${q.id}">
+                                ${q.prompt}
+                            </h4>
+                        </div>
+                    </div>
+
+                    <!-- 4 Options Grid -->
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <div class="grid grid-cols-2 gap-2" dir="ltr">
+                            ${q.options.map(opt => `
+                                <button onclick="checkQuizAnswer(${q.id}, this)"
+                                    class="quiz-opt-btn-${q.id} py-2.5 px-3 rounded-2xl border-2 border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-400 text-slate-800 font-black text-sm en-font shadow-2xs transition flex items-center justify-center">
+                                    <span>${opt}</span>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <!-- Feedback Box (Strictly Centered) -->
+                        <div id="quiz-feedback-${q.id}" class="hidden text-xs rounded-xl p-2.5 mt-2.5 text-center arabic-center"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function playQuizPrompt(qId) {
+            const q = quizItems.find(item => item.id === qId);
+            if (!q) return;
+            const card = document.getElementById(`quiz-card-${qId}`);
+            playSentence(q.spokenPrompt || q.prompt, card);
+        }
+
+        function checkQuizAnswer(qId, btnElement) {
+            if (answeredQuizSet.has(qId)) return;
+            answeredQuizSet.add(qId);
+
+            const q = quizItems.find(item => item.id === qId);
+            const card = document.getElementById(`quiz-card-${qId}`);
+            const feedbackEl = document.getElementById(`quiz-feedback-${qId}`);
+            const promptEl = document.getElementById(`quiz-prompt-${qId}`);
+            const allBtns = card.querySelectorAll(`.quiz-opt-btn-${qId}`);
+            const selectedOpt = btnElement.querySelector('span').textContent.trim();
+
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('cursor-not-allowed', 'opacity-85');
+            });
+
+            feedbackEl.classList.remove('hidden');
+
+            if (selectedOpt === q.correct) {
+                quizScore++;
+                document.getElementById('quizScoreDisplay').textContent = quizScore;
+                playChime(true);
+                btnElement.className = `quiz-opt-btn-${qId} py-2.5 px-3 rounded-2xl border-2 border-emerald-600 bg-emerald-600 text-white font-black text-sm en-font shadow-md transition flex items-center justify-center`;
+
+                if (q.prompt.includes('_')) {
+                    promptEl.innerHTML = q.prompt.replace(/_+/, `<span class="underline decoration-emerald-500 font-extrabold text-emerald-600">${q.correct}</span>`);
+                }
+
+                feedbackEl.className = 'text-xs rounded-xl p-2.5 mt-2.5 text-center arabic-center bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold';
+                feedbackEl.innerHTML = `
+                    <div class="arabic-center">
+                        <i class="fa-solid fa-circle-check text-emerald-600 ml-1"></i>
+                        <span>إجابة صحيحة وممتازة! (${q.correct})</span>
+                        <div class="text-[11px] text-emerald-800 mt-0.5">${q.explanation}</div>
+                    </div>
+                `;
+
+                // Speak clean completed sentence without quotes or blanks
+                let spokenCompleted = "";
+                if (qId === 3) {
+                    spokenCompleted = "When someone says Thank you, you can politely reply: No problem.";
+                } else if (q.prompt.includes('_')) {
+                    spokenCompleted = q.prompt.replace(/_+/, q.correct).replace(/['"“”‘’]/g, '');
+                } else {
+                    spokenCompleted = `${q.prompt} ${q.correct}`.replace(/['"“”‘’]/g, '');
+                }
+
+                playSentence(spokenCompleted, card);
+                showToast(`سؤال ${qId}: إجابة صحيحة! أحسنت 🌟`, 'fa-circle-check text-emerald-400');
+            } else {
+                playChime(false);
+                btnElement.className = `quiz-opt-btn-${qId} py-2.5 px-3 rounded-2xl border-2 border-rose-400 bg-rose-50 text-rose-900 font-black text-sm en-font shadow-2xs transition flex items-center justify-center`;
+
+                allBtns.forEach(btn => {
+                    if (btn.innerText.trim() === q.correct) {
+                        btn.className = `quiz-opt-btn-${qId} py-2.5 px-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-900 font-black text-sm en-font shadow-2xs transition flex items-center justify-center`;
+                    }
+                });
+
+                feedbackEl.className = 'text-xs rounded-xl p-2.5 mt-2.5 text-center arabic-center bg-rose-50 border border-rose-200 text-rose-900 font-bold';
+                feedbackEl.innerHTML = `
+                    <div class="arabic-center">
+                        <i class="fa-solid fa-circle-xmark text-rose-600 ml-1"></i>
+                        <span>الإجابة الصحيحة هي: (${q.correct})</span>
+                        <div class="text-[11px] text-rose-800 mt-0.5">${q.explanation}</div>
+                    </div>
+                `;
+
+                let spokenCompleted = "";
+                if (qId === 3) {
+                    spokenCompleted = "When someone says Thank you, you can politely reply: No problem.";
+                } else if (q.prompt.includes('_')) {
+                    spokenCompleted = q.prompt.replace(/_+/, q.correct).replace(/['"“”‘’]/g, '');
+                } else {
+                    spokenCompleted = `${q.prompt} ${q.correct}`.replace(/['"“”‘’]/g, '');
+                }
+
+                playSentence(spokenCompleted, card);
+            }
+        }
+
+        function resetQuiz() {
+            quizScore = 0;
+            answeredQuizSet.clear();
+            document.getElementById('quizScoreDisplay').textContent = "0";
+            renderQuiz();
+            showToast('تمت إعادة ضبط الاختبار للتدريب مجدداً', 'fa-rotate-right text-slate-300');
         }
 
         /* Generic Toast notification */
@@ -1117,10 +1558,13 @@
             }, 3200);
         }
 
-        /* Initialization on window load */
+        /* Window Initialization */
         window.addEventListener('load', () => {
             initCanadianVoice();
-            renderMatchCards();
+            renderPage45Cards();
+            renderPage67Cards();
+            renderExtraWords();
+            renderQuiz();
         });
     </script>
 </body>
