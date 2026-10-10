@@ -231,12 +231,6 @@
                     <i class="fa-solid fa-volume-high text-xs"></i>
                     <span>تجربة الصوت</span>
                 </button>
-
-                <!-- WhatsApp Share Button in Header -->
-                <button onclick="shareViaWhatsApp()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition flex items-center gap-1 shadow-xs" title="مشاركة الدرس عبر الواتساب">
-                    <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span>مشاركة</span>
-                </button>
             </div>
         </div>
     </header>
@@ -320,10 +314,6 @@
                     <a href="#interactive-practice" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm flex items-center gap-2 transition border border-white/20">
                         <i class="fa-solid fa-award"></i> 4) اختبار الفهم التفاعلي
                     </a>
-                    <!-- WhatsApp Share Quick Link -->
-                    <button onclick="shareViaWhatsApp()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
-                        <i class="fa-brands fa-whatsapp text-base"></i> إرسال عبر الواتساب
-                    </button>
                 </div>
             </div>
         </div>
@@ -490,32 +480,7 @@
         <span id="toastMsg">تم الإجراء بنجاح</span>
     </div>
 
-    <!-- Floating WhatsApp Share Button -->
-    <button onclick="shareViaWhatsApp()" class="fixed bottom-6 left-6 z-40 bg-emerald-600 hover:bg-emerald-500 text-white p-3.5 rounded-full shadow-2xl hover:scale-105 active:scale-95 transition flex items-center gap-2 border-2 border-white/80" title="مشاركة الدرس عبر الواتساب">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span class="text-xs font-black hidden sm:inline">مشاركة بالواتساب</span>
-    </button>
-
     <script>
-        /* ==========================================================
-           WHATSAPP SHARING HELPER
-           ========================================================== */
-        function shareViaWhatsApp() {
-            const currentUrl = window.location.href;
-            const message = 
-`📚 *درس اللغة الإنجليزية التفاعلي (Vocabulary Mastery)*
-👨‍🏫 *معلم المادة:* الأستاذ / ماجد السويهري
-🍁 *الميزات:* نطق كندي نقي بصوت المعلمة Emma + ترجمة عربية صامتة + اختبار تفاعلي مباشر
-
-🔗 *رابط الدخول للدرس:*
-${currentUrl}`;
-
-            const encodedMsg = encodeURIComponent(message);
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMsg}`;
-            window.open(whatsappUrl, '_blank');
-            showToast('جاري فتح الواتساب للمشاركة...', 'fa-brands fa-whatsapp text-emerald-400');
-        }
-
         /* ==========================================================
            DATASET 1: VOCABULARY PAGE 4 & 5 (7 ITEMS)
            Matching image_e939af.png exactly:
