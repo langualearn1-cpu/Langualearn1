@@ -1,1127 +1,998 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس المفردات المصورة: اختر الكلمة الصحيحة - Glory English Academy</title>
-    <!-- Google Fonts: Tajawal for Arabic, Plus Jakarta Sans for English -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tone.js for Native Audio Chimes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Past Simple Practice Worksheet - Glory English Academy</title>
+  
+  <!-- Tailwind CSS & Canvas Confetti -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  
+  <!-- Google Fonts: Fredoka (English) & Tajawal (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        arabic: ['Tajawal', 'sans-serif'],
-                        english: ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                    colors: {
-                        gloryPink: {
-                            50: '#fdf2f8',
-                            100: '#fce7f3',
-                            200: '#fbcfe8',
-                            500: '#ec4899',
-                            600: '#db2777',
-                            700: '#be185d',
-                            800: '#9d174d',
-                        },
-                        amberGold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                        },
-                        vibrantTeal: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            500: '#14b8a6',
-                            600: '#0d9488',
-                            700: '#0f766e',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #fffbeb 0%, #fef3c7 25%, #e0f2fe 100%);
+      min-height: 100vh;
+      color: #1e293b;
+      touch-action: manipulation;
+    }
 
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #f8fafc;
-            /* Modern soft micro-dot mesh gradient without chalkboard aesthetic */
-            background-image: 
-                radial-gradient(rgba(148, 163, 184, 0.16) 1.2px, transparent 1.2px),
-                radial-gradient(at 0% 0%, rgba(236, 72, 153, 0.12) 0px, transparent 48%),
-                radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.14) 0px, transparent 45%),
-                radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.08) 0px, transparent 55%),
-                radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.12) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.09) 0px, transparent 45%),
-                linear-gradient(135deg, #fcfdfe 0%, #f1f5f9 50%, #e2e8f0 100%);
-            background-size: 24px 24px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-            background-attachment: fixed;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
+    .en-font {
+      font-family: 'Fredoka', cursive, sans-serif;
+    }
 
-        .ambient-glow {
-            position: fixed;
-            border-radius: 9999px;
-            filter: blur(105px);
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.65;
-        }
-        .ambient-glow-1 {
-            width: 520px;
-            height: 520px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.20), transparent 70%);
-            top: -120px;
-            right: -100px;
-        }
-        .ambient-glow-2 {
-            width: 480px;
-            height: 480px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.20), transparent 70%);
-            bottom: 5%;
-            left: -120px;
-        }
+    /* Main Poster Canvas matching image */
+    .worksheet-poster {
+      background: #ffffff;
+      border: 4px solid #38bdf8;
+      border-radius: 36px;
+      box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.22), 0 0 0 10px #fefce8;
+    }
 
-        .en-font {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            direction: ltr;
-            text-align: center;
-        }
+    /* Rainbow Cloud Banner matching image */
+    .rainbow-cloud-title {
+      background: linear-gradient(135deg, #fbcfe8 0%, #fed7aa 35%, #fef08a 70%, #bae6fd 100%);
+      border: 3.5px dashed #f43f5e;
+      border-radius: 40px;
+      box-shadow: 0 10px 22px -5px rgba(244, 63, 94, 0.25);
+    }
 
-        /* Glassmorphism Cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
-        }
+    /* Section 1 Card: Warm Yellow Canvas */
+    .card-sec1 {
+      background: #fef08a40;
+      border: 3px solid #f59e0b;
+      border-radius: 28px;
+    }
 
-        .glass-card-hover {
-            transition: all 0.26s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .glass-card-hover:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 16px 36px -6px rgba(14, 165, 233, 0.16);
-        }
+    /* Section 2 Card: Mint / Cyan Canvas */
+    .card-sec2 {
+      background: #ccfbf130;
+      border: 3px solid #14b8a6;
+      border-radius: 28px;
+    }
 
-        /* Audio Wave Indicator Animation */
-        @keyframes soundWave {
-            0%, 100% { height: 6px; }
-            50% { height: 22px; }
-        }
-        .sound-bar {
-            width: 3.5px;
-            background-color: #0284c7;
-            border-radius: 4px;
-            animation: soundWave 1.2s ease-in-out infinite;
-        }
-        .sound-bar:nth-child(2) { animation-delay: 0.2s; }
-        .sound-bar:nth-child(3) { animation-delay: 0.4s; }
-        .sound-bar:nth-child(4) { animation-delay: 0.1s; }
+    /* Option Pills for Exercise 1 */
+    .opt-pill {
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      user-select: none;
+    }
+    .opt-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px -3px rgba(0, 0, 0, 0.15);
+    }
+    .opt-pill:active {
+      transform: scale(0.95);
+    }
 
-        .active-audio-highlight {
-            outline: 2px solid #0284c7 !important;
-            box-shadow: 0 0 24px rgba(14, 165, 233, 0.38) !important;
-        }
+    /* Option Pill Color Schemes matching image */
+    .opt-pill-pink {
+      background: #ffe4e6;
+      border: 2px solid #fda4af;
+      color: #9f1239;
+    }
+    .opt-pill-cyan {
+      background: #e0f2fe;
+      border: 2px solid #7dd3fc;
+      color: #0369a1;
+    }
+    .opt-pill-rose {
+      background: #fed7aa;
+      border: 2px solid #fdba74;
+      color: #9a3412;
+    }
 
-        /* Mascot float animation */
-        @keyframes floatMascot {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-7px) rotate(2deg); }
-        }
-        .animate-float-mascot {
-            animation: floatMascot 4s ease-in-out infinite;
-        }
+    /* Selected state */
+    .opt-pill.selected-correct {
+      background: #dcfce7 !important;
+      border-color: #22c55e !important;
+      color: #14532d !important;
+      box-shadow: 0 0 0 4px #86efac, 0 8px 16px -2px rgba(34, 197, 94, 0.3) !important;
+      transform: scale(1.05);
+    }
+    .opt-pill.selected-wrong {
+      background: #ffe4e6 !important;
+      border-color: #ef4444 !important;
+      color: #7f1d1d !important;
+      box-shadow: 0 0 0 4px #fca5a5 !important;
+    }
 
-        /* Enforce absolute center alignment across all Arabic and English texts */
-        .arabic-center {
-            text-align: center !important;
-            display: block !important;
-            width: 100% !important;
-            margin-left: auto !important;
-            margin-right: auto !important;
-        }
+    /* Word Bank Pills for Exercise 2 */
+    .word-pill {
+      cursor: grab;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .word-pill:active {
+      cursor: grabbing;
+      transform: scale(0.95);
+    }
+    .word-pill.selected-pill {
+      box-shadow: 0 0 0 4px #0d9488, 0 10px 20px -3px rgba(13, 148, 136, 0.45);
+      transform: translateY(-3px) scale(1.06);
+      animation: pulseSelection 1.5s infinite;
+    }
+    @keyframes pulseSelection {
+      0%, 100% { box-shadow: 0 0 0 4px #0d9488; }
+      50% { box-shadow: 0 0 0 8px #2dd4bf; }
+    }
 
-        /* Interactive checkbox token button styles */
-        .check-option-btn {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            user-select: none;
-        }
-        .check-option-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px -1px rgba(236, 72, 153, 0.2);
-        }
-        .check-option-btn:active:not(:disabled) {
-            transform: scale(0.97);
-        }
+    /* Drop Slots for Exercise 2 */
+    .drop-slot {
+      min-width: 100px;
+      min-height: 34px;
+      transition: all 0.2s ease;
+    }
+    .drop-slot.drag-over {
+      background-color: #fef08a !important;
+      border-color: #f59e0b !important;
+      transform: scale(1.05);
+    }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 7px;
-            height: 7px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+    /* Instant Feedback Animations */
+    @keyframes popSuccess {
+      0% { transform: scale(0.88); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .pop-success {
+      animation: popSuccess 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes shakeSlot {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    .shake-slot {
+      animation: shakeSlot 0.4s ease-in-out;
+    }
+
+    /* Audio karaoke pulse */
+    .audio-playing {
+      outline: 3px solid #0d9488 !important;
+      background-color: #fef08a !important;
+      animation: soundPulse 1.2s infinite;
+    }
+    @keyframes soundPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+      .worksheet-poster { box-shadow: none !important; border-width: 2px !important; }
+    }
+  </style>
 </head>
-<body class="text-slate-800 antialiased selection:bg-pink-100 selection:text-pink-900 pb-24 relative">
+<body class="p-2 sm:p-4 md:p-6 lg:p-8 flex justify-center">
 
-    <!-- Ambient glowing backgrounds -->
-    <div class="ambient-glow ambient-glow-1"></div>
-    <div class="ambient-glow ambient-glow-2"></div>
+  <div class="w-full max-w-4xl flex flex-col items-center">
 
-    <header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-slate-200/90 shadow-xs">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-            
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-600 via-rose-500 to-amber-500 flex items-center justify-center text-white shadow-md shadow-pink-500/20 text-xl font-black">
-                    <i class="fa-solid fa-square-check"></i>
-                </div>
-                <div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-pink-50 text-pink-800 border border-pink-200">
-                            Glory English Academy
-                        </span>
-                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200 flex items-center gap-1">
-                            <span>🍁</span> Canadian Voice (Emma)
-                        </span>
-                        <!-- Teacher Badge in Header with Luxury Background -->
-                        <span class="text-[11px] font-extrabold px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-50 via-rose-50 to-pink-50 text-amber-900 border border-amber-300 shadow-2xs flex items-center gap-1.5">
-                            <i class="fa-solid fa-chalkboard-user text-amber-600 text-xs"></i>
-                            <span>معلم اللغة الإنجليزية: <strong>الأستاذ / ماجد السويهري</strong></span>
-                        </span>
-                    </div>
-                    <h1 class="text-lg md:text-xl font-extrabold text-slate-800 mt-0.5">
-                        انظر إلى الصورة واختر الكلمة الصحيحة <span class="en-font text-pink-700 font-bold tracking-tight text-base">(Check the Correct Word)</span>
-                    </h1>
-                </div>
-            </div>
-
-            <!-- Canadian Voice Controls Bar -->
-            <div class="flex items-center gap-2 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200 text-xs">
-                <div class="flex items-center gap-2 px-2.5 py-1 bg-white rounded-xl shadow-2xs text-slate-700">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="font-medium">المتحدثة: <strong>Emma (Canada 🇨🇦)</strong></span>
-                </div>
-                
-                <button id="speedBtn" onclick="togglePlaybackSpeed()" class="px-2.5 py-1.5 rounded-xl bg-slate-200/70 hover:bg-slate-300 font-bold transition flex items-center gap-1.5 text-slate-700" title="سرعة ونبرة النطق الهادئة">
-                    <i class="fa-solid fa-feather-pointed text-pink-600 text-xs"></i>
-                    <span id="speedDisplay">هادئ وجميل (0.85x)</span>
-                </button>
-
-                <button onclick="testCanadianVoice()" class="px-3 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold transition flex items-center gap-1 shadow-xs">
-                    <i class="fa-solid fa-volume-high text-xs"></i>
-                    <span>تجربة الصوت</span>
-                </button>
-            </div>
+    <!-- Top Ribbon Control Bar (No Print) -->
+    <header class="no-print w-full flex flex-wrap items-center justify-between gap-3 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-md border border-amber-200 mb-4">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white text-lg font-black shadow-sm">
+          ⭐
+        </span>
+        <div>
+          <h1 class="text-sm sm:text-base font-black text-slate-800 leading-tight">ورقة عمل تفاعلية • PAST SIMPLE PRACTICE</h1>
+          <p class="text-[11px] text-amber-800 font-bold">تدريبات الماضي البسيط • اختيار من متعدد وإكمال الفراغات بالسحب والإفلات • نطق كندي 🇨🇦</p>
         </div>
+      </div>
+
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- Quick Section Buttons -->
+        <button onclick="scrollToSection('sec1')" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 text-xs font-black transition active:scale-95 flex items-center gap-1">
+          <span>✏️</span>
+          <span>1) اختر الإجابة</span>
+        </button>
+
+        <button onclick="scrollToSection('sec2')" class="px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-300 text-teal-900 text-xs font-black transition active:scale-95 flex items-center gap-1">
+          <span>📝</span>
+          <span>2) ضع الفعل بالصيغة الصحيحة</span>
+        </button>
+
+        <!-- Toggle Arabic Translations -->
+        <button id="toggleTransBtn" onclick="toggleTranslations()" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-300 text-indigo-800 text-xs font-black transition flex items-center gap-1">
+          <span>🌐</span>
+          <span id="transBtnText">إخفاء الترجمة</span>
+        </button>
+
+        <!-- Live Score Counter -->
+        <div class="px-3.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs sm:text-sm font-black flex items-center gap-1 shadow-sm">
+          <span>النقاط:</span>
+          <span id="scoreDisplay">0 / 17</span>
+        </div>
+      </div>
     </header>
 
-    <!-- Audio Player Status Notification -->
-    <div id="audioStatusBar" class="hidden sticky top-16 z-30 max-w-6xl mx-auto px-4 mt-2">
-        <div class="p-3.5 rounded-2xl bg-slate-900 text-white shadow-xl flex items-center justify-between gap-4 border border-pink-800">
-            <div class="flex items-center gap-3">
-                <div class="flex items-end gap-1 h-5">
-                    <span class="sound-bar"></span>
-                    <span class="sound-bar"></span>
-                    <span class="sound-bar"></span>
-                    <span class="sound-bar"></span>
-                </div>
-                <div>
-                    <div class="text-[11px] text-pink-300 font-bold">المعلمة الكندية تقرأ الآن بنبرة هادئة وواضحة:</div>
-                    <div id="currentSpeakingText" class="en-font font-bold text-white text-sm md:text-base"></div>
-                </div>
-            </div>
-            <button onclick="stopAudio()" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1">
-                <i class="fa-solid fa-stop"></i> إيقاف
-            </button>
-        </div>
-    </div>
+    <!-- Main Printable Worksheet Poster -->
+    <main class="worksheet-poster w-full p-4 sm:p-7 md:p-9 relative bg-white overflow-hidden shadow-2xl">
 
-    <main class="max-w-6xl mx-auto px-4 mt-6">
+      <!-- Pinned Note Decor (Top-Left matching image) -->
+      <div class="absolute top-3 left-4 flex items-center gap-2 select-none opacity-90 pointer-events-none">
+        <div class="relative w-12 h-12 bg-purple-200 border-2 border-purple-400 rounded-lg shadow-sm transform -rotate-12 flex items-center justify-center text-xs font-black text-purple-900">
+          <span class="absolute -top-3 left-3 text-xl">📌</span>
+          <span>V1 ➔ V2</span>
+        </div>
+        <span class="text-2xl text-amber-400">⭐</span>
+      </div>
+
+      <!-- Header: Pencils & Glory English Academy Circular Logo (Top-Right matching image) -->
+      <div class="flex items-center justify-between w-full mb-3 relative">
+        <div class="flex items-center gap-2 select-none">
+          <span class="text-3xl">✏️ 📐 ⭐</span>
+        </div>
+
+        <!-- Glory English Academy Circular Logo -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 border-sky-500 bg-white shadow-md p-1.5 flex flex-col items-center justify-center text-center">
+            <span class="text-[9px] sm:text-[10px] font-black text-sky-800 uppercase tracking-tighter leading-none">GLORY ENGLISH</span>
+            <div class="text-lg sm:text-2xl leading-none my-0.5">📖🕊️</div>
+            <span class="text-[8px] sm:text-[9px] font-black text-sky-600 uppercase tracking-tighter leading-none">ACADEMY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rainbow Cloud Title Banner: PAST SIMPLE PRACTICE -->
+      <div class="flex flex-col items-center justify-center text-center mb-6">
+        <div class="rainbow-cloud-title px-8 sm:px-14 py-3 sm:py-4 shadow-sm flex flex-col items-center">
+          <h2 class="en-font font-black text-2xl sm:text-3xl md:text-4xl text-slate-800 tracking-wide drop-shadow-2xs">
+            PAST SIMPLE PRACTICE
+          </h2>
+          <h3 class="font-black text-base sm:text-xl text-slate-900 mt-0.5">
+            ورقة عمل / Practice Worksheet
+          </h3>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-slate-500 mt-2">
+          🇨🇦 انقر على أي جملة للاستماع إلى النطق الكندي الفصيح • استجابة فورية ناطقة للإجابة
+        </p>
+      </div>
+
+      <!-- =========================================================================
+           SECTION 1: CHOOSE THE CORRECT ANSWER (البطاقة الصفراء)
+           ========================================================================= -->
+      <section id="sec1" class="card-sec1 p-4 sm:p-6 mb-8 relative shadow-sm">
         
-        <!-- Hero Introduction Card -->
-        <div class="bg-gradient-to-r from-pink-950 via-slate-900 to-rose-950 text-white rounded-3xl p-6 md:p-8 shadow-xl relative overflow-hidden mb-8 border border-pink-800/40">
-            
-            <!-- SVG Mascot matching Glory Academy logo theme -->
-            <div class="absolute -left-4 -bottom-6 opacity-35 md:opacity-90 pointer-events-none select-none animate-float-mascot">
-                <svg width="150" height="150" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="42" fill="#ec4899" opacity="0.3"/>
-                    <circle cx="50" cy="50" r="36" fill="#f43f5e" />
-                    <!-- Open Book Emblem -->
-                    <path d="M28 62 C38 58 48 60 50 66 C52 60 62 58 72 62 L72 38 C62 34 52 36 50 42 C48 36 38 34 28 38 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
-                    <line x1="50" y1="42" x2="50" y2="66" stroke="#94a3b8" stroke-width="2"/>
-                    <!-- Star of Excellence -->
-                    <polygon points="50,22 53,28 60,29 55,34 56,41 50,38 44,41 45,34 40,29 47,28" fill="#fbbf24"/>
-                </svg>
-            </div>
-
-            <div class="relative z-10 max-w-3xl">
-                <div class="flex flex-wrap items-center gap-2.5 mb-3.5">
-                    <div class="inline-flex items-center gap-2 bg-pink-500/20 border border-pink-400/30 px-3.5 py-1 rounded-full text-xs text-pink-200 font-semibold">
-                        <i class="fa-solid fa-images text-amber-300"></i> ورقة التدريب المصورة (1. Look at each picture and check the correct word)
-                    </div>
-                    
-                    <!-- Featured Teacher Luxury Ribbon -->
-                    <div class="inline-flex items-center gap-2.5 bg-gradient-to-r from-amber-400/25 via-rose-500/25 to-pink-500/25 border border-amber-300/40 px-4 py-1 rounded-full text-xs md:text-sm text-amber-200 font-bold shadow-md backdrop-blur-md">
-                        <span class="w-5 h-5 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center text-[10px] font-black shadow-xs">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </span>
-                        <span>معلم اللغة الإنجليزية: <strong class="text-white font-black text-xs md:text-sm underline decoration-amber-400 decoration-2 underline-offset-4">الأستاذ / ماجد السويهري</strong></span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    </div>
-                </div>
-
-                <h2 class="text-2xl md:text-3xl font-extrabold mb-3 leading-snug">
-                    انظر إلى كل صورة وضع إشارة صح أمام الكلمة الصحيحة المعبرة عنها
-                </h2>
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-5">
-                    تدرّب على حل البطاقات العشر المطابقة لورقة العمل بالكامل: اختر المربع المناسب أمام الكلمة المطابقة للصورة، واستمع للنطق الكندي الطبيعي الهادئ بصوت المعلمة <span class="en-font font-bold text-amber-300">Emma</span>.
-                    <span class="text-amber-200 font-bold block sm:inline mt-1 sm:mt-0">
-                        (جميع الجمل والترجمات العربية معروضة في المنتصف تماماً دون صوت لضمان سلامة ونقاء مخارج الحروف الإنجليزية).
-                    </span>
-                </p>
-
-                <!-- Navigation Shortcuts & Stats -->
-                <div class="flex flex-wrap items-center gap-3">
-                    <div class="bg-white/10 border border-white/20 px-4 py-2 rounded-2xl flex items-center gap-2">
-                        <i class="fa-solid fa-star text-amber-400"></i>
-                        <span class="text-xs md:text-sm font-bold text-white">النتيجة: <span id="heroScoreDisplay" class="font-black text-amber-300">0</span> من 10</span>
-                    </div>
-                    <button onclick="playAllWordsSequential()" id="heroPlayAllBtn" class="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-400 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
-                        <i class="fa-solid fa-circle-play"></i> استمع لجميع الكلمات العشر
-                    </button>
-                    <button onclick="resetExercise()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs md:text-sm flex items-center gap-2 transition border border-white/20">
-                        <i class="fa-solid fa-rotate-right"></i> إعادة الحل
-                    </button>
-                    <button onclick="toggleRevealAll()" id="heroRevealBtn" class="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs md:text-sm flex items-center gap-2 transition shadow-md">
-                        <i class="fa-solid fa-key"></i> كشف الحل النموذجي
-                    </button>
-                </div>
-            </div>
+        <!-- Section Header -->
+        <div class="flex flex-col items-center justify-center text-center border-b-2 border-amber-300 pb-3 mb-4 gap-1.5">
+          <h3 class="en-font font-black text-xl sm:text-2xl text-amber-950 flex items-center justify-center gap-2" dir="ltr">
+            <span>1) Choose the correct answer</span>
+            <span class="text-2xl">✏️</span>
+          </h3>
+          <span class="text-xs font-black text-amber-900 bg-amber-200/80 px-3.5 py-1 rounded-full shadow-2xs">
+            اختر الإجابة الصحيحة (5 أسئلة)
+          </span>
         </div>
 
-        <section class="mb-14">
-            
-            <div class="glass-card rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm">
-                
-                <!-- Section Header -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
-                    <div class="flex items-center gap-3">
-                        <span class="w-10 h-10 rounded-2xl bg-pink-600 text-white flex items-center justify-center font-black text-lg shadow-xs">
-                            1
-                        </span>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="text-xl md:text-2xl font-black text-slate-800">1) Look at each picture and check the correct word</h3>
-                            </div>
-                            <p class="text-xs text-slate-500 mt-0.5">
-                                انظر إلى الصورة ثم ضع علامة صح داخل المربع أمام الكلمة الصحيحة، واستمع للنطق الصحيح والمثال التوضيحي.
-                            </p>
-                        </div>
-                    </div>
+        <!-- 5 Multiple Choice Questions Container -->
+        <div class="flex flex-col gap-4" dir="ltr" id="sec1QuestionsContainer">
+          <!-- Rendered dynamically by JavaScript with options matching image: pink/cyan/orange badges -->
+        </div>
 
-                    <!-- Header Counter & Reset Action -->
-                    <div class="flex items-center gap-2 self-start md:self-auto">
-                        <div class="bg-pink-50 border border-pink-200 px-4 py-2 rounded-2xl flex items-center gap-2 shadow-2xs">
-                            <i class="fa-solid fa-award text-pink-600"></i>
-                            <span class="text-xs font-bold text-pink-950">إجابات صحيحة: <span id="sectionScoreDisplay">0</span> من 10</span>
-                        </div>
-                    </div>
-                </div>
+      </section>
 
-                <!-- 10 Cards Grid (Exact 2-column layout matching image_f42e19.png) -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="matchCardsContainer">
-                    <!-- Populated dynamically via JavaScript with high-resolution vector graphics and options -->
-                </div>
+      <!-- =========================================================================
+           SECTION 2: WRITE THE VERBS IN THE RIGHT FORM (البطاقة الفيروزية المائية)
+           ========================================================================= -->
+      <section id="sec2" class="card-sec2 p-4 sm:p-6 mb-8 relative shadow-sm">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col items-center justify-center text-center border-b-2 border-teal-300 pb-3 mb-4 gap-1.5">
+          <h3 class="en-font font-black text-xl sm:text-2xl text-teal-950 flex items-center justify-center gap-2" dir="ltr">
+            <span>2) Write the verbs in the right form</span>
+            <span class="text-2xl">📝</span>
+          </h3>
+          <span class="text-xs font-black text-teal-900 bg-teal-200/80 px-3.5 py-1 rounded-full shadow-2xs">
+            ضع الفعل بالصيغة الصحيحة (12 جملة بالسحب والإفلات)
+          </span>
+        </div>
 
-                <!-- Bottom Bulk Action Buttons -->
-                <div class="flex flex-wrap items-center justify-center gap-3 mt-8 pt-6 border-t border-slate-100">
-                    <button onclick="checkAllAnswers()" class="px-5 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-xs md:text-sm transition shadow-md flex items-center gap-2">
-                        <i class="fa-solid fa-check"></i> تحقق من جميع الإجابات
-                    </button>
-                    <button onclick="resetExercise()" class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-rose-50 hover:text-rose-600 text-slate-700 font-bold text-xs md:text-sm transition border border-slate-300 flex items-center gap-1.5">
-                        <i class="fa-solid fa-rotate-right"></i> مسح الاختيارات
-                    </button>
-                    <button onclick="toggleRevealAll()" id="bottomRevealBtn" class="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs md:text-sm transition shadow-md flex items-center gap-1.5">
-                        <i class="fa-solid fa-key"></i> كشف نموذج الحل الصحيح
-                    </button>
-                </div>
-
+        <!-- Word Bank Box (صندوق الكلمات للسحب والإفلات) -->
+        <div class="mb-6 bg-white/95 border-2 border-teal-400 rounded-2xl p-4 shadow-sm" dir="rtl">
+          <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-lg">📦</span>
+              <span class="text-xs sm:text-sm font-black text-teal-950">صندوق الكلمات (اسحب الكلمة أو انقر عليها ثم انقر في الفراغ):</span>
             </div>
+            <span class="text-[11px] font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
+              💡 تذكير: بعد didn't نضع الفعل في المصدر (V1)
+            </span>
+          </div>
 
-        </section>
+          <!-- Interactive Word Bank Pills Container -->
+          <div id="sec2WordBank" class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5" dir="ltr">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
 
-        <!-- Educational Inspirational Quote matching the bottom of image_f42e19.png -->
-        <section class="mb-14">
-            <div class="bg-gradient-to-r from-pink-50/70 via-white to-rose-50/70 rounded-3xl p-6 md:p-8 border-2 border-pink-200/80 shadow-xs text-center relative overflow-hidden group hover:border-pink-300 transition">
-                <div class="text-3xl text-pink-300 mb-2">
-                    <i class="fa-solid fa-quote-right"></i>
-                </div>
-                <blockquote class="en-font font-black text-base md:text-xl text-slate-800 leading-relaxed max-w-3xl mx-auto arabic-center mb-3">
-                    "Education is the passport to the future, for tomorrow belongs to those who prepare for it today."
-                </blockquote>
-                <div class="text-xs md:text-sm text-slate-500 font-bold arabic-center mb-1">
-                    «التعليم هو جواز السفر إلى المستقبل، فالغد ملك لأولئك الذين يستعدون له اليوم.»
-                </div>
-                <cite class="en-font text-xs font-black text-pink-700 not-italic block arabic-center">
-                    — Malcolm X
-                </cite>
-            </div>
-        </section>
+        <!-- 12 Fill in the Blanks Sentences Container -->
+        <div class="flex flex-col gap-3" dir="ltr" id="sec2SentencesContainer">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Teacher Avatar (Bottom Right matching image) -->
+        <div class="flex items-center justify-end mt-6 pt-4 border-t-2 border-teal-200 gap-3" dir="rtl">
+          <div class="text-right">
+            <span class="text-xs font-black text-teal-950 block">المعلمة ترشدك:</span>
+            <span class="text-[11px] font-bold text-slate-600 block leading-tight">
+              "انتبه للجمل المنفية بـ didn't! فالفعل بعدها يعود لمصدره بدون تغيير."
+            </span>
+          </div>
+          <!-- Teacher Avatar SVG illustration -->
+          <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-orange-100 border-2 border-amber-400 flex items-center justify-center text-3xl shadow-sm shrink-0">
+            👩‍🏫
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Worksheet Footer -->
+      <footer class="pt-4 border-t-2 border-slate-100 flex items-center justify-between relative px-2 sm:px-4" dir="rtl">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-full border-2 border-sky-400 bg-sky-50 flex items-center justify-center text-lg">
+            📖
+          </div>
+          <div class="flex flex-col text-right">
+            <span class="text-[11px] font-black text-sky-900 leading-tight">Glory English Academy</span>
+            <span class="text-[9px] font-bold text-slate-400">Past Simple Mastery • Audio & Interactive Exercises</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 text-2xl select-none opacity-80">
+          <span>✏️ 🎒 📐 🌟</span>
+        </div>
+      </footer>
 
     </main>
 
-    <!-- Toast Notification Element -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-800 text-sm">
-        <i id="toastIcon" class="fa-solid fa-check text-emerald-400"></i>
-        <span id="toastMsg">تم الإجراء بنجاح</span>
+    <!-- Bottom Print & Control Buttons -->
+    <div class="no-print w-full mt-4 flex items-center justify-center gap-3 flex-wrap">
+      <button onclick="window.print()" class="px-5 py-2.5 rounded-2xl bg-white hover:bg-slate-50 border-2 border-slate-300 text-slate-700 font-bold text-sm shadow-sm flex items-center gap-2 transition active:scale-95">
+        <span>🖨️</span>
+        <span>طباعة ورقة العمل</span>
+      </button>
+      <button onclick="resetAllWorksheet()" class="px-5 py-2.5 rounded-2xl bg-rose-50 hover:bg-rose-100 border border-rose-300 text-rose-700 font-black text-sm shadow-sm flex items-center gap-2 transition active:scale-95">
+        <span>🔄</span>
+        <span>إعادة تعيين جميع التمارين</span>
+      </button>
     </div>
 
-    <script>
-        /* ==========================================================
-           DATASET: 10 PICTURE ITEMS DIRECTLY MATCHING image_f42e19.png
-           Pairs arranged in the exact order as the printed sheet
-           ========================================================== */
-        const exerciseItems = [
-            {
-                id: 1,
-                correctWord: "glass",
-                ar: "كوب / زجاج",
-                sentence: "She drank a fresh glass of cold water.",
-                options: ["go away", "Tie", "glass"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f8fafc"/>
-                        <!-- Glass Tumbler Outline matching the worksheet picture -->
-                        <path d="M30 24 L36 82 C36 86 64 86 64 82 L70 24 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="2.2"/>
-                        <!-- Water level inside glass -->
-                        <path d="M34 46 L37 80 C37 84 63 84 63 80 L66 46 Q50 50 34 46 Z" fill="#bae6fd" opacity="0.8"/>
-                        <!-- Light reflections -->
-                        <path d="M38 30 L42 74" stroke="#e0f2fe" stroke-width="2.5" stroke-linecap="round"/>
-                        <ellipse cx="50" cy="24" rx="20" ry="4.5" stroke="#94a3b8" stroke-width="1.8" fill="#f1f5f9"/>
-                    </svg>
-                `
-            },
-            {
-                id: 2,
-                correctWord: "agree",
-                ar: "موافق",
-                sentence: "We all agree that learning is important.",
-                options: ["agree", "Cookie", "gate"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0fdf4"/>
-                        <!-- Green outlined glowing Thumbs Up matching the worksheet icon -->
-                        <path d="M36 78 L28 78 L28 50 L36 50 Z" fill="#86efac" stroke="#16a34a" stroke-width="2.5"/>
-                        <path d="M36 54 C46 54 46 44 46 34 C46 26 54 26 54 32 C54 40 48 48 52 48 L72 48 C76 48 80 52 78 58 L74 74 C73 78 68 80 62 80 L36 80 Z" fill="#bbf7d0" stroke="#16a34a" stroke-width="2.5" stroke-linejoin="round"/>
-                        <!-- Sparkle rays above thumb -->
-                        <line x1="54" y1="18" x2="54" y2="23" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="42" y1="20" x2="46" y2="24" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="66" y1="20" x2="62" y2="24" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/>
-                    </svg>
-                `
-            },
-            {
-                id: 3,
-                correctWord: "Taxi",
-                ar: "سيارة أجرة",
-                sentence: "We took a yellow taxi to the city center.",
-                options: ["glass", "Taxi", "Tie"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fef3c7"/>
-                        <!-- Yellow Taxi Car Body matching worksheet -->
-                        <path d="M14 60 L24 46 L76 46 L86 60 L88 70 L12 70 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2"/>
-                        <!-- Cab Roof Sign: TAXI -->
-                        <rect x="40" y="38" width="20" height="8" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1.2"/>
-                        <text x="50" y="44.5" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="5" fill="#0f172a" text-anchor="middle">TAXI</text>
-                        <!-- Windows -->
-                        <polygon points="28,49 46,49 46,59 23,59" fill="#e0f2fe"/>
-                        <polygon points="52,49 72,49 77,59 52,59" fill="#e0f2fe"/>
-                        <!-- Checkerboard side stripe -->
-                        <rect x="16" y="62" width="68" height="4" fill="#0f172a"/>
-                        <line x1="22" y1="62" x2="22" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="34" y1="62" x2="34" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="46" y1="62" x2="46" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="58" y1="62" x2="58" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="70" y1="62" x2="70" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <line x1="82" y1="62" x2="82" y2="66" stroke="#ffffff" stroke-width="3"/>
-                        <!-- Wheels -->
-                        <circle cx="28" cy="72" r="8" fill="#1e293b"/>
-                        <circle cx="28" cy="72" r="3.5" fill="#94a3b8"/>
-                        <circle cx="72" cy="72" r="8" fill="#1e293b"/>
-                        <circle cx="72" cy="72" r="3.5" fill="#94a3b8"/>
-                    </svg>
-                `
-            },
-            {
-                id: 4,
-                correctWord: "Helmet",
-                ar: "خوذة",
-                sentence: "Wear a protective helmet when working or cycling.",
-                options: ["Storyboard", "Journalist", "Helmet"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fffbeb"/>
-                        <!-- Yellow Hard Hat Helmet matching the worksheet illustration -->
-                        <path d="M22 60 C22 36 38 24 50 24 C62 24 78 36 78 60 Z" fill="#eab308"/>
-                        <path d="M16 60 Q50 56 84 60 L86 67 Q50 63 14 67 Z" fill="#ca8a04"/>
-                        <!-- Helmet rib top ridges -->
-                        <path d="M46 25 Q50 38 48 58" stroke="#fde047" stroke-width="3.5" stroke-linecap="round"/>
-                        <path d="M54 25 Q50 38 52 58" stroke="#a16207" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Front visor highlight -->
-                        <ellipse cx="50" cy="62" rx="28" ry="3" fill="#fef08a" opacity="0.6"/>
-                    </svg>
-                `
-            },
-            {
-                id: 5,
-                correctWord: "Tie",
-                ar: "رابطة عنق",
-                sentence: "He wore a neat striped tie for the job interview.",
-                options: ["Tie", "Helmet", "gate"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0f9ff"/>
-                        <!-- Striped Blue Tie matching the worksheet picture -->
-                        <!-- Tie Knot -->
-                        <polygon points="44,22 56,22 53,32 47,32" fill="#0369a1"/>
-                        <!-- Tie Body with diagonal stripes -->
-                        <polygon points="46,32 54,32 60,74 50,88 40,74" fill="#0284c7" stroke="#0369a1" stroke-width="1.8"/>
-                        <!-- Diagonal white/cyan stripes -->
-                        <line x1="43" y1="42" x2="57" y2="48" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="42" y1="54" x2="58" y2="60" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="41" y1="66" x2="59" y2="72" stroke="#bae6fd" stroke-width="3"/>
-                        <line x1="43" y1="78" x2="57" y2="84" stroke="#bae6fd" stroke-width="2.5"/>
-                    </svg>
-                `
-            },
-            {
-                id: 6,
-                correctWord: "Storyboard",
-                ar: "مخطط القصة",
-                sentence: "The director sketched scenes on the storyboard before filming.",
-                options: ["agree", "Taxi", "Storyboard"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f8fafc"/>
-                        <!-- Easel Stand Legs -->
-                        <line x1="38" y1="65" x2="26" y2="88" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="62" y1="65" x2="74" y2="88" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <line x1="50" y1="65" x2="50" y2="90" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Storyboard Board matching worksheet line drawing -->
-                        <rect x="24" y="20" width="52" height="46" rx="3" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
-                        <!-- 4 Film Panel Frames -->
-                        <rect x="28" y="24" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="52" y="24" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="28" y="44" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <rect x="52" y="44" width="20" height="18" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
-                        <!-- Panel Drawings (Sun, Mountain, Sea, Moon) -->
-                        <circle cx="34" cy="30" r="2.5" fill="#0f172a"/>
-                        <polygon points="56,36 62,28 68,36" fill="#0f172a"/>
-                        <path d="M30 54 Q38 50 46 54" stroke="#0f172a" stroke-width="1.5" fill="none"/>
-                        <path d="M64 48 C62 50 62 54 64 56 C61 55 61 49 64 48 Z" fill="#0f172a"/>
-                    </svg>
-                `
-            },
-            {
-                id: 7,
-                correctWord: "Cookie",
-                ar: "بسكوت",
-                sentence: "She baked a sweet chocolate chip cookie.",
-                options: ["agree", "Cookie", "Taxi"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fffbeb"/>
-                        <!-- Delicious Cookie matching worksheet picture -->
-                        <circle cx="50" cy="50" r="34" fill="#d97706" stroke="#b45309" stroke-width="2.5"/>
-                        <circle cx="50" cy="50" r="30" fill="#f59e0b" opacity="0.9"/>
-                        <!-- Chocolate chips -->
-                        <circle cx="40" cy="38" r="4.5" fill="#451a03"/>
-                        <circle cx="60" cy="42" r="5" fill="#451a03"/>
-                        <circle cx="48" cy="54" r="5.5" fill="#451a03"/>
-                        <circle cx="35" cy="58" r="4" fill="#451a03"/>
-                        <circle cx="64" cy="60" r="4.5" fill="#451a03"/>
-                        <circle cx="50" cy="70" r="3.5" fill="#451a03"/>
-                        <!-- Crumb dots -->
-                        <circle cx="30" cy="46" r="2" fill="#78350f"/>
-                        <circle cx="68" cy="48" r="2" fill="#78350f"/>
-                    </svg>
-                `
-            },
-            {
-                id: 8,
-                correctWord: "gate",
-                ar: "بوابة",
-                sentence: "The tall iron gate opens into the garden.",
-                options: ["gate", "Journalist", "go away"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f1f5f9"/>
-                        <!-- Wrought Iron Gate matching the intricate worksheet illustration -->
-                        <rect x="14" y="24" width="10" height="58" rx="2" fill="#64748b"/>
-                        <polygon points="12,24 26,24 19,16" fill="#475569"/>
-                        <rect x="76" y="24" width="10" height="58" rx="2" fill="#64748b"/>
-                        <polygon points="74,24 88,24 81,16" fill="#475569"/>
-                        <!-- Horizontal bars -->
-                        <line x1="24" y1="36" x2="76" y2="36" stroke="#1e293b" stroke-width="3"/>
-                        <line x1="24" y1="72" x2="76" y2="72" stroke="#1e293b" stroke-width="3"/>
-                        <!-- Spearhead Vertical Bars -->
-                        <path d="M32 30 L32 78 M32 30 L30 33 M32 30 L34 33" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M41 24 L41 78 M41 24 L39 27 M41 24 L43 27" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M50 20 L50 78 M50 20 L48 23 M50 20 L52 23" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
-                        <path d="M59 24 L59 78 M59 24 L57 27 M59 24 L61 27" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M68 30 L68 78 M68 30 L66 33 M68 30 L70 33" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
-                        <!-- Ornate middle scroll circles -->
-                        <circle cx="50" cy="54" r="4" stroke="#0f172a" stroke-width="2" fill="none"/>
-                    </svg>
-                `
-            },
-            {
-                id: 9,
-                correctWord: "Journalist",
-                ar: "صحفي",
-                sentence: "The journalist reported the breaking news on television.",
-                options: ["gate", "Helmet", "Journalist"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#f0fdf4"/>
-                        <!-- Journalist with microphone & earpiece matching worksheet drawing -->
-                        <rect x="28" y="56" width="44" height="34" rx="6" fill="#64748b"/>
-                        <polygon points="44,56 50,72 56,56" fill="#ffffff"/>
-                        <!-- Head & Hair -->
-                        <circle cx="50" cy="38" r="14" fill="#fed7aa"/>
-                        <path d="M36 34 C36 20 64 20 64 34 Z" fill="#b45309"/>
-                        <!-- Eyes & Smile -->
-                        <circle cx="45" cy="38" r="1.8" fill="#0f172a"/>
-                        <circle cx="55" cy="38" r="1.8" fill="#0f172a"/>
-                        <path d="M47 44 Q50 47 53 44" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round"/>
-                        <!-- Right Hand pressing earpiece -->
-                        <circle cx="34" cy="40" r="3.5" fill="#fed7aa"/>
-                        <line x1="32" y1="40" x2="28" y2="52" stroke="#fed7aa" stroke-width="3" stroke-linecap="round"/>
-                        <!-- Left Hand holding microphone in front -->
-                        <circle cx="50" cy="72" r="4.5" fill="#fed7aa"/>
-                        <rect x="46.5" y="62" width="7" height="12" rx="3" fill="#334155"/>
-                        <ellipse cx="50" cy="60" rx="4.5" ry="5.5" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
-                    </svg>
-                `
-            },
-            {
-                id: 10,
-                correctWord: "go away",
-                ar: "ابتعد",
-                sentence: "The noisy dog was told to go away.",
-                options: ["Tie", "go away", "Storyboard"],
-                svgGraphic: `
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="100" height="100" rx="16" fill="#fef2f2"/>
-                        <!-- Silhouette Figures matching the worksheet picture -->
-                        <!-- Person 1 Outstretched pointing arm -->
-                        <circle cx="68" cy="36" r="8" fill="#334155"/>
-                        <rect x="62" y="46" width="14" height="28" rx="3" fill="#334155"/>
-                        <!-- Arm pointing left to command go away -->
-                        <path d="M64 52 L36 52 L40 48 M36 52 L40 56" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <line x1="65" y1="74" x2="63" y2="92" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-                        <line x1="73" y1="74" x2="75" y2="92" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-                        <!-- Person 2 Dejected Walking Away -->
-                        <circle cx="28" cy="44" r="7" fill="#64748b"/>
-                        <path d="M30 52 C30 52 25 68 22 74" stroke="#64748b" stroke-width="4.5" stroke-linecap="round"/>
-                        <line x1="23" y1="74" x2="18" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="25" y1="74" x2="28" y2="88" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                `
-            }
-        ];
+  </div>
 
-        /* ==========================================================
-           CANADIAN VOICE ENGINE (EMMA 🇨🇦)
-           Calibrated for calm, natural and articulate speech
-           ========================================================== */
-        let currentVoice = null;
-        let speechRate = 0.85; // Calm, articulate cadence (0.85x)
-        let synth = window.speechSynthesis;
-        let isSpeakingSequential = false;
-        let currentAudioHighlightEl = null;
+  <!-- Instant Feedback Modal Toast -->
+  <div id="toastNotification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 transform translate-y-28 opacity-0">
+    <div class="bg-slate-900 text-white px-6 py-3.5 rounded-2xl shadow-2xl border-2 border-sky-400 flex items-center gap-3 backdrop-blur-md">
+      <span id="toastIcon" class="text-2xl">✨</span>
+      <div>
+        <p id="toastTitle" class="text-base font-black text-white"></p>
+        <p id="toastMsg" class="text-xs text-slate-200 font-medium"></p>
+      </div>
+    </div>
+  </div>
 
-        function initCanadianVoice() {
-            if (!('speechSynthesis' in window)) {
-                showToast('متصفحك لا يدعم خاصية تحويل النص إلى صوت.', 'fa-circle-exclamation text-amber-400');
-                return;
-            }
-
-            const loadVoices = () => {
-                const voices = synth.getVoices();
-                if (!voices || voices.length === 0) return;
-
-                // Priority 1: High-fidelity Canadian English voices (en-CA)
-                const canadianVoices = voices.filter(v => 
-                    v.lang === 'en-CA' || 
-                    v.lang === 'en_CA' || 
-                    v.name.toLowerCase().includes('canada') || 
-                    v.name.toLowerCase().includes('canadian')
-                );
-
-                let selected = canadianVoices.find(v => 
-                    v.name.toLowerCase().includes('natural') ||
-                    v.name.toLowerCase().includes('online') ||
-                    v.name.toLowerCase().includes('female') ||
-                    v.name.toLowerCase().includes('linda') ||
-                    v.name.toLowerCase().includes('heather') ||
-                    v.name.toLowerCase().includes('samantha') ||
-                    v.name.toLowerCase().includes('victoria') ||
-                    v.name.toLowerCase().includes('jenny')
-                );
-
-                if (!selected && canadianVoices.length > 0) {
-                    selected = canadianVoices[0];
-                }
-
-                // Priority 2: High-fidelity natural female English voices if device lacks en-CA
-                if (!selected) {
-                    const naturalFemaleKeywords = [
-                        'natural', 'online', 'jenny', 'aria', 'ava', 
-                        'samantha', 'victoria', 'karen', 'moira', 'fiona', 
-                        'zira', 'susan', 'catherine', 'female'
-                    ];
-                    selected = voices.find(v => 
-                        v.lang.startsWith('en') && 
-                        naturalFemaleKeywords.some(keyword => v.name.toLowerCase().includes(keyword))
-                    );
-                }
-
-                // General fallback to any English voice
-                if (!selected) {
-                    selected = voices.find(v => v.lang.startsWith('en'));
-                }
-
-                currentVoice = selected;
-            };
-
-            loadVoices();
-            if (speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = loadVoices;
-            }
+  <script>
+    /* =========================================================================
+       1. WEB AUDIO SYNTHESIZER (CHIMES & TONES)
+       ========================================================================= */
+    class SoundFX {
+      constructor() {
+        this.ctx = null;
+      }
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
         }
-
-        /* Sanitize text for clean, authentic pronunciation without symbol artifacts */
-        function sanitizeTextForSpeech(text) {
-            if (!text) return '';
-            
-            let clean = text
-                .replace(/\s*[-—–]\s*/g, ', ')
-                .replace(/!+/g, '.')
-                .replace(/_+/g, ' ')
-                .replace(/\bblank\b/gi, ' ')
-                .replace(/\bexclamation\s+(point|mark)\b/gi, '')
-                .replace(/[“”"«»]/g, '')
-                .replace(/(^|\s)'|'(\s|$)/g, '$1$2')
-                .replace(/\//g, ', ')
-                .replace(/\.\.\./g, ', ')
-                .replace(/\s+/g, ' ')
-                .trim();
-
-            if (clean && !/[.?!]$/.test(clean)) {
-                clean += '.';
-            }
-
-            return clean;
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
         }
-
-        function playSentence(englishText, elementToHighlight = null, callback = null) {
-            if (!('speechSynthesis' in window)) return;
-
-            if (synth.paused) {
-                synth.resume();
-            }
-
-            synth.cancel();
-
-            const refinedText = sanitizeTextForSpeech(englishText);
-            const utterance = new SpeechSynthesisUtterance(refinedText);
-
-            if (currentVoice) {
-                utterance.voice = currentVoice;
-                utterance.lang = currentVoice.lang;
-            } else {
-                utterance.lang = 'en-CA';
-            }
-
-            utterance.rate = speechRate;
-            utterance.pitch = 1.0;
-
-            window._activeUtterance = utterance;
-
-            const audioBar = document.getElementById('audioStatusBar');
-            const speakingTextEl = document.getElementById('currentSpeakingText');
-            if (audioBar && speakingTextEl) {
-                speakingTextEl.textContent = englishText;
-                audioBar.classList.remove('hidden');
-            }
-
-            if (elementToHighlight) {
-                clearHighlights();
-                currentAudioHighlightEl = elementToHighlight;
-                elementToHighlight.classList.add('active-audio-highlight');
-            }
-
-            utterance.onend = () => {
-                window._activeUtterance = null;
-                if (audioBar && !isSpeakingSequential) {
-                    audioBar.classList.add('hidden');
-                }
-                clearHighlights();
-                if (callback) callback();
-            };
-
-            utterance.onerror = () => {
-                window._activeUtterance = null;
-                if (audioBar) audioBar.classList.add('hidden');
-                clearHighlights();
-                if (callback) callback();
-            };
-
-            setTimeout(() => {
-                synth.speak(utterance);
-            }, 30);
-        }
-
-        function clearHighlights() {
-            if (currentAudioHighlightEl) {
-                currentAudioHighlightEl.classList.remove('active-audio-highlight');
-                currentAudioHighlightEl = null;
-            }
-            document.querySelectorAll('.active-audio-highlight').forEach(el => {
-                el.classList.remove('active-audio-highlight');
-            });
-        }
-
-        function stopAudio() {
-            isSpeakingSequential = false;
-            synth.cancel();
-            clearHighlights();
-            const audioBar = document.getElementById('audioStatusBar');
-            if (audioBar) audioBar.classList.add('hidden');
-            
-            const btn = document.getElementById('heroPlayAllBtn');
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> استمع لجميع الكلمات العشر`;
-        }
-
-        function testCanadianVoice() {
-            playSentence("Hello! I am Emma from Canada. Look at each picture and check the correct word.");
-            showToast("جاري التحدث بنمط كندي هادئ وطبيعي ومريح (0.85x)", "fa-check text-emerald-400");
-        }
-
-        function togglePlaybackSpeed() {
-            const speeds = [
-                { rate: 0.85, label: "هادئ وجميل (0.85x)" },
-                { rate: 0.75, label: "متأنٍ وواضح (0.75x)" },
-                { rate: 0.95, label: "عادي معتدل (0.95x)" }
-            ];
-            
-            const currentIdx = speeds.findIndex(s => Math.abs(s.rate - speechRate) < 0.04);
-            const nextIdx = (currentIdx + 1) % speeds.length;
-            
-            speechRate = speeds[nextIdx].rate;
-            document.getElementById('speedDisplay').textContent = speeds[nextIdx].label;
-            showToast(`تم ضبط نمط الصوت: ${speeds[nextIdx].label}`, 'fa-feather-pointed text-pink-400');
-        }
-
-        // Native Tone.js sound chimes
-        let synthPlayer = null;
-        function playChime(isSuccess = true) {
-            try {
-                if (!synthPlayer) {
-                    synthPlayer = new Tone.PolySynth(Tone.Synth).toDestination();
-                    synthPlayer.volume.value = -12;
-                }
-                if (Tone.context.state !== 'running') {
-                    Tone.context.resume();
-                }
-                const now = Tone.now();
-                if (isSuccess) {
-                    synthPlayer.triggerAttackRelease(["C5", "E5", "G5"], "16n", now);
-                } else {
-                    synthPlayer.triggerAttackRelease(["A3", "F3"], "16n", now);
-                }
-            } catch (e) {
-                // Ignore autoplay policies
-            }
-        }
-
-        /* ==========================================================
-           RENDER 10 INTERACTIVE MATCH CARDS
-           ========================================================== */
-        let exerciseScore = 0;
-        let solvedCardsSet = new Set();
-        let userSelectedOptions = {}; // Map of cardId => chosenOption
-
-        function renderMatchCards() {
-            const container = document.getElementById('matchCardsContainer');
-            if (!container) return;
-
-            container.innerHTML = exerciseItems.map(item => `
-                <div id="match-card-${item.id}" 
-                    class="bg-white rounded-3xl p-5 border-2 border-pink-100 shadow-2xs hover:border-pink-300 transition flex flex-col sm:flex-row items-center justify-between gap-5 group">
-                    
-                    <!-- Left: Picture Frame with ID badge -->
-                    <div class="relative w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden shrink-0 flex items-center justify-center p-2 bg-slate-50 border-2 border-pink-200/80 shadow-2xs group-hover:scale-105 transition duration-200">
-                        <span class="absolute top-2 right-2 w-6 h-6 rounded-lg bg-pink-100 text-pink-800 font-black text-xs flex items-center justify-center shadow-2xs z-10">
-                            ${item.id}
-                        </span>
-                        ${item.svgGraphic}
-                    </div>
-
-                    <!-- Center & Right: 3 Checkbox Option Buttons & Translation -->
-                    <div class="flex-1 w-full flex flex-col justify-between">
-                        
-                        <!-- Top Header with Audio Button -->
-                        <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-100">
-                            <span class="text-xs font-black text-slate-400">اختر الكلمة المطابقة:</span>
-                            <button onclick="playItemAudio(${item.id})" class="p-2 rounded-xl bg-slate-100 hover:bg-pink-50 text-slate-600 hover:text-pink-700 transition" title="استمع لنطق الكلمة">
-                                <i class="fa-solid fa-volume-high text-xs"></i>
-                            </button>
-                        </div>
-
-                        <!-- 3 Checkbox Buttons matching worksheet layout -->
-                        <div class="space-y-2 mb-2" dir="ltr">
-                            ${item.options.map((opt, optIdx) => `
-                                <button type="button" 
-                                    id="opt-btn-${item.id}-${optIdx}" 
-                                    onclick="selectCardOption(${item.id}, '${opt}', ${optIdx})"
-                                    class="check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-slate-200 bg-slate-50/80 hover:bg-pink-50/60 hover:border-pink-300 text-slate-800 font-extrabold text-sm en-font transition flex items-center gap-2.5 text-left">
-                                    
-                                    <!-- Custom Styled Checkbox Square -->
-                                    <span id="checkbox-box-${item.id}-${optIdx}" class="w-5 h-5 rounded-md border-2 border-pink-300 bg-white flex items-center justify-center shrink-0 transition">
-                                        <i class="fa-solid fa-check text-[11px] text-white opacity-0 transition"></i>
-                                    </span>
-
-                                    <!-- Option Text -->
-                                    <span class="flex-1">${opt}</span>
-                                </button>
-                            `).join('')}
-                        </div>
-
-                        <!-- Silent Arabic Translation Strictly Centered -->
-                        <div class="text-xs text-slate-500 font-bold mt-1 arabic-center">
-                            الترجمة: <span class="text-pink-800 font-black" id="translation-display-${item.id}">${item.ar}</span>
-                        </div>
-
-                        <!-- Individual Feedback Box -->
-                        <div id="feedback-${item.id}" class="hidden text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold"></div>
-
-                    </div>
-
-                </div>
-            `).join('');
-        }
-
-        function selectCardOption(cardId, chosenOption, optIdx) {
-            userSelectedOptions[cardId] = chosenOption;
-            const item = exerciseItems.find(x => x.id === cardId);
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            const feedbackEl = document.getElementById(`feedback-${cardId}`);
-
-            // Reset visual states of all 3 buttons in this card
-            item.options.forEach((opt, idx) => {
-                const btn = document.getElementById(`opt-btn-${cardId}-${idx}`);
-                const box = document.getElementById(`checkbox-box-${cardId}-${idx}`);
-                const checkIcon = box.querySelector('i');
-
-                if (idx === optIdx) {
-                    btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-pink-500 bg-pink-50/80 text-pink-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                    box.className = 'w-5 h-5 rounded-md border-2 border-pink-600 bg-pink-600 flex items-center justify-center shrink-0 transition';
-                    checkIcon.classList.remove('opacity-0');
-                } else {
-                    btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-slate-200 bg-slate-50/80 hover:bg-pink-50/60 hover:border-pink-300 text-slate-800 font-extrabold text-sm en-font transition flex items-center gap-2.5 text-left';
-                    box.className = 'w-5 h-5 rounded-md border-2 border-pink-300 bg-white flex items-center justify-center shrink-0 transition';
-                    checkIcon.classList.add('opacity-0');
-                }
-            });
-
-            // Evaluate Selection Immediately
-            checkSingleCardAnswer(cardId, chosenOption, optIdx);
-        }
-
-        function checkSingleCardAnswer(cardId, chosenOption, optIdx) {
-            const item = exerciseItems.find(x => x.id === cardId);
-            const feedbackEl = document.getElementById(`feedback-${cardId}`);
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            const btn = document.getElementById(`opt-btn-${cardId}-${optIdx}`);
-            const box = document.getElementById(`checkbox-box-${cardId}-${optIdx}`);
-
-            feedbackEl.classList.remove('hidden');
-
-            const isCorrect = (chosenOption.toLowerCase().trim() === item.correctWord.toLowerCase().trim());
-
-            if (isCorrect) {
-                if (!solvedCardsSet.has(cardId)) {
-                    solvedCardsSet.add(cardId);
-                    exerciseScore++;
-                    updateScoreDisplay();
-                }
-                playChime(true);
-
-                btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                box.className = 'w-5 h-5 rounded-md border-2 border-emerald-600 bg-emerald-600 flex items-center justify-center shrink-0 transition';
-
-                feedbackEl.className = 'text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold bg-emerald-50 border border-emerald-200 text-emerald-900';
-                feedbackEl.innerHTML = `
-                    <div class="arabic-center">
-                        <i class="fa-solid fa-circle-check text-emerald-600 ml-1"></i>
-                        <span>إجابة صحيحة وممتازة! (${item.correctWord})</span>
-                    </div>
-                `;
-
-                playSentence(item.correctWord, cardEl);
-                showToast(`صورة ${cardId}: إجابة صحيحة! أحسنت 🌟`, 'fa-circle-check text-emerald-400');
-            } else {
-                playChime(false);
-
-                btn.className = 'check-option-btn w-full py-2 px-3 rounded-2xl border-2 border-rose-400 bg-rose-50 text-rose-950 font-black text-sm en-font transition flex items-center gap-2.5 text-left shadow-xs';
-                box.className = 'w-5 h-5 rounded-md border-2 border-rose-500 bg-rose-500 flex items-center justify-center shrink-0 transition';
-
-                feedbackEl.className = 'text-xs rounded-xl p-2 mt-2 text-center arabic-center font-bold bg-rose-50 border border-rose-200 text-rose-900';
-                feedbackEl.innerHTML = `
-                    <div class="arabic-center">
-                        <i class="fa-solid fa-circle-xmark text-rose-600 ml-1"></i>
-                        <span>حاول مرة أخرى: الكلمة (${chosenOption}) غير مطابقة لهذه الصورة</span>
-                    </div>
-                `;
-            }
-        }
-
-        function playItemAudio(cardId) {
-            const item = exerciseItems.find(x => x.id === cardId);
-            if (!item) return;
-            const cardEl = document.getElementById(`match-card-${cardId}`);
-            playSentence(item.correctWord, cardEl);
-        }
-
-        function checkAllAnswers() {
-            let correctCount = 0;
-            exerciseItems.forEach(item => {
-                const chosen = userSelectedOptions[item.id];
-                if (chosen && chosen.toLowerCase().trim() === item.correctWord.toLowerCase().trim()) {
-                    correctCount++;
-                }
-            });
-            showToast(`تم التحقق: لديك ${correctCount} من 10 إجابات صحيحة`, 'fa-circle-check text-emerald-400');
-        }
-
-        function updateScoreDisplay() {
-            document.getElementById('heroScoreDisplay').textContent = exerciseScore;
-            document.getElementById('sectionScoreDisplay').textContent = exerciseScore;
-        }
-
-        function resetExercise() {
-            exerciseScore = 0;
-            solvedCardsSet.clear();
-            userSelectedOptions = {};
-            updateScoreDisplay();
-            renderMatchCards();
-            showToast('تمت إعادة ضبط التمارين للتدريب من جديد', 'fa-rotate-right text-slate-300');
-        }
-
-        let isAllRevealed = false;
-        function toggleRevealAll() {
-            isAllRevealed = !isAllRevealed;
-            const heroBtn = document.getElementById('heroRevealBtn');
-            const bottomBtn = document.getElementById('bottomRevealBtn');
-
-            if (isAllRevealed) {
-                exerciseItems.forEach(item => {
-                    const optIdx = item.options.findIndex(opt => opt.toLowerCase().trim() === item.correctWord.toLowerCase().trim());
-                    if (optIdx !== -1) {
-                        selectCardOption(item.id, item.correctWord, optIdx);
-                    }
-                });
-                if (heroBtn) heroBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i> إخفاء الحل`;
-                if (bottomBtn) bottomBtn.innerHTML = `<i class="fa-solid fa-eye-slash"></i> إخفاء الحل`;
-                showToast('تم إظهار الحل النموذجي لجميع الصور العشر', 'fa-key text-amber-400');
-            } else {
-                resetExercise();
-                if (heroBtn) heroBtn.innerHTML = `<i class="fa-solid fa-key"></i> كشف الحل النموذجي`;
-                if (bottomBtn) bottomBtn.innerHTML = `<i class="fa-solid fa-key"></i> كشف نموذج الحل الصحيح`;
-            }
-        }
-
-        /* Sequential audio reading of all 10 words */
-        async function playAllWordsSequential() {
-            if (isSpeakingSequential) {
-                stopAudio();
-                return;
-            }
-
-            isSpeakingSequential = true;
-            const btn = document.getElementById('heroPlayAllBtn');
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-stop text-white"></i> <span>إيقاف القراءة</span>`;
-
-            for (let i = 0; i < exerciseItems.length; i++) {
-                if (!isSpeakingSequential) break;
-                const item = exerciseItems[i];
-                const card = document.getElementById(`match-card-${item.id}`);
-
-                await new Promise(resolve => {
-                    playSentence(item.correctWord, card, resolve);
-                });
-
-                if (isSpeakingSequential) {
-                    await new Promise(r => setTimeout(r, 650));
-                }
-            }
-
-            isSpeakingSequential = false;
-            if (btn) btn.innerHTML = `<i class="fa-solid fa-circle-play"></i> <span>استمع لجميع الكلمات العشر</span>`;
-        }
-
-        /* Generic Toast notification */
-        function showToast(text, iconClass) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMsg');
-            const toastIcon = document.getElementById('toastIcon');
-
-            toastMsg.textContent = text;
-            toastIcon.className = `fa-solid ${iconClass}`;
-
-            toast.classList.remove('translate-y-24', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-24', 'opacity-0');
-            }, 3200);
-        }
-
-        /* Initialization on window load */
-        window.addEventListener('load', () => {
-            initCanadianVoice();
-            renderMatchCards();
+      }
+      playSuccess() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          gain.gain.setValueAtTime(0.001, now + idx * 0.08);
+          gain.gain.exponentialRampToValueAtTime(0.2, now + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.28);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.3);
         });
-    </script>
+      }
+      playError() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [280, 220];
+        notes.forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+          gain.gain.setValueAtTime(0.15, now + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.22);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.12);
+          osc.stop(now + idx * 0.12 + 0.24);
+        });
+      }
+      playPop() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.06);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      }
+    }
+    const sfx = new SoundFX();
+
+    /* =========================================================================
+       2. CANADIAN SPEAKER & ARABIC FEEDBACK SYNTHESIZER
+       ========================================================================= */
+    class CanadianSpeaker {
+      constructor() {
+        this.synth = window.speechSynthesis;
+        this.voice = null;
+        this.initVoice();
+        if (this.synth && this.synth.onvoiceschanged !== undefined) {
+          this.synth.onvoiceschanged = () => this.initVoice();
+        }
+      }
+      initVoice() {
+        if (!this.synth) return;
+        const voices = this.synth.getVoices();
+        this.voice = voices.find(v => v.lang === 'en-CA' || v.lang.includes('CA') || (v.lang.startsWith('en') && v.name.toLowerCase().includes('canada')))
+          || voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('zira')))
+          || voices.find(v => v.lang.startsWith('en'))
+          || null;
+      }
+      speak(text, onEndCallback = null) {
+        if (!this.synth) { if (onEndCallback) onEndCallback(); return; }
+        this.synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        if (this.voice) utter.voice = this.voice;
+        utter.lang = 'en-CA';
+        utter.rate = 0.88;
+        utter.pitch = 1.05;
+        utter.volume = 1.0;
+
+        if (onEndCallback) {
+          utter.onend = () => onEndCallback();
+          utter.onerror = () => onEndCallback();
+        }
+        this.synth.speak(utter);
+      }
+    }
+    const canadianSpeaker = new CanadianSpeaker();
+
+    // Arabic vocal feedback: "الإجابة صحيحة" / "إجابة خاطئة"
+    function speakArabicFeedback(isCorrect, callback = null) {
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const phrase = isCorrect ? "الإجابة صحيحة" : "إجابة خاطئة";
+          const utter = new SpeechSynthesisUtterance(phrase);
+          utter.lang = 'ar-SA';
+          utter.rate = 0.95;
+          utter.pitch = 1.05;
+          utter.volume = 1.0;
+          const voices = window.speechSynthesis.getVoices();
+          const arVoice = voices.find(v => v.lang && (v.lang.startsWith('ar') || v.lang.includes('AR')));
+          if (arVoice) utter.voice = arVoice;
+          if (callback) {
+            utter.onend = () => callback();
+            utter.onerror = () => callback();
+          }
+          window.speechSynthesis.speak(utter);
+        } else if (callback) {
+          callback();
+        }
+      } catch (err) {
+        if (callback) callback();
+      }
+    }
+
+    function showFeedbackToast(isCorrect, message) {
+      const toast = document.getElementById('toastNotification');
+      if (!toast) return;
+      const inner = toast.querySelector('div');
+      const title = document.getElementById('toastTitle');
+      const msg = document.getElementById('toastMsg');
+      const icon = document.getElementById('toastIcon');
+
+      if (isCorrect) {
+        inner.className = "bg-emerald-600 text-white px-6 py-3.5 rounded-2xl shadow-2xl border-2 border-emerald-300 flex items-center gap-3 backdrop-blur-md transform scale-105 transition duration-200";
+        icon.textContent = "✅";
+        title.textContent = "الإجابة صحيحة";
+        msg.textContent = message || "أحسنت! إجابة ممتازة ودقيقة.";
+      } else {
+        inner.className = "bg-rose-600 text-white px-6 py-3.5 rounded-2xl shadow-2xl border-2 border-rose-300 flex items-center gap-3 backdrop-blur-md transform scale-105 transition duration-200";
+        icon.textContent = "❌";
+        title.textContent = "إجابة خاطئة";
+        msg.textContent = message || "حاول مرة أخرى! راجع قاعدة الماضي البسيط.";
+      }
+
+      toast.classList.remove('translate-y-28', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toast._timeout);
+      toast._timeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-28', 'opacity-0');
+      }, 2500);
+    }
+
+    /* =========================================================================
+       3. EXERCISE 1 DATA & LOGIC: CHOOSE THE CORRECT ANSWER
+       ========================================================================= */
+    const SEC1_DATA = [
+      {
+        id: 1,
+        questionBefore: "She",
+        questionAfter: "early yesterday.",
+        options: [
+          { letter: "a", text: "wake up", color: "opt-pill-pink" },
+          { letter: "b", text: "woke up", color: "opt-pill-cyan" },
+          { letter: "c", text: "wakes up", color: "opt-pill-rose" }
+        ],
+        correct: "b",
+        arabic: "استيقظت مبكراً بالأمس. (دلالة الماضي: yesterday ➔ نختار V2 وهو woke up)",
+        fullSentence: "She woke up early yesterday."
+      },
+      {
+        id: 2,
+        questionBefore: "We didn't",
+        questionAfter: "breakfast at 8 o'clock this morning.",
+        options: [
+          { letter: "a", text: "have", color: "opt-pill-cyan" },
+          { letter: "b", text: "had", color: "opt-pill-cyan" },
+          { letter: "c", text: "has", color: "opt-pill-cyan" }
+        ],
+        correct: "a",
+        arabic: "لم نتناول الإفطار في الساعة 8 هذا الصباح. (بعد didn't نضع المصدر have)",
+        fullSentence: "We didn't have breakfast at 8 o'clock this morning."
+      },
+      {
+        id: 3,
+        questionBefore: "He",
+        questionAfter: "to the park last Friday.",
+        options: [
+          { letter: "a", text: "go", color: "opt-pill-pink" },
+          { letter: "b", text: "went", color: "opt-pill-rose" },
+          { letter: "c", text: "goes", color: "opt-pill-rose" }
+        ],
+        correct: "b",
+        arabic: "ذهب إلى الحديقة يوم الجمعة الماضي. (دلالة الماضي: last Friday ➔ نختار went)",
+        fullSentence: "He went to the park last Friday."
+      },
+      {
+        id: 4,
+        questionBefore: "They",
+        questionAfter: "a new car 2 years ago.",
+        options: [
+          { letter: "a", text: "buy", color: "opt-pill-pink" },
+          { letter: "b", text: "bought", color: "opt-pill-cyan" },
+          { letter: "c", text: "buys", color: "opt-pill-pink" }
+        ],
+        correct: "b",
+        arabic: "اشتروا سيارة جديدة منذ عامين. (دلالة الماضي: ago ➔ نختار bought)",
+        fullSentence: "They bought a new car 2 years ago."
+      },
+      {
+        id: 5,
+        questionBefore: "I",
+        questionAfter: "a great movie last night.",
+        options: [
+          { letter: "a", text: "saw", color: "opt-pill-pink" },
+          { letter: "b", text: "see", color: "opt-pill-cyan" },
+          { letter: "c", text: "seeing", color: "opt-pill-rose" }
+        ],
+        correct: "a",
+        arabic: "شاهدتُ فيلماً رائعاً الليلة الماضية. (دلالة الماضي: last night ➔ نختار saw)",
+        fullSentence: "I saw a great movie last night."
+      }
+    ];
+
+    const sec1UserAnswers = {};
+
+    function renderSec1Questions() {
+      const container = document.getElementById('sec1QuestionsContainer');
+      container.innerHTML = '';
+
+      SEC1_DATA.forEach(item => {
+        const div = document.createElement('div');
+        div.id = `sec1-q-${item.id}`;
+        div.className = "bg-white/90 border-2 border-amber-200 hover:border-amber-400 rounded-2xl p-3.5 sm:p-4 shadow-2xs transition flex flex-col justify-between";
+
+        const userAnswer = sec1UserAnswers[item.id];
+
+        let optionsHtml = item.options.map(opt => {
+          let extraClass = opt.color;
+          if (userAnswer) {
+            if (opt.letter === item.correct) {
+              extraClass += " selected-correct font-extrabold";
+            } else if (opt.letter === userAnswer && userAnswer !== item.correct) {
+              extraClass += " selected-wrong";
+            }
+          }
+          return `
+            <button onclick="handleSec1Select(${item.id}, '${opt.letter}')" class="opt-pill ${extraClass} px-3.5 py-1.5 rounded-2xl text-xs sm:text-sm font-black en-font flex items-center gap-1.5">
+              <span class="w-5 h-5 rounded-full bg-white/80 border border-slate-300 text-slate-800 text-xs flex items-center justify-center font-bold">${opt.letter})</span>
+              <span>${opt.text}</span>
+            </button>
+          `;
+        }).join('');
+
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="w-6 h-6 rounded-full bg-amber-500 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                  ${item.id}
+                </span>
+                <span class="en-font font-bold text-slate-800 text-sm sm:text-base">
+                  ${item.questionBefore} <span class="border-b-2 border-dashed border-amber-500 px-2 text-amber-800 font-extrabold">${userAnswer ? item.options.find(o => o.letter === userAnswer).text : '________'}</span> ${item.questionAfter}
+                </span>
+              </div>
+              <button onclick="speakSec1Sentence(${item.id})" class="text-xs text-amber-700 hover:text-amber-900 bg-amber-50 hover:bg-amber-100 p-1.5 px-2.5 rounded-xl border border-amber-200 transition flex items-center gap-1" title="استمع للجملة">
+                <span>🔊</span>
+                <span class="text-[11px] font-bold">استمع</span>
+              </button>
+            </div>
+
+            <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap ml-7 my-2">
+              ${optionsHtml}
+            </div>
+
+            <p class="arabic-trans text-[11px] font-bold text-slate-500 mt-1 pt-1 border-t border-slate-100 ml-7" dir="rtl">
+              ${item.arabic}
+            </p>
+          </div>
+        `;
+
+        container.appendChild(div);
+      });
+    }
+
+    function handleSec1Select(questionId, letter) {
+      sfx.playPop();
+      const item = SEC1_DATA.find(q => q.id === questionId);
+      const isCorrect = (letter === item.correct);
+      sec1UserAnswers[questionId] = letter;
+
+      renderSec1Questions();
+      updateScore();
+
+      const qCard = document.getElementById(`sec1-q-${questionId}`);
+
+      if (isCorrect) {
+        sfx.playSuccess();
+        speakArabicFeedback(true, () => {
+          canadianSpeaker.speak(item.fullSentence);
+        });
+        if (qCard) {
+          qCard.classList.remove('shake-slot');
+          qCard.classList.add('pop-success');
+        }
+        showFeedbackToast(true, `أحسنت! الإجابة صحيحة: (${item.options.find(o => o.letter === letter).text})`);
+        fireConfetti(0.3);
+      } else {
+        sfx.playError();
+        speakArabicFeedback(false);
+        if (qCard) {
+          qCard.classList.remove('pop-success');
+          qCard.classList.add('shake-slot');
+        }
+        showFeedbackToast(false, `إجابة خاطئة! راجع القاعدة واختر الإجابة الصحيحة.`);
+      }
+    }
+
+    function speakSec1Sentence(id) {
+      const item = SEC1_DATA.find(q => q.id === id);
+      canadianSpeaker.speak(item.fullSentence);
+    }
+
+    /* =========================================================================
+       4. EXERCISE 2 DATA & LOGIC: WRITE THE VERBS IN THE RIGHT FORM (DRAG & DROP)
+       ========================================================================= */
+    const SEC2_DATA = [
+      { id: 1, prefix: "My mother", base: "make", suffix: "a cake yesterday.", correct: "made", isBase: false, arabic: "أمي صنعت كعكة بالأمس. (make ➔ made)" },
+      { id: 2, prefix: "There", base: "is", suffix: "a big party at school last year.", correct: "was", isBase: false, arabic: "كان هناك حفل كبير في المدرسة العام الماضي. (is ➔ was)" },
+      { id: 3, prefix: "We", base: "take", suffix: "many photos on our trip this morning.", correct: "took", isBase: false, arabic: "التقطنا الكثير من الصور في رحلتنا هذا الصباح. (take ➔ took)" },
+      { id: 4, prefix: "He", base: "meet", suffix: "his friends at the café 3 days ago.", correct: "met", isBase: false, arabic: "قابل أصدقاءه في المقهى منذ 3 أيام. (meet ➔ met)" },
+      { id: 5, prefix: "She didn't", base: "eat", suffix: "rice and chicken last Friday.", correct: "eat", isBase: true, arabic: "لم تأكل الأرز والدجاج يوم الجمعة الماضي. (بعد didn't نضع المصدر: eat)" },
+      { id: 6, prefix: "They", base: "drink", suffix: "orange juice with breakfast yesterday.", correct: "drank", isBase: false, arabic: "شربوا عصير برتقال مع الإفطار بالأمس. (drink ➔ drank)" },
+      { id: 7, prefix: "We", base: "relax", suffix: "in the garden last night.", correct: "relaxed", isBase: false, arabic: "استرخينا في الحديقة الليلة الماضية. (فعل منتظم: relaxed)" },
+      { id: 8, prefix: "The train didn't", base: "arrive", suffix: "2 hours ago.", correct: "arrive", isBase: true, arabic: "القطار لم يصل منذ ساعتين. (بعد didn't نضع المصدر: arrive)" },
+      { id: 9, prefix: "Omar", base: "read", suffix: "a comic book last night.", correct: "read", isBase: false, arabic: "عمر قرأ مجلة مصورة الليلة الماضية. (read ➔ read)" },
+      { id: 10, prefix: "He didn't", base: "buy", suffix: "a new phone last week.", correct: "buy", isBase: true, arabic: "هو لم يشترِ هاتفاً جديداً الأسبوع الماضي. (بعد didn't نضع المصدر: buy)" },
+      { id: 11, prefix: "She", base: "get", suffix: "a gift on her last birthday.", correct: "got", isBase: false, arabic: "حصلت على هدية في عيد ميلادها الماضي. (get ➔ got)" },
+      { id: 12, prefix: "He didn't", base: "stay", suffix: "up late last night.", correct: "stay", isBase: true, arabic: "هو لم يسهر في وقت متأخر الليلة الماضية. (بعد didn't نضع المصدر: stay)" }
+    ];
+
+    // Word Bank items matching exercise 2
+    const SEC2_WORDS = [
+      "made", "was", "took", "met", "eat", "drank",
+      "relaxed", "arrive", "read", "buy", "got", "stay"
+    ];
+
+    const sec2SlotsState = {};
+    SEC2_DATA.forEach(d => sec2SlotsState[d.id] = null);
+    let selectedSec2Word = null;
+
+    function renderSec2WordBank() {
+      const bank = document.getElementById('sec2WordBank');
+      bank.innerHTML = '';
+
+      // Count usage for duplicate words if any, here all are distinct
+      SEC2_WORDS.forEach((word, idx) => {
+        const isPlaced = Object.values(sec2SlotsState).includes(word);
+        const pill = document.createElement('div');
+        pill.id = `pill-sec2-${word}-${idx}`;
+        pill.className = `word-pill px-3.5 py-1.5 rounded-2xl border-2 border-teal-400 bg-teal-50 text-teal-950 font-black en-font text-xs sm:text-sm shadow-xs hover:scale-105 transition flex items-center gap-1.5 cursor-pointer ${isPlaced ? 'opacity-40 grayscale pointer-events-none' : ''}`;
+        pill.setAttribute('draggable', 'true');
+        pill.innerHTML = `<span>${word}</span>`;
+
+        pill.onclick = () => {
+          sfx.playPop();
+          canadianSpeaker.speak(word);
+          selectSec2Pill(word, pill);
+        };
+
+        pill.ondragstart = (e) => {
+          e.dataTransfer.setData("text/plain", word);
+          selectedSec2Word = word;
+          sfx.playPop();
+        };
+
+        bank.appendChild(pill);
+      });
+    }
+
+    function selectSec2Pill(word, el) {
+      if (selectedSec2Word === word) {
+        selectedSec2Word = null;
+        el.classList.remove('selected-pill');
+      } else {
+        document.querySelectorAll('#sec2WordBank .word-pill').forEach(p => p.classList.remove('selected-pill'));
+        selectedSec2Word = word;
+        el.classList.add('selected-pill');
+        showFeedbackToast(true, `تم اختيار (${word}). الآن انقر في الفراغ المناسب.`);
+      }
+    }
+
+    function renderSec2Sentences() {
+      const container = document.getElementById('sec2SentencesContainer');
+      container.innerHTML = '';
+
+      SEC2_DATA.forEach(item => {
+        const row = document.createElement('div');
+        row.id = `sec2-row-${item.id}`;
+        row.className = "bg-white border-2 border-teal-200 hover:border-teal-400 rounded-2xl p-3 sm:p-3.5 shadow-2xs transition flex flex-col justify-between";
+
+        const val = sec2SlotsState[item.id];
+        let slotHtml = '';
+
+        if (val) {
+          const isCorrect = (val.toLowerCase() === item.correct.toLowerCase());
+          if (isCorrect) {
+            slotHtml = `
+              <span onclick="clearSec2Slot(${item.id})" class="cursor-pointer inline-flex items-center gap-1 bg-emerald-100 border-2 border-emerald-500 text-emerald-950 px-3 py-0.5 rounded-xl font-black en-font text-xs sm:text-sm hover:bg-rose-100 transition shadow-2xs" title="انقر للإزالة">
+                ${val} <span class="text-[10px] bg-emerald-600 text-white px-1.5 py-0.2 rounded-md">✓</span>
+              </span>
+            `;
+          } else {
+            slotHtml = `
+              <span onclick="clearSec2Slot(${item.id})" class="cursor-pointer inline-flex items-center gap-1 bg-rose-100 border-2 border-rose-400 text-rose-950 px-3 py-0.5 rounded-xl font-black en-font text-xs sm:text-sm line-through hover:bg-rose-200 transition shadow-2xs" title="انقر للتصحيح">
+                ${val} <span class="text-[10px] bg-rose-600 text-white px-1.5 py-0.2 rounded-md">✗</span>
+              </span>
+            `;
+          }
+        } else {
+          slotHtml = `
+            <span onclick="handleSec2SlotClick(${item.id})" ondragover="event.preventDefault(); this.classList.add('drag-over');" ondragleave="this.classList.remove('drag-over');" ondrop="handleSec2Drop(event, ${item.id})" class="drop-slot inline-block border-2 border-dashed border-teal-400 bg-teal-50/60 hover:bg-teal-100 px-3 py-0.5 rounded-xl text-teal-800 text-xs sm:text-sm font-bold cursor-pointer transition">
+              [ ... (${item.base}) ... ]
+            </span>
+          `;
+        }
+
+        row.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="w-6 h-6 rounded-full bg-teal-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                  ${item.id}
+                </span>
+                <span class="en-font font-bold text-slate-800 text-xs sm:text-sm">
+                  ${item.prefix} ${slotHtml} ${item.suffix} <span class="text-xs text-rose-600 font-extrabold font-sans">(${item.base})</span>
+                </span>
+              </div>
+              <button onclick="speakSec2Sentence(${item.id})" class="text-xs text-teal-700 hover:text-teal-900 bg-teal-50 hover:bg-teal-100 p-1 px-2 rounded-lg border border-teal-200 transition flex items-center gap-1" title="استمع للجملة">
+                <span>🔊</span>
+                <span class="text-[10px] font-bold">استمع</span>
+              </button>
+            </div>
+
+            <p class="arabic-trans text-[11px] font-bold text-slate-500 mt-1 pt-1 border-t border-slate-100 ml-7" dir="rtl">
+              ${item.arabic}
+            </p>
+          </div>
+        `;
+
+        container.appendChild(row);
+      });
+    }
+
+    function handleSec2Drop(e, slotId) {
+      e.preventDefault();
+      e.currentTarget.classList.remove('drag-over');
+      const word = e.dataTransfer.getData("text/plain") || selectedSec2Word;
+      if (word) placeSec2Word(slotId, word);
+    }
+
+    function handleSec2SlotClick(slotId) {
+      if (selectedSec2Word) {
+        placeSec2Word(slotId, selectedSec2Word);
+      } else {
+        sfx.playPop();
+        showFeedbackToast(false, "اختر كلمة من صندوق الكلمات أولاً ثم انقر في الفراغ.");
+      }
+    }
+
+    function clearSec2Slot(slotId) {
+      sfx.playPop();
+      sec2SlotsState[slotId] = null;
+      renderSec2WordBank();
+      renderSec2Sentences();
+      updateScore();
+    }
+
+    function placeSec2Word(slotId, word) {
+      const item = SEC2_DATA.find(i => i.id === slotId);
+      const isCorrect = (word.toLowerCase() === item.correct.toLowerCase());
+
+      sec2SlotsState[slotId] = word;
+      selectedSec2Word = null;
+      renderSec2WordBank();
+      renderSec2Sentences();
+      updateScore();
+
+      const card = document.getElementById(`sec2-row-${slotId}`);
+
+      if (isCorrect) {
+        sfx.playSuccess();
+        speakArabicFeedback(true, () => {
+          canadianSpeaker.speak(`${item.prefix} ${word} ${item.suffix}`);
+        });
+        if (card) {
+          card.classList.remove('shake-slot');
+          card.classList.add('pop-success');
+        }
+        showFeedbackToast(true, `ممتاز! (${word}) هي الإجابة الصحيحة. ${item.arabic}`);
+        fireConfetti(0.3);
+      } else {
+        sfx.playError();
+        speakArabicFeedback(false);
+        if (card) {
+          card.classList.remove('pop-success');
+          card.classList.add('shake-slot');
+        }
+        showFeedbackToast(false, `إجابة خاطئة! (${word}) غير صحيحة هنا. راجع قاعدة الماضي البسيط والنفي.`);
+      }
+    }
+
+    function speakSec2Sentence(id) {
+      const item = SEC2_DATA.find(i => i.id === id);
+      const val = sec2SlotsState[id] || item.correct;
+      const text = `${item.prefix} ${val} ${item.suffix}`;
+      canadianSpeaker.speak(text);
+    }
+
+    /* =========================================================================
+       5. SCORE CALCULATION & RESET LOGIC
+       ========================================================================= */
+    function updateScore() {
+      let score = 0;
+
+      // Section 1 score (max 5)
+      SEC1_DATA.forEach(q => {
+        if (sec1UserAnswers[q.id] === q.correct) score++;
+      });
+
+      // Section 2 score (max 12)
+      SEC2_DATA.forEach(item => {
+        if (sec2SlotsState[item.id] && sec2SlotsState[item.id].toLowerCase() === item.correct.toLowerCase()) {
+          score++;
+        }
+      });
+
+      document.getElementById('scoreDisplay').textContent = `${score} / 17`;
+
+      if (score === 17) {
+        fireConfetti(1.2);
+        showFeedbackToast(true, "ما شاء الله! حققت الدرجة الكاملة 17 من 17 في ورقة عمل الماضي البسيط 🏆");
+      }
+    }
+
+    function resetAllWorksheet() {
+      sfx.playPop();
+
+      // Reset Sec 1
+      SEC1_DATA.forEach(q => delete sec1UserAnswers[q.id]);
+      renderSec1Questions();
+
+      // Reset Sec 2
+      SEC2_DATA.forEach(d => sec2SlotsState[d.id] = null);
+      selectedSec2Word = null;
+      renderSec2WordBank();
+      renderSec2Sentences();
+
+      updateScore();
+      showFeedbackToast(true, "تمت إعادة تعيين جميع التمارين بنجاح 🔄");
+    }
+
+    let areTransVisible = true;
+    function toggleTranslations() {
+      areTransVisible = !areTransVisible;
+      document.querySelectorAll('.arabic-trans').forEach(el => {
+        el.style.display = areTransVisible ? 'block' : 'none';
+      });
+      document.getElementById('transBtnText').textContent = areTransVisible ? "إخفاء الترجمة" : "إظهار الترجمة";
+      showFeedbackToast(true, areTransVisible ? "تم إظهار الترجمة العربية." : "تم إخفاء الترجمة العربية لتحدي النفس.");
+    }
+
+    function scrollToSection(id) {
+      sfx.playPop();
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function fireConfetti(power = 0.5) {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: Math.floor(70 * power),
+          spread: 80,
+          origin: { y: 0.6 }
+        });
+      }
+    }
+
+    /* =========================================================================
+       INITIALIZATION ON LOAD
+       ========================================================================= */
+    window.onload = function() {
+      renderSec1Questions();
+      renderSec2WordBank();
+      renderSec2Sentences();
+      updateScore();
+    };
+  </script>
 </body>
 </html>
